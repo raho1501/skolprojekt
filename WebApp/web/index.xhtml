@@ -12,12 +12,15 @@
             <h:column>#{cus.name}</h:column>
             <h:column>#{cus.age}</h:column>
         </h:dataTable>
-        herpherpherpherp
-        derpy derp!!
-        
-        
-        databas test
-        
+        <h:form>
+            Hur gammal är du?
+            <h:inputText value="#{customersInput.age}"></h:inputText>
+            <br/>
+            Vad heter du?
+            <h:inputText value="#{customersInput.name}"></h:inputText>
+            <br/>
+            <h:commandButton value="skicka" action="#{customersInput.submit()}"></h:commandButton>
+        </h:form>
     </h:body>
 </html>
 
