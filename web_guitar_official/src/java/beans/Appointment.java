@@ -151,12 +151,15 @@ public class Appointment implements Serializable {
             return false;
         }
         Appointment other = (Appointment) object;
-        if ((this.appointmentId == null && other.appointmentId != null) ||
+	
+        if ((this.appointmentId == null &&
+		other.appointmentId != null) ||
 		(this.appointmentId != null &&
 		!this.appointmentId.equals(other.appointmentId)))
 	{
             return false;
         }
+	
         return true;
     }
 
