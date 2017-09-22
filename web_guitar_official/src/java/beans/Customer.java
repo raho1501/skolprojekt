@@ -73,7 +73,13 @@ public class Customer implements Serializable {
         this.customerId = customerId;
     }
 
-    public Customer(Integer customerId, String email, String phoneNr, String firstName, String lastName) {
+    public Customer(
+	    Integer customerId,
+	    String email,
+	    String phoneNr,
+	    String firstName,
+	    String lastName) 
+   {
         this.customerId = customerId;
         this.email = email;
         this.phoneNr = phoneNr;
@@ -144,7 +150,10 @@ public class Customer implements Serializable {
             return false;
         }
         Customer other = (Customer) object;
-        if ((this.customerId == null && other.customerId != null) || (this.customerId != null && !this.customerId.equals(other.customerId))) {
+        if ((this.customerId == null && other.customerId != null) ||
+		(this.customerId != null &&
+		!this.customerId.equals(other.customerId)))
+	{
             return false;
         }
         return true;

@@ -75,7 +75,13 @@ public class Appointment implements Serializable {
         this.appointmentId = appointmentId;
     }
 
-    public Appointment(Integer appointmentId, Date startTime, Date stopTime, String info, Date date) {
+    public Appointment(
+	    Integer appointmentId,
+	    Date startTime,
+	    Date stopTime,
+	    String info,
+	    Date date)
+    {
         this.appointmentId = appointmentId;
         this.startTime = startTime;
         this.stopTime = stopTime;
@@ -145,7 +151,10 @@ public class Appointment implements Serializable {
             return false;
         }
         Appointment other = (Appointment) object;
-        if ((this.appointmentId == null && other.appointmentId != null) || (this.appointmentId != null && !this.appointmentId.equals(other.appointmentId))) {
+        if ((this.appointmentId == null && other.appointmentId != null) ||
+		(this.appointmentId != null &&
+		!this.appointmentId.equals(other.appointmentId)))
+	{
             return false;
         }
         return true;
