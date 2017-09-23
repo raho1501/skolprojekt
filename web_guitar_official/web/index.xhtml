@@ -7,7 +7,9 @@
     </h:head>
     <h:body>
         <h:dataTable var="appointment" value="#{appointmentManagedBean.appointments}">
-            <h:column>#{appointment.date}</h:column>
+            <h:column>#{appointment.date} ||</h:column>
+            <h:column>#{appointment.startTime} ||</h:column>
+            <h:column>#{appointment.stopTime} ||</h:column>
             <h:column>#{appointment.info}</h:column>
         </h:dataTable>
     </h:body>
