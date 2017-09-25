@@ -28,20 +28,23 @@ public class AppointmentManagedBean
     @Resource
     private javax.transaction.UserTransaction userTransaction;
     
-    public AppointmentManagedBean() 
+    public AppointmentManagedBean()
     {
         
     }
+    
     public List<Appointment> getAppointments()
     {
         TypedQuery<Appointment>  appointmentQuery = 
             entityManager.createNamedQuery("Appointment.findAll", Appointment.class);
         return appointmentQuery.getResultList();
     }
+    
     public void addAppointment(Appointment appointment)
     {
         presist(appointment);
     }
+    
     private void presist(Object object)
     {
         try
