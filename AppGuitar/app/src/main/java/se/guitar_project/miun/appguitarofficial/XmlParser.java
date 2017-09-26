@@ -8,6 +8,7 @@ import org.xml.sax.InputSource;
 
 import java.io.File;
 import java.io.StringReader;
+import java.util.ArrayList;
 import java.util.Vector;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -20,7 +21,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 public class XmlParser
 {
     private String xml = ""; //TODO Behövs den här efter konstrukturn har körts?
-    Vector<Element> elementList = new Vector();
+    Document doc = null;
     public XmlParser(String data)
     {
         xml = data;
@@ -32,34 +33,33 @@ public class XmlParser
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             InputSource input = new InputSource(new StringReader(xml));
-            Document doc = dBuilder.parse(input);                                                   //Konstruerar ett document med element i.
+            doc = dBuilder.parse(input);                                                            //Konstruerar ett document med element i.
 
             doc.getDocumentElement().normalize();                                                   //Inte nödvändingt men rekomenderat
-            NodeList list = doc.getElementsByTagName("appointment");                                //Val av vilket element vi ska titta i.
 
 
-        int size = list.getLength();
-        for (int i = 0; i < size; i++)
+        }
+        catch(Exception e)
         {
+            e.printStackTrace();;
+        }
+    }
+    public Vector<Element> getElementList(String entityName)
+    {
+        Vector<Element> elementList = new Vector();
+        NodeList list = doc.getElementsByTagName(entityName);                                //Val av vilket element vi ska titta i.
+        int size = list.getLength();
+        for (int i = 0; i < size; i++) {
             Node node = list.item(i);
             Element element = (Element) node;
             elementList.add(element);
         }
+        return elementList; //TODO fixa så att entitetsnamnen och elementlisterna är i en map.
     }
-        catch(Exception e)
-    {
-        e.printStackTrace();;
-    }
-}
-    public Vector<Element> getElementList()
-    {
-        return new Vector();
-
-    }
-    public String getElementByTag(String tagName, int index)
+    public String getElementByTag(String entityName, String tagName, int index)
     {
         String result = "";
-
+        Vector<Element> elementList = getElementList(entityName);
         NodeList tag = elementList.get(index).getElementsByTagName(tagName);
         result = tag.item(0).getTextContent();
 
