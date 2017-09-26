@@ -38,23 +38,27 @@ public class XmlParser
             NodeList list = doc.getElementsByTagName("appointment");                                //Val av vilket element vi ska titta i.
 
 
-            int size = list.getLength();
-            for (int i = 0; i < size; i++)
-            {
-                Node node = list.item(i);
-                Element element = (Element) node;
-                elementList.add(element);
-            }
-        }
-        catch(Exception e)
+        int size = list.getLength();
+        for (int i = 0; i < size; i++)
         {
-            e.printStackTrace();;
+            Node node = list.item(i);
+            Element element = (Element) node;
+            elementList.add(element);
         }
+    }
+        catch(Exception e)
+    {
+        e.printStackTrace();;
+    }
+}
+    public Vector<Element> getElementList()
+    {
+        return new Vector();
+
     }
     public String getElementByTag(String tagName, int index)
     {
         String result = "";
-        int size = elementList.size();
 
         NodeList tag = elementList.get(index).getElementsByTagName(tagName);
         result = tag.item(0).getTextContent();
