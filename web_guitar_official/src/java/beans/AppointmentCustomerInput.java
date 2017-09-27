@@ -6,9 +6,9 @@
 package beans;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -179,51 +179,38 @@ public class AppointmentCustomerInput
 		cust.setLastName(lastName);
 		cust.setEmail(email);
 		cust.setPhoneNr(phoneNumber);
+		cust.setCustomerId(0);
+		
+		customerManagedBean.addCustomer(cust);
+		
+		appoint.setCustomerIdFk(cust);
+		
+		appoint.setInfo(info);
+		
+		DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+		DateFormat timeFormat = new SimpleDateFormat("HH:mm");
+		
+		Date parsedDate;
+		Date parsedStartTime;
+		Date parsedEndTime;
 		
 		try
 		{
-			// NOTE(markus): Detta är bara test kod.
-			// Det finns en bugg som uppstår om denna kod inte körs.
-			Date test = new Date();
-			appoint.setDate(test);
-			appoint.setInfo(info);
-			appoint.setStartTime(test);
-			appoint.setStopTime(test);
+			parsedDate = dateFormat.parse(date);
+			parsedStartTime = timeFormat.parse(startTime);
+			parsedEndTime = timeFormat.parse(endTime);
+			
+			appoint.setDate(parsedDate);
+			appoint.setStartTime(parsedStartTime);
+			appoint.setStopTime(parsedEndTime);
 		}
-		catch(Exception e)
+		catch(ParseException e)
 		{
-			System.out.println(e);
+			e.printStackTrace();
 		}
 		
-		int custID = 0;
-		List<Customer> customers = customerManagedBean.getCustomers();
-		
-		if(!customers.isEmpty())
-		{
-			custID = customers.get(
-				customers.size() - 1).getCustomerId() + 1;
-		}
-		
-		cust.setCustomerId(custID);
-		appoint.setCustomerIdFk(cust);
-		
-		int appointID = 0;
-		List<Appointment> appointments =
-			appointmentManagedBean.getAppointments();
-		
-		if(!appointments.isEmpty())
-		{
-			appointID = appointments.get(
-				appointments.size() - 1).
-				getAppointmentId() + 1;
-		}
-		
-		appoint.setAppointmentId(appointID);
-		
-		customerManagedBean.addCustomer(cust);
 		appointmentManagedBean.addAppointment(appoint);
 		
 		return "index";
 	}
-
 }

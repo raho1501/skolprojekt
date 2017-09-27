@@ -12,8 +12,8 @@
             <h:column>#{appointment.startTime} ||</h:column>
             <h:column>#{appointment.stopTime} ||</h:column>
             <h:column>#{appointment.info}</h:column>
-            <h:column>#{customer.date}</h:column>
-            <h:column>#{customer.name}</h:column>
+            <h:column>#{appointment.customerIdFk.email}</h:column>
+            <h:column>#{appointment.customerIdFk.firstName}</h:column>
         </h:dataTable>
         
         Här är en form!
