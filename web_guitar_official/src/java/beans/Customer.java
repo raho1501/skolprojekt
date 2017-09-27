@@ -10,6 +10,8 @@ import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -38,8 +40,8 @@ public class Customer implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
     @Column(name = "CUSTOMER_ID")
     private Integer customerId;
     // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
@@ -73,13 +75,7 @@ public class Customer implements Serializable {
         this.customerId = customerId;
     }
 
-    public Customer(
-	    Integer customerId,
-	    String email,
-	    String phoneNr,
-	    String firstName,
-	    String lastName) 
-   {
+    public Customer(Integer customerId, String email, String phoneNr, String firstName, String lastName) {
         this.customerId = customerId;
         this.email = email;
         this.phoneNr = phoneNr;
@@ -150,10 +146,7 @@ public class Customer implements Serializable {
             return false;
         }
         Customer other = (Customer) object;
-        if ((this.customerId == null && other.customerId != null) ||
-		(this.customerId != null &&
-		!this.customerId.equals(other.customerId)))
-	{
+        if ((this.customerId == null && other.customerId != null) || (this.customerId != null && !this.customerId.equals(other.customerId))) {
             return false;
         }
         return true;

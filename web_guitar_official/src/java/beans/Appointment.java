@@ -10,6 +10,8 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -40,8 +42,8 @@ public class Appointment implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
     @Column(name = "APPOINTMENT_ID")
     private Integer appointmentId;
     @Basic(optional = false)
@@ -75,13 +77,7 @@ public class Appointment implements Serializable {
         this.appointmentId = appointmentId;
     }
 
-    public Appointment(
-	    Integer appointmentId,
-	    Date startTime,
-	    Date stopTime,
-	    String info,
-	    Date date)
-    {
+    public Appointment(Integer appointmentId, Date startTime, Date stopTime, String info, Date date) {
         this.appointmentId = appointmentId;
         this.startTime = startTime;
         this.stopTime = stopTime;
@@ -151,15 +147,9 @@ public class Appointment implements Serializable {
             return false;
         }
         Appointment other = (Appointment) object;
-	
-        if ((this.appointmentId == null &&
-		other.appointmentId != null) ||
-		(this.appointmentId != null &&
-		!this.appointmentId.equals(other.appointmentId)))
-	{
+        if ((this.appointmentId == null && other.appointmentId != null) || (this.appointmentId != null && !this.appointmentId.equals(other.appointmentId))) {
             return false;
         }
-	
         return true;
     }
 

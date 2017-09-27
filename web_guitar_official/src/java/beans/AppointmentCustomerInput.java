@@ -195,7 +195,7 @@ public class AppointmentCustomerInput
 			System.out.println(e);
 		}
 		
-		int custID = 0;
+		/*int custID = 0;
 		List<Customer> customers = customerManagedBean.getCustomers();
 		
 		if(!customers.isEmpty())
@@ -219,7 +219,7 @@ public class AppointmentCustomerInput
 		}
 		
 		appoint.setAppointmentId(appointID);
-		
+		*/
 		customerManagedBean.addCustomer(cust);
 		appointmentManagedBean.addAppointment(appoint);
 		
