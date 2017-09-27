@@ -7,11 +7,15 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
+import java.util.Date;
+
 /**
  * Created by Limeman on 9/27/2017.
  */
 
-public class BokaLedighet extends Activity {
+public class BokaLedighet extends Activity implements DatePickerFragment.OnCompleteListener {
 
     private DatePickerFragment datePicker = new DatePickerFragment();
     private TimePickerFragment timePicker = new TimePickerFragment();
@@ -28,7 +32,20 @@ public class BokaLedighet extends Activity {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         tv.setText(sdf.format(c.getTime()));
 
-        
+        //insert current time into textfields
+        View startTimeView = findViewById(R.id.inputStarttid);
+        View stopTimeView = findViewById(R.id.inputStoptid);
+
+        TextView startTimeTextView = (TextView)startTimeView;
+        TextView stopTimeTextView = (TextView)stopTimeView;
+
+        SimpleDateFormat startTimeSdf = new SimpleDateFormat("HH:mm");
+        SimpleDateFormat stopTimeSdf = new SimpleDateFormat("HH:mm");
+
+        startTimeTextView.setText(startTimeSdf.format(c.getTime()));
+        c.add(Calendar.HOUR, 1);
+        stopTimeTextView.setText(stopTimeSdf.format(c.getTime()));
+
     }
 
     public void showDatePickerDialog(View v){
@@ -39,4 +56,10 @@ public class BokaLedighet extends Activity {
         timePicker.show(getFragmentManager(), "timePicker");
     }
 
+    @Override
+    public void onComplete(String date) {
+        View v = findViewById(R.id.inputDatum);
+        TextView tv = (TextView)v;
+        tv.setText(date);
     }
+}
