@@ -1,5 +1,6 @@
 package se.miun.raho1501.testprog;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.TimePickerDialog;
@@ -24,10 +25,31 @@ public class TimePickerFragment extends DialogFragment
 
         // Create a new instance of TimePickerDialog and return it
         return new TimePickerDialog(getActivity(), this, hour, minute,
-                DateFormat.is24HourFormat(getActivity()));
+                true);
     }
 
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
         // Do something with the time chosen by the user
+        String time = Integer.toString(hourOfDay) + ":" + Integer.toString(minute);
+        this.mListener.onCompleteTime(time);
     }
+
+    public static interface OnCompleteTimeListener {
+        public abstract void onCompleteTime(String time);
+    }
+
+    private OnCompleteTimeListener mListener;
+
+    // make sure the Activity implemented it
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        try {
+            this.mListener = (OnCompleteTimeListener)activity;
+        }
+        catch (final ClassCastException e) {
+            throw new ClassCastException(activity.toString() + " must implement OnCompleteListener");
+        }
+    }
+
 }

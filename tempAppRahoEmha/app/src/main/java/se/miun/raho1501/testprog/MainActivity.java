@@ -24,15 +24,6 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -87,7 +78,7 @@ public class MainActivity extends AppCompatActivity
             Intent i = new Intent(MainActivity.this,SchemaActivity.class);
             startActivity(i);
         } else if (id == R.id.nav_boka_ledighet) {
-            Intent i = new Intent(MainActivity.this, BokaLedighet.class);
+            Intent i = new Intent(MainActivity.this, BokaHandelse.class);
             startActivity(i);
 
         } /*else if (id == R.id.nav_slideshow) {

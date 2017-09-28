@@ -2,6 +2,32 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+    <EditText
+        android:id="@+id/inputBoxSubject"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Ämne"
+        android:inputType="textPersonName"
+        android:textAlignment="textStart" />
+
+    <EditText
+        android:id="@+id/inputBoxName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Namn"
+        android:inputType="textPersonName" />
+    <EditText
+        android:id="@+id/inputBoxDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Beskrivning"
+        android:inputType="textPersonName" />
+
+
     <TextView
         android:id="@+id/datumText"
         android:layout_width="match_parent"
@@ -10,7 +36,7 @@
         android:textAlignment="center"
         android:textColor="#000000"
         android:textSize="24sp"
-        android:textStyle="bold"/>
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/inputDatum"
@@ -36,7 +62,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="date"
-        android:onClick="showTimePickerDialog"
+        android:onClick="showTimePickerDialogStartTime"
         android:textAlignment="center" />
 
     <TextView
@@ -55,7 +81,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="date"
-        android:onClick="showTimePickerDialog"
+        android:onClick="showTimePickerDialogStopTime"
         android:textAlignment="center" />
 
     <Button

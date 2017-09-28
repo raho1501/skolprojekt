@@ -9,7 +9,7 @@
             android:title="Schema" />
         <item
             android:id="@+id/nav_boka_ledighet"
-            android:title="Boka ledighet"/>
+            android:title="Boka händelse"/>
 
     </group>
 
