@@ -14,6 +14,12 @@
             <h:column>#{appointment.info}</h:column>
             <h:column>#{appointment.customerIdFk.email}</h:column>
             <h:column>#{appointment.customerIdFk.firstName}</h:column>
+            <h:column>#{appointment.customerIdFk.lastName}</h:column>
+        </h:dataTable>
+        
+        <h:dataTable var="customer" value="#{customerManagedBean.customers}">
+            <h:column>#{customer.firstName}</h:column>
+            <h:column>#{customer.lastName}</h:column>
         </h:dataTable>
         
         Här är en form!

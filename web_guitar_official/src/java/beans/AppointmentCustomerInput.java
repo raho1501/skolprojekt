@@ -5,6 +5,8 @@
  */
 package beans;
 
+import static java.nio.charset.StandardCharsets.ISO_8859_1;
+import static java.nio.charset.StandardCharsets.UTF_8;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -46,6 +48,12 @@ public class AppointmentCustomerInput
 	{
 	}
 	
+	private String toUTF_8(String s)
+	{
+		byte[] ptext = s.getBytes(ISO_8859_1);
+		return new String(ptext, UTF_8);
+	}
+	
 	public void setCustomerManagedBean(
 		CustomerManagedBean customerManagedBean)
 	{
@@ -69,7 +77,7 @@ public class AppointmentCustomerInput
 	 * @param firstName the firstName to set
 	 */
 	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+		this.firstName = toUTF_8(firstName);
 	}
 
 	/**
@@ -83,7 +91,7 @@ public class AppointmentCustomerInput
 	 * @param lastName the lastName to set
 	 */
 	public void setLastName(String lastName) {
-		this.lastName = lastName;
+		this.lastName = toUTF_8(lastName);
 	}
 
 	/**
@@ -97,7 +105,7 @@ public class AppointmentCustomerInput
 	 * @param email the email to set
 	 */
 	public void setEmail(String email) {
-		this.email = email;
+		this.email = toUTF_8(email);
 	}
 
 	/**
@@ -125,7 +133,7 @@ public class AppointmentCustomerInput
 	 * @param info the info to set
 	 */
 	public void setInfo(String info) {
-		this.info = info;
+		this.info = toUTF_8(info);
 	}
 	
 	/**
