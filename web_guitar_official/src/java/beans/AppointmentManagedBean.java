@@ -45,6 +45,27 @@ public class AppointmentManagedBean
         presist(appointment);
     }
     
+    public void removeAppointment(Appointment appointment)
+    {
+	    remove(appointment);
+    }
+    
+    private void remove(Object object)
+    {
+        try
+        {
+            userTransaction.begin();
+            entityManager.remove(entityManager.merge(object));
+            userTransaction.commit();
+        }
+        catch(Exception e)
+        {
+            Logger.getLogger(getClass().getName()).
+                log(Level.SEVERE, "exception caught", e);
+            throw new RuntimeException(e);
+        }
+    }
+    
     private void presist(Object object)
     {
         try

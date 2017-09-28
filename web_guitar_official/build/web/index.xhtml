@@ -20,6 +20,13 @@
         <h:dataTable var="customer" value="#{customerManagedBean.customers}">
             <h:column>#{customer.firstName}</h:column>
             <h:column>#{customer.lastName}</h:column>
+            <h:column>#{customer.customerId}</h:column>
+            <h:column>
+            <h:form>
+                <h:commandButton value="delete" action="#{customerManagedBean.removeCustomer(customer)}">
+                                                          </h:commandButton>
+            </h:form>
+            </h:column>
         </h:dataTable>
         
         Här är en form!
