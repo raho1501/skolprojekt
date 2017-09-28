@@ -31,26 +31,20 @@ public class BokaHandelse extends Activity implements DatePickerFragment.OnCompl
         super.onCreate(savedInstanceState);
         setContentView(R.layout.boka_handelse);
 
-        //insert date into textview display selected date
         Calendar c = Calendar.getInstance();
-        View v = findViewById(R.id.inputDatum);
-        TextView tv = (TextView)v;
+        TextView tv = (TextView)findViewById(R.id.inputDatum);
+        //create desired formatting for displaying the date
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         tv.setText(sdf.format(c.getTime()));
 
-        //insert current time into textfields
-        View startTimeView = findViewById(R.id.inputStarttid);
-        View stopTimeView = findViewById(R.id.inputStoptid);
+        TextView startTimeTextView = (TextView)findViewById(R.id.inputStarttid);
+        TextView stopTimeTextView = (TextView)findViewById(R.id.inputStoptid);
 
-        TextView startTimeTextView = (TextView)startTimeView;
-        TextView stopTimeTextView = (TextView)stopTimeView;
+        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
 
-        SimpleDateFormat startTimeSdf = new SimpleDateFormat("HH:mm");
-        SimpleDateFormat stopTimeSdf = new SimpleDateFormat("HH:mm");
-
-        startTimeTextView.setText(startTimeSdf.format(c.getTime()));
+        startTimeTextView.setText(timeFormat.format(c.getTime()));
         c.add(Calendar.HOUR, 1);
-        stopTimeTextView.setText(stopTimeSdf.format(c.getTime()));
+        stopTimeTextView.setText(timeFormat.format(c.getTime()));
 
         final EditText subjectText = (EditText) findViewById(R.id.inputBoxSubject);
         final EditText nameText = (EditText) findViewById(R.id.inputBoxName);
@@ -61,13 +55,16 @@ public class BokaHandelse extends Activity implements DatePickerFragment.OnCompl
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                //collect data from input fields
                 String amne = subjectText.getText().toString();
                 String namn = nameText.getText().toString();
                 String beskrivning = descriptionText.getText().toString();
 
+                //format input data into a good looking string
                 newAppointment = amne + "\n" + namn + "\n" + beskrivning;
-                //we will temporarily only insert into mondays
 
+                //collect the schedule from monday
                 String[] appointment = getResources().getStringArray(R.array.monday_scedule);
                 ArrayList<String> appointments = new ArrayList<String>(Arrays.asList(appointment));
 
@@ -88,16 +85,18 @@ public class BokaHandelse extends Activity implements DatePickerFragment.OnCompl
         datePicker.show(getFragmentManager(), "datePicker");
     }
 
-    public void showTimePickerDialogStartTime(View v){
+    public void showStartTimePickerDialog(View v){
         timePicker.show(getFragmentManager(), "timePicker");
         isStartTime = true;
     }
 
-    public void showTimePickerDialogStopTime(View v){
+    public void showStopTimePickerDialog(View v){
         timePicker.show(getFragmentManager(), "timePicker");
         isStartTime = false;
     }
 
+    //when the user hits ok, get the data from the datePickerFragment and
+    //set inputDatum's text to the selected date
     @Override
     public void onComplete(String date) {
         View v = findViewById(R.id.inputDatum);
@@ -105,7 +104,9 @@ public class BokaHandelse extends Activity implements DatePickerFragment.OnCompl
         tv.setText(date);
     }
 
-
+    //when the user hit's ok in the timePickerFragment collect selected time
+    //from the timePickerFragment and set either inputStarttid or inputStoptid's
+    //text to the selected time
     @Override
     public void onCompleteTime(String time) {
         if(isStartTime){

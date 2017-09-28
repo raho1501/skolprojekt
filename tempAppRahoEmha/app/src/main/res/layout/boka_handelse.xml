@@ -62,7 +62,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="date"
-        android:onClick="showTimePickerDialogStartTime"
+        android:onClick="showStartTimePickerDialog"
         android:textAlignment="center" />
 
     <TextView
@@ -81,7 +81,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="date"
-        android:onClick="showTimePickerDialogStopTime"
+        android:onClick="showStopTimePickerDialog"
         android:textAlignment="center" />
 
     <Button

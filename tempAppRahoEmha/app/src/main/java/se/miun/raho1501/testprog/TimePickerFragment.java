@@ -24,23 +24,27 @@ public class TimePickerFragment extends DialogFragment
         int minute = c.get(Calendar.MINUTE);
 
         // Create a new instance of TimePickerDialog and return it
-        return new TimePickerDialog(getActivity(), this, hour, minute,
-                true);
+        return new TimePickerDialog(getActivity(), this, hour, minute, true);
     }
 
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-        // Do something with the time chosen by the user
+
+        //format the selected time into a nice string
         String time = Integer.toString(hourOfDay) + ":" + Integer.toString(minute);
+
+        //call the onCompleteTime method and pass the formatted time string
         this.mListener.onCompleteTime(time);
     }
 
+    //abstract method to be implemented in BokaHandelse
+    //will be called when timePickerFragment is complete
     public static interface OnCompleteTimeListener {
         public abstract void onCompleteTime(String time);
     }
 
     private OnCompleteTimeListener mListener;
 
-    // make sure the Activity implemented it
+    //have no idea what this shit does, code won't work without it
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);

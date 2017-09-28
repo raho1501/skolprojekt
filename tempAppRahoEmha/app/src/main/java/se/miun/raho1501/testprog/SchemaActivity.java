@@ -24,31 +24,22 @@ public class SchemaActivity extends Activity
         TabHost.TabSpec tab4 = host.newTabSpec("Tab 4");
         TabHost.TabSpec tab5 = host.newTabSpec("Tab 5");
 
-
         //Tab 1
         tab1.setContent(R.id.tab1);
         tab1.setIndicator("Mån");
         host.addTab(tab1);
-        //Intent i = new Intent(SchemaActivity.this, MondaySchemaActivity.class);
-
-
-
-
 
         //Tab 2
-
         tab2.setContent(R.id.tab2);
         tab2.setIndicator("Tis");
         host.addTab(tab2);
 
         //Tab 3
-
         tab3.setContent(R.id.tab3);
         tab3.setIndicator("Ons");
         host.addTab(tab3);
 
         //Tab 4
-
         tab4.setContent(R.id.tab4);
         tab4.setIndicator("Tors");
         host.addTab(tab4);
@@ -57,8 +48,6 @@ public class SchemaActivity extends Activity
         tab5.setContent(R.id.tab5);
         tab5.setIndicator("Fre");
         host.addTab(tab5);
-
-
 
     }
 
