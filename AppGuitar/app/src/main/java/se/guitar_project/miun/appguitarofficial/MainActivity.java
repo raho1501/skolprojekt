@@ -16,23 +16,36 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-
         //Skapa ett objekt av classen som hämtar xml:en
-        XmlRestInterface rest = new XmlRestInterface(new XmlRestInterface.AsyncResponse()
-        {
-            //Implementera processFinish som körs när tasken är klar.
-            //Anledningen till att vi överlagrar den här är att vi ska komma åt medlemar här.
-            @Override
-            public void processFinish(String output)
-            {
-                testXml(output);
-            }
-        });
+        XmlRestInterface rest = new XmlRestInterface("POST" ,
+                new XmlRestInterface.AsyncResponse()
+                {
+                    //Implementera processFinish som körs när tasken är klar.
+                    //Anledningen till att vi överlagrar den här är att vi ska komma åt medlemar här.
+                    @Override
+                    public void processFinish(String output)
+                    {
+                        setText(output);
+                    }
+                });
 
-        rest.execute("http://10.0.2.2:8080/web_guitar_official/webresources/beans.appointment");
-
-
+        rest.setParam(test());
+        rest.execute("http://10.0.2.2:8080/web_guitar_official/webresources/beans.customer");
+    }
+    public XmlDocument test()
+    {
+        XmlDocument doc = new XmlDocument();
+        XmlElement customer = new XmlElement("customer");
+        XmlElement email = new XmlElement("email","linus@hej.se");
+        XmlElement firstName = new XmlElement("firstName","Linus");
+        XmlElement lastName = new XmlElement("lastName", "Nilsson");
+        XmlElement phoneNr = new XmlElement("phoneNr", "1337");
+        customer.appendChild(email);
+        customer.appendChild(firstName);
+        customer.appendChild(lastName);
+        customer.appendChild(phoneNr);
+        doc.appendChild(customer);
+        return doc;
     }
     public void setText(String string)
     {
@@ -44,11 +57,10 @@ public class MainActivity extends AppCompatActivity {
     {
         XmlParser xml = new XmlParser(string);
         xml.parse();
-        setText(xml.getElementByTag("appointmentId", 0));
-        setText(xml.getElementByTag("date", 0));
-        setText(xml.getElementByTag("startTime", 0));
-        setText(xml.getElementByTag("stopTime", 0));
-        setText(xml.getElementByTag("info", 0));
-
+        setText(xml.getElementByTag("appointment", "appointmentId", 0));
+        setText(xml.getElementByTag("appointment", "date", 0));
+        setText(xml.getElementByTag("appointment", "startTime", 0));
+        setText(xml.getElementByTag("appointment", "stopTime", 0));
+        setText(xml.getElementByTag("appointment", "info", 0));
     }
 }
