@@ -19,10 +19,10 @@ import javax.inject.Inject;
  *
  * @author markus
  */
-@Named(value = "appointmentCustomerInput")
+@Named(value = "userInputBean")
 @RequestScoped
-public class AppointmentCustomerInput
-{
+public class UserInputBean {
+
 	private String firstName;
 	private String lastName;
 	private String email;
@@ -43,8 +43,10 @@ public class AppointmentCustomerInput
 	private CustomerManagedBean customerManagedBean;
 	@Inject
 	private AppointmentManagedBean appointmentManagedBean;
+	@Inject
+	private TimeReservationManagedBean timeReservationManagedBean;
 
-	public AppointmentCustomerInput()
+	public UserInputBean()
 	{
 	}
 	
@@ -64,6 +66,12 @@ public class AppointmentCustomerInput
 		AppointmentManagedBean appointmentManagedBean)
 	{
 		this.appointmentManagedBean = appointmentManagedBean;
+	}
+	
+	public void setTimeReservationManagedBean(
+		TimeReservationManagedBean timeReservationManagedBean)
+	{
+		this.timeReservationManagedBean = timeReservationManagedBean;
 	}
 
 	/**
@@ -182,18 +190,7 @@ public class AppointmentCustomerInput
 	{
 		Customer cust = new Customer();
 		Appointment appoint = new Appointment();
-		
-		cust.setFirstName(firstName);
-		cust.setLastName(lastName);
-		cust.setEmail(email);
-		cust.setPhoneNr(phoneNumber);
-		cust.setCustomerId(0);
-		
-		customerManagedBean.addCustomer(cust);
-		
-		appoint.setCustomerIdFk(cust);
-		
-		appoint.setInfo(info);
+		TimeReservation reservation = new TimeReservation();
 		
 		DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
 		DateFormat timeFormat = new SimpleDateFormat("HH:mm");
@@ -208,17 +205,31 @@ public class AppointmentCustomerInput
 			parsedStartTime = timeFormat.parse(startTime);
 			parsedEndTime = timeFormat.parse(endTime);
 			
-			appoint.setDate(parsedDate);
-			appoint.setStartTime(parsedStartTime);
-			appoint.setStopTime(parsedEndTime);
+			reservation.setStartTime(parsedStartTime);
+			reservation.setStopTime(parsedEndTime);
+			reservation.setReservationDate(parsedDate);
 		}
 		catch(ParseException e)
 		{
-			e.printStackTrace();
+			throw new RuntimeException(e);
 		}
+		
+		timeReservationManagedBean.addTimeReservation(reservation);
+		
+		appoint.setTimeReservationIdFk(reservation);
+		appoint.setInfo(info);
 		
 		appointmentManagedBean.addAppointment(appoint);
 		
+		cust.setAppointmentIdFk(appoint);
+		cust.setFirstName(firstName);
+		cust.setLastName(lastName);
+		cust.setEmail(email);
+		cust.setPhoneNr(phoneNumber);
+		
+		customerManagedBean.addCustomer(cust);
+		
 		return "index";
 	}
+	
 }

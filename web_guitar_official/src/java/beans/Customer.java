@@ -6,21 +6,19 @@
 package beans;
 
 import java.io.Serializable;
-import java.util.Collection;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -57,8 +55,9 @@ public class Customer implements Serializable {
 	@Size(max = 50)
         @Column(name = "LAST_NAME")
 	private String lastName;
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "customerIdFk")
-	private Collection<Appointment> appointmentCollection;
+	@JoinColumn(name = "APPOINTMENT_ID_FK", referencedColumnName = "APPOINTMENT_ID")
+        @ManyToOne(optional = false)
+	private Appointment appointmentIdFk;
 
 	public Customer() {
 	}
@@ -107,13 +106,12 @@ public class Customer implements Serializable {
 		this.lastName = lastName;
 	}
 
-	@XmlTransient
-	public Collection<Appointment> getAppointmentCollection() {
-		return appointmentCollection;
+	public Appointment getAppointmentIdFk() {
+		return appointmentIdFk;
 	}
 
-	public void setAppointmentCollection(Collection<Appointment> appointmentCollection) {
-		this.appointmentCollection = appointmentCollection;
+	public void setAppointmentIdFk(Appointment appointmentIdFk) {
+		this.appointmentIdFk = appointmentIdFk;
 	}
 
 	@Override

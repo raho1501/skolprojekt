@@ -8,46 +8,37 @@
     </h:head>
     <h:body>
         <h:dataTable var="appointment" value="#{appointmentManagedBean.appointments}">
-            <h:column>#{appointment.date} ||</h:column>
-            <h:column>#{appointment.startTime} ||</h:column>
-            <h:column>#{appointment.stopTime} ||</h:column>
-            <h:column>#{appointment.info}</h:column>
-            <h:column>#{appointment.customerIdFk.email}</h:column>
-            <h:column>#{appointment.customerIdFk.firstName}</h:column>
-            <h:column>#{appointment.customerIdFk.lastName}</h:column>
-        </h:dataTable>
-        
-        <h:dataTable var="customer" value="#{customerManagedBean.customers}">
-            <h:column>#{customer.firstName}</h:column>
-            <h:column>#{customer.lastName}</h:column>
-            <h:column>#{customer.customerId}</h:column>
+            <h:column>Start tid: #{appointment.timeReservationIdFk.startTime}</h:column>
+            <h:column>Stop tid: #{appointment.timeReservationIdFk.stopTime}</h:column>
+            <h:column>Datum: #{appointment.timeReservationIdFk.reservationDate}</h:column>
+            <h:column>Beskrivning: #{appointment.info}</h:column>
+            <h:column>Namn: #{appointment.customerCollection[0].firstName} #{appointment.customerCollection[0].lastName}</h:column>
             <h:column>
-            <h:form>
-                <h:commandButton value="delete" action="#{customerManagedBean.removeCustomer(customer)}">
-                                                          </h:commandButton>
-            </h:form>
+                <h:form>
+                    <h:commandButton value="Ta bort" action="#{appointmentManagedBean.removeAppointment(appointment)}"></h:commandButton>
+                </h:form>
             </h:column>
         </h:dataTable>
         
         Här är en form!
         <h:form>
             Förnamn: 
-            <h:inputText value="#{appointmentCustomerInput.firstName}"></h:inputText><br/>
+            <h:inputText value="#{userInputBean.firstName}"></h:inputText><br/>
             Efternamn: 
-            <h:inputText value="#{appointmentCustomerInput.lastName}"></h:inputText><br/>
+            <h:inputText value="#{userInputBean.lastName}"></h:inputText><br/>
             Mejl: 
-            <h:inputText value="#{appointmentCustomerInput.email}"></h:inputText><br/>
+            <h:inputText value="#{userInputBean.email}"></h:inputText><br/>
             Telefon: 
-            <h:inputText value="#{appointmentCustomerInput.phoneNumber}"></h:inputText><br/>
+            <h:inputText value="#{userInputBean.phoneNumber}"></h:inputText><br/>
             Beskrivning av fel: 
-            <h:inputText value="#{appointmentCustomerInput.info}"></h:inputText><br/>
+            <h:inputText value="#{userInputBean.info}"></h:inputText><br/>
             Datum: 
-            <h:inputText value="#{appointmentCustomerInput.date}"></h:inputText><br/>
+            <h:inputText value="#{userInputBean.date}"></h:inputText><br/>
             Start tid: 
-            <h:inputText value="#{appointmentCustomerInput.startTime}"></h:inputText><br/>
+            <h:inputText value="#{userInputBean.startTime}"></h:inputText><br/>
             Slut tid:
-            <h:inputText value="#{appointmentCustomerInput.endTime}"></h:inputText><br/>
-            <h:commandButton value="Skicka" action="#{appointmentCustomerInput.submit()}"></h:commandButton>
+            <h:inputText value="#{userInputBean.endTime}"></h:inputText><br/>
+            <h:commandButton value="Skicka" action="#{userInputBean.submit()}"></h:commandButton>
         </h:form>
     </h:body>
 </html>

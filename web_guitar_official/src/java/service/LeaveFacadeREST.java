@@ -5,7 +5,7 @@
  */
 package service;
 
-import beans.Customer;
+import beans.Leave;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -25,27 +25,27 @@ import javax.ws.rs.core.MediaType;
  * @author markus
  */
 @Stateless
-@Path("beans.customer")
-public class CustomerFacadeREST extends AbstractFacade<Customer> {
+@Path("beans.leave")
+public class LeaveFacadeREST extends AbstractFacade<Leave> {
 
 	@PersistenceContext(unitName = "web_guitar_officialPU")
 	private EntityManager em;
 
-	public CustomerFacadeREST() {
-		super(Customer.class);
+	public LeaveFacadeREST() {
+		super(Leave.class);
 	}
 
 	@POST
         @Override
         @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-	public void create(Customer entity) {
+	public void create(Leave entity) {
 		super.create(entity);
 	}
 
 	@PUT
         @Path("{id}")
         @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-	public void edit(@PathParam("id") Integer id, Customer entity) {
+	public void edit(@PathParam("id") Integer id, Leave entity) {
 		super.edit(entity);
 	}
 
@@ -58,21 +58,21 @@ public class CustomerFacadeREST extends AbstractFacade<Customer> {
 	@GET
         @Path("{id}")
         @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-	public Customer find(@PathParam("id") Integer id) {
+	public Leave find(@PathParam("id") Integer id) {
 		return super.find(id);
 	}
 
 	@GET
         @Override
         @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-	public List<Customer> findAll() {
+	public List<Leave> findAll() {
 		return super.findAll();
 	}
 
 	@GET
         @Path("{from}/{to}")
         @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-	public List<Customer> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
+	public List<Leave> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
 		return super.findRange(new int[]{from, to});
 	}
 

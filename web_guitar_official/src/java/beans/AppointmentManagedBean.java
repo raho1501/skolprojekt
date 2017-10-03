@@ -47,15 +47,16 @@ public class AppointmentManagedBean
     
     public void removeAppointment(Appointment appointment)
     {
-	    remove(appointment);
+	remove(appointment);
     }
     
-    private void remove(Object object)
+    private void remove(Appointment appointment)
     {
         try
         {
             userTransaction.begin();
-            entityManager.remove(entityManager.merge(object));
+            entityManager.remove(
+		    entityManager.merge(appointment.getTimeReservationIdFk()));
             userTransaction.commit();
         }
         catch(Exception e)
@@ -66,12 +67,12 @@ public class AppointmentManagedBean
         }
     }
     
-    private void presist(Object object)
+    private void presist(Appointment appointment)
     {
         try
         {
             userTransaction.begin();
-            entityManager.persist(object);
+            entityManager.persist(appointment);
             userTransaction.commit();
         }
         catch(Exception e)
