@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/WebApp/src/WebApp.iml" filepath="$PROJECT_DIR$/WebApp/src/WebApp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/tempAppRahoEmha/app/src/androidTest/androidTest.iml" filepath="$PROJECT_DIR$/tempAppRahoEmha/app/src/androidTest/androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/AlphaGuitarrprojectSprint2/app/src/androidTest/androidTest1.iml" filepath="$PROJECT_DIR$/AlphaGuitarrprojectSprint2/app/src/androidTest/androidTest1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/AppGuitar/app/src/androidTest/androidTest2.iml" filepath="$PROJECT_DIR$/AppGuitar/app/src/androidTest/androidTest2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/WebApp/build/generated-sources/generated-sources.iml" filepath="$PROJECT_DIR$/WebApp/build/generated-sources/generated-sources.iml" />
+      <module fileurl="file://$PROJECT_DIR$/AppGuitar/app/src/main/main.iml" filepath="$PROJECT_DIR$/AppGuitar/app/src/main/main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/tempAppRahoEmha/app/src/main/main1.iml" filepath="$PROJECT_DIR$/tempAppRahoEmha/app/src/main/main1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/AlphaGuitarrprojectSprint2/app/src/main/main2.iml" filepath="$PROJECT_DIR$/AlphaGuitarrprojectSprint2/app/src/main/main2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/tempAppRahoEmha/app/src/test/test.iml" filepath="$PROJECT_DIR$/tempAppRahoEmha/app/src/test/test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/AlphaGuitarrprojectSprint2/app/src/test/test1.iml" filepath="$PROJECT_DIR$/AlphaGuitarrprojectSprint2/app/src/test/test1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/AppGuitar/app/src/test/test2.iml" filepath="$PROJECT_DIR$/AppGuitar/app/src/test/test2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/web_guitar_official/src/web_guitar_official.iml" filepath="$PROJECT_DIR$/web_guitar_official/src/web_guitar_official.iml" />
+    </modules>
+  </component>
+</project>
