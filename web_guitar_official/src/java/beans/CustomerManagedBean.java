@@ -13,6 +13,7 @@ import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.transaction.UserTransaction;
 
@@ -42,9 +43,30 @@ public class CustomerManagedBean
 		return typedQuery.getResultList();
 	}
 	
+	public void removeCustomer(Customer customer)
+	{
+		remove(customer);
+	}
+	
 	public void addCustomer(Customer customer)
 	{
 		persist(customer);
+	}
+	
+	private void remove(Customer customer)
+	{
+		try
+		{
+			userTransaction.begin();
+			entityManager.remove(entityManager.merge(customer));
+			userTransaction.commit();
+		}
+		catch(Exception e)
+		{
+			Logger.getLogger(getClass().getName()).
+				log(Level.SEVERE, "exception caught", e);
+			throw new RuntimeException(e);
+		}
 	}
 
 	private void persist(Customer customer)
