@@ -30,13 +30,13 @@ public class WeekView extends Activity {
         tv.setText(currWeek);
 
         //lines 33 to 45 hide the TextViews that are blocks indicating if an hour is booked or not
-        LinearLayout dayElem = (LinearLayout)findViewById(R.id.linearLayoutVecka);
-        int days = dayElem.getChildCount();
+        LinearLayout weekElem = (LinearLayout)findViewById(R.id.linearLayoutVecka);
+        int days = weekElem.getChildCount();
         RelativeLayout currDay;
         TextView currHour;
 
         for(int i = 0; i < days; i++){
-            currDay = (RelativeLayout)dayElem.getChildAt(i);
+            currDay = (RelativeLayout)weekElem.getChildAt(i);
             for(int j = 0; j < 8; j++){
                 currHour = (TextView)currDay.getChildAt(j);
                 currHour.setVisibility(View.GONE);
