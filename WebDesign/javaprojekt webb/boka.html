@@ -59,18 +59,10 @@
 				<input type="text" placeholder="Telefon"><br>
 				<input type="textarea" placeholder="Beskrivning"><br>
 				<input type="file" multiple>
-				<input type="button" onClick="myPopup()" value="BOKA" style="width:170px; margin-left:10px" >	
+				<input type="button" value="BOKA" style="width:170px; margin-left:10px" >	
 			</form>
 		</div>	   
 	<script>
-		function myPopup() {
-			var txt;
-				if (confirm("Bekräfta bokningen den 2 Oktober kl 13:00") == true) {						
-				} 
-				else {
-				}
-					
-				}
 	</script>
 	<script>
 	$(document).ready(function() {
@@ -81,7 +73,8 @@
 				$(function() {
 					$("#dialog").dialog({
 						width: "auto",
-						maxWidth: 500
+						resizable: false,
+						modal: false
 					});
 				});
 				// change the border color just for fun
