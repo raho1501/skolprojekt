@@ -18,6 +18,8 @@
 		<script src='js/moment.min.js'></script>
 		<script src='fullcalendar/fullcalendar.js'></script>
 		<script src='fullcalendar/locale/sv.js'></script>
+		<link rel='stylesheet' href='jquery-ui/jquery-ui.css' />
+		<script src="jquery-ui/jquery-ui.js"></script>
 	</head>
 	<body id="top">
 
@@ -39,9 +41,6 @@
 			<div id="boka1" style ="margin-bottom:25px"> 
 					&nbsp;
 					<div style="margin: 10px" id="calendar"></div>
-					<input type="text" id="name" placeholder="Namn" style="width:350px; margin-left:200px" /> </p>
-					<input type="text" id="tel" placeholder = "Telefon" style="width:350px; margin-left:200px" /> </p>
-					<input type="button" id="butt1" value="RENSA" style="width:170px; margin-left:200px" > 
 					<input type="button" onClick="myPopup()" value="BOKA" style="width:170px; margin-left:10px" >
 			</div>	
 		</div>
@@ -54,8 +53,18 @@
 				</div>
 			</div>
 		</footer>
+
+		<div id="dialog" title="Bekräfta bokning">
+			<form>
+				<input type="text" placeholder="Namn"><br>
+				<input type="text" placeholder="Email"><br>
+				<input type="text" placeholder="Telefon"><br>
+				<input type="textarea" placeholder="Beskrivning"><br>
+				<input type="file" multiple>
+			</form>
+		</div>	   
 	<script>
-		function myPopup(){
+		function myPopup() {
 			var txt;
 				if (confirm("Bekräfta bokningen den 2 Oktober kl 13:00") == true) {						
 				} 
@@ -69,17 +78,33 @@
 		// page is now ready, initialize the calendar...
 		$('#calendar').fullCalendar({
 			// put your options and callbacks here
+			eventClick: function(calEvent, jsEvent, view) {
+				$(function() {
+					$("#dialog").dialog({
+						width: "auto",
+						maxWidth: 500
+					});
+				});
+				// change the border color just for fun
+				$(this).css('border-color', 'red');
+			},
 			defaultView: 'agendaWeek',
 			weekNumbers: true,
 			allDaySlot: false,
 			minTime: "10:00:00",
 			maxTime: "18:00:00",
-			height: 500,
+			snapDuration: "01:00:00",
+			height: "auto",
+			selectable: true,
+			weekends: false,
+			selectHelper:true,
 			events: [
         		{
 					title:  'My Event',
-					start:  '2017-10-03T14:30:00',
-					allDay: false
+					start:  '2017-10-03T14:00:00',
+					end:  '2017-10-03T15:00:00',
+					allDay: false,
+					editable: true
 				}
 				// other events here...
     		],
