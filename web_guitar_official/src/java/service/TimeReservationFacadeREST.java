@@ -22,70 +22,70 @@ import javax.ws.rs.core.MediaType;
 
 /**
  *
- * @author markus
+ * @author linus
  */
 @Stateless
 @Path("beans.timereservation")
 public class TimeReservationFacadeREST extends AbstractFacade<TimeReservation> {
 
-	@PersistenceContext(unitName = "web_guitar_officialPU")
-	private EntityManager em;
+    @PersistenceContext(unitName = "web_guitar_officialPU")
+    private EntityManager em;
 
-	public TimeReservationFacadeREST() {
-		super(TimeReservation.class);
-	}
+    public TimeReservationFacadeREST() {
+        super(TimeReservation.class);
+    }
 
-	@POST
-        @Override
-        @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-	public void create(TimeReservation entity) {
-		super.create(entity);
-	}
+    @POST
+    @Override
+    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public void create(TimeReservation entity) {
+        super.create(entity);
+    }
 
-	@PUT
-        @Path("{id}")
-        @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-	public void edit(@PathParam("id") Integer id, TimeReservation entity) {
-		super.edit(entity);
-	}
+    @PUT
+    @Path("{id}")
+    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public void edit(@PathParam("id") Integer id, TimeReservation entity) {
+        super.edit(entity);
+    }
 
-	@DELETE
-        @Path("{id}")
-	public void remove(@PathParam("id") Integer id) {
-		super.remove(super.find(id));
-	}
+    @DELETE
+    @Path("{id}")
+    public void remove(@PathParam("id") Integer id) {
+        super.remove(super.find(id));
+    }
 
-	@GET
-        @Path("{id}")
-        @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-	public TimeReservation find(@PathParam("id") Integer id) {
-		return super.find(id);
-	}
+    @GET
+    @Path("{id}")
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public TimeReservation find(@PathParam("id") Integer id) {
+        return super.find(id);
+    }
 
-	@GET
-        @Override
-        @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-	public List<TimeReservation> findAll() {
-		return super.findAll();
-	}
+    @GET
+    @Override
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public List<TimeReservation> findAll() {
+        return super.findAll();
+    }
 
-	@GET
-        @Path("{from}/{to}")
-        @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-	public List<TimeReservation> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
-		return super.findRange(new int[]{from, to});
-	}
+    @GET
+    @Path("{from}/{to}")
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public List<TimeReservation> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
+        return super.findRange(new int[]{from, to});
+    }
 
-	@GET
-        @Path("count")
-        @Produces(MediaType.TEXT_PLAIN)
-	public String countREST() {
-		return String.valueOf(super.count());
-	}
+    @GET
+    @Path("count")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String countREST() {
+        return String.valueOf(super.count());
+    }
 
-	@Override
-	protected EntityManager getEntityManager() {
-		return em;
-	}
-	
+    @Override
+    protected EntityManager getEntityManager() {
+        return em;
+    }
+    
 }
