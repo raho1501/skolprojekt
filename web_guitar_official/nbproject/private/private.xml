@@ -3,15 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/linus/Documents/NetBeansProjects/skol_projekt/skolprojekt/skolprojekt/web_guitar_official/resources/database_code.txt</file>
-            <file>file:/C:/Users/linus/Documents/NetBeansProjects/skol_projekt/skolprojekt/skolprojekt/web_guitar_official/src/conf/persistence.xml</file>
-            <file>file:/C:/Users/linus/Documents/NetBeansProjects/skol_projekt/skolprojekt/skolprojekt/web_guitar_official/web/index.xhtml</file>
-            <file>file:/C:/Users/linus/Documents/NetBeansProjects/skol_projekt/skolprojekt/skolprojekt/web_guitar_official/web/WEB-INF/web.xml</file>
-            <file>file:/C:/Users/linus/Documents/NetBeansProjects/skol_projekt/skolprojekt/skolprojekt/web_guitar_official/src/java/beans/TimeReservation.java</file>
-            <file>file:/C:/Users/linus/Documents/NetBeansProjects/skol_projekt/skolprojekt/skolprojekt/web_guitar_official/src/java/beans/Customer.java</file>
-            <file>file:/C:/Users/linus/Documents/NetBeansProjects/skol_projekt/skolprojekt/skolprojekt/web_guitar_official/web/WEB-INF/glassfish-resources.xml</file>
-            <file>file:/C:/Users/linus/Documents/NetBeansProjects/skol_projekt/skolprojekt/skolprojekt/web_guitar_official/src/java/service/TimeReservationFacadeREST.java</file>
-            <file>file:/C:/Users/linus/Documents/NetBeansProjects/skol_projekt/skolprojekt/skolprojekt/web_guitar_official/src/conf/MANIFEST.MF</file>
+            <file>file:/C:/Users/linus/Documents/NetBeansProjects/ProjektGuitarHero/skolprojekt/skolprojekt/web_guitar_official/src/java/beans/AppointmentManagedBean.java</file>
+            <file>file:/C:/Users/linus/Documents/NetBeansProjects/ProjektGuitarHero/skolprojekt/skolprojekt/web_guitar_official/src/java/beans/TimeReservationManagedBean.java</file>
+            <file>file:/C:/Users/linus/Documents/NetBeansProjects/ProjektGuitarHero/skolprojekt/skolprojekt/web_guitar_official/src/java/beans/CustomerManagedBean.java</file>
+            <file>file:/C:/Users/linus/Documents/NetBeansProjects/ProjektGuitarHero/skolprojekt/skolprojekt/web_guitar_official/src/java/beans/UserInputBean.java</file>
         </group>
     </open-files>
 </project-private>

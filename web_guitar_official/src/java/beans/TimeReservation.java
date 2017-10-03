@@ -25,130 +25,130 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author markus
+ * @author linus
  */
 @Entity
 @Table(name = "TIME_RESERVATION")
 @XmlRootElement
 @NamedQueries({
-	@NamedQuery(name = "TimeReservation.findAll", query = "SELECT t FROM TimeReservation t")
-	, @NamedQuery(name = "TimeReservation.findByTimeReservationId", query = "SELECT t FROM TimeReservation t WHERE t.timeReservationId = :timeReservationId")
-	, @NamedQuery(name = "TimeReservation.findByStartTime", query = "SELECT t FROM TimeReservation t WHERE t.startTime = :startTime")
-	, @NamedQuery(name = "TimeReservation.findByStopTime", query = "SELECT t FROM TimeReservation t WHERE t.stopTime = :stopTime")
-	, @NamedQuery(name = "TimeReservation.findByReservationDate", query = "SELECT t FROM TimeReservation t WHERE t.reservationDate = :reservationDate")})
+    @NamedQuery(name = "TimeReservation.findAll", query = "SELECT t FROM TimeReservation t")
+    , @NamedQuery(name = "TimeReservation.findByTimeReservationId", query = "SELECT t FROM TimeReservation t WHERE t.timeReservationId = :timeReservationId")
+    , @NamedQuery(name = "TimeReservation.findByStartTime", query = "SELECT t FROM TimeReservation t WHERE t.startTime = :startTime")
+    , @NamedQuery(name = "TimeReservation.findByStopTime", query = "SELECT t FROM TimeReservation t WHERE t.stopTime = :stopTime")
+    , @NamedQuery(name = "TimeReservation.findByReservationDate", query = "SELECT t FROM TimeReservation t WHERE t.reservationDate = :reservationDate")})
 public class TimeReservation implements Serializable {
 
-	private static final long serialVersionUID = 1L;
-	@Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        @Basic(optional = false)
-        @Column(name = "TIME_RESERVATION_ID")
-	private Integer timeReservationId;
-	@Column(name = "START_TIME")
-        @Temporal(TemporalType.TIME)
-	private Date startTime;
-	@Column(name = "STOP_TIME")
-        @Temporal(TemporalType.TIME)
-	private Date stopTime;
-	@Column(name = "RESERVATION_DATE")
-        @Temporal(TemporalType.DATE)
-	private Date reservationDate;
-	@OneToMany(mappedBy = "timeReservationIdFk")
-	private Collection<Repair> repairCollection;
-	@OneToMany(mappedBy = "timeReservationIdFk")
-	private Collection<Appointment> appointmentCollection;
-	@OneToMany(mappedBy = "timeReservationIdFk")
-	private Collection<Leave> leaveCollection;
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "TIME_RESERVATION_ID")
+    private Integer timeReservationId;
+    @Column(name = "START_TIME")
+    @Temporal(TemporalType.TIME)
+    private Date startTime;
+    @Column(name = "STOP_TIME")
+    @Temporal(TemporalType.TIME)
+    private Date stopTime;
+    @Column(name = "RESERVATION_DATE")
+    @Temporal(TemporalType.DATE)
+    private Date reservationDate;
+    @OneToMany(mappedBy = "timeReservationIdFk")
+    private Collection<Repair> repairCollection;
+    @OneToMany(mappedBy = "timeReservationIdFk")
+    private Collection<Appointment> appointmentCollection;
+    @OneToMany(mappedBy = "timeReservationIdFk")
+    private Collection<Leave> leaveCollection;
 
-	public TimeReservation() {
-	}
+    public TimeReservation() {
+    }
 
-	public TimeReservation(Integer timeReservationId) {
-		this.timeReservationId = timeReservationId;
-	}
+    public TimeReservation(Integer timeReservationId) {
+        this.timeReservationId = timeReservationId;
+    }
 
-	public Integer getTimeReservationId() {
-		return timeReservationId;
-	}
+    public Integer getTimeReservationId() {
+        return timeReservationId;
+    }
 
-	public void setTimeReservationId(Integer timeReservationId) {
-		this.timeReservationId = timeReservationId;
-	}
+    public void setTimeReservationId(Integer timeReservationId) {
+        this.timeReservationId = timeReservationId;
+    }
 
-	public Date getStartTime() {
-		return startTime;
-	}
+    public Date getStartTime() {
+        return startTime;
+    }
 
-	public void setStartTime(Date startTime) {
-		this.startTime = startTime;
-	}
+    public void setStartTime(Date startTime) {
+        this.startTime = startTime;
+    }
 
-	public Date getStopTime() {
-		return stopTime;
-	}
+    public Date getStopTime() {
+        return stopTime;
+    }
 
-	public void setStopTime(Date stopTime) {
-		this.stopTime = stopTime;
-	}
+    public void setStopTime(Date stopTime) {
+        this.stopTime = stopTime;
+    }
 
-	public Date getReservationDate() {
-		return reservationDate;
-	}
+    public Date getReservationDate() {
+        return reservationDate;
+    }
 
-	public void setReservationDate(Date reservationDate) {
-		this.reservationDate = reservationDate;
-	}
+    public void setReservationDate(Date reservationDate) {
+        this.reservationDate = reservationDate;
+    }
 
-	@XmlTransient
-	public Collection<Repair> getRepairCollection() {
-		return repairCollection;
-	}
+    @XmlTransient
+    public Collection<Repair> getRepairCollection() {
+        return repairCollection;
+    }
 
-	public void setRepairCollection(Collection<Repair> repairCollection) {
-		this.repairCollection = repairCollection;
-	}
+    public void setRepairCollection(Collection<Repair> repairCollection) {
+        this.repairCollection = repairCollection;
+    }
 
-	@XmlTransient
-	public Collection<Appointment> getAppointmentCollection() {
-		return appointmentCollection;
-	}
+    @XmlTransient
+    public Collection<Appointment> getAppointmentCollection() {
+        return appointmentCollection;
+    }
 
-	public void setAppointmentCollection(Collection<Appointment> appointmentCollection) {
-		this.appointmentCollection = appointmentCollection;
-	}
+    public void setAppointmentCollection(Collection<Appointment> appointmentCollection) {
+        this.appointmentCollection = appointmentCollection;
+    }
 
-	@XmlTransient
-	public Collection<Leave> getLeaveCollection() {
-		return leaveCollection;
-	}
+    @XmlTransient
+    public Collection<Leave> getLeaveCollection() {
+        return leaveCollection;
+    }
 
-	public void setLeaveCollection(Collection<Leave> leaveCollection) {
-		this.leaveCollection = leaveCollection;
-	}
+    public void setLeaveCollection(Collection<Leave> leaveCollection) {
+        this.leaveCollection = leaveCollection;
+    }
 
-	@Override
-	public int hashCode() {
-		int hash = 0;
-		hash += (timeReservationId != null ? timeReservationId.hashCode() : 0);
-		return hash;
-	}
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (timeReservationId != null ? timeReservationId.hashCode() : 0);
+        return hash;
+    }
 
-	@Override
-	public boolean equals(Object object) {
-		// TODO: Warning - this method won't work in the case the id fields are not set
-		if (!(object instanceof TimeReservation)) {
-			return false;
-		}
-		TimeReservation other = (TimeReservation) object;
-		if ((this.timeReservationId == null && other.timeReservationId != null) || (this.timeReservationId != null && !this.timeReservationId.equals(other.timeReservationId))) {
-			return false;
-		}
-		return true;
-	}
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof TimeReservation)) {
+            return false;
+        }
+        TimeReservation other = (TimeReservation) object;
+        if ((this.timeReservationId == null && other.timeReservationId != null) || (this.timeReservationId != null && !this.timeReservationId.equals(other.timeReservationId))) {
+            return false;
+        }
+        return true;
+    }
 
-	@Override
-	public String toString() {
-		return "beans.TimeReservation[ timeReservationId=" + timeReservationId + " ]";
-	}
-	
+    @Override
+    public String toString() {
+        return "beans.TimeReservation[ timeReservationId=" + timeReservationId + " ]";
+    }
+    
 }
