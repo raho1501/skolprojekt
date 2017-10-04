@@ -28,7 +28,7 @@
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Min vecka"
+        android:text="My week"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <RelativeLayout
@@ -57,7 +57,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
                 android:gravity="center"
-                android:text="Måndag" />
+                android:text="Monday" />
 
             <TextView
                 android:id="@+id/textView5"
@@ -65,7 +65,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
                 android:gravity="center"
-                android:text="Tisdag" />
+                android:text="Tuesday" />
 
             <TextView
                 android:id="@+id/textView6"
@@ -73,7 +73,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
                 android:gravity="center"
-                android:text="Onsdag" />
+                android:text="Wednesday" />
 
             <TextView
                 android:id="@+id/textView7"
@@ -81,7 +81,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
                 android:gravity="center"
-                android:text="Torsdag" />
+                android:text="Thursday" />
 
             <TextView
                 android:id="@+id/textView8"
@@ -89,7 +89,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
                 android:gravity="center"
-                android:text="Fredag" />
+                android:text="Friday" />
 
         </LinearLayout>
     </RelativeLayout>
@@ -341,59 +341,59 @@
 
                             <!--HIT SKA VI!!!!!-->
                             <TextView
-                                android:id="@+id/monHour1"
+                                android:id="@+id/MonHour1"
                                 android:layout_width="match_parent"
                                 android:layout_height="40dp"
-                                android:background="#00E64D" />
+                                android:background="#3399FF" />
 
                             <TextView
-                                android:id="@+id/monHour2"
+                                android:id="@+id/MonHour2"
                                 android:layout_width="match_parent"
                                 android:layout_height="40dp"
                                 android:layout_marginTop="40dp"
-                                android:background="#FFE64D" />
+                                android:background="#3399FF" />
 
                             <TextView
-                                android:id="@+id/monHour3"
+                                android:id="@+id/MonHour3"
                                 android:layout_width="match_parent"
                                 android:layout_height="40dp"
                                 android:layout_marginTop="80dp"
-                                android:background="#00E64D" />
+                                android:background="#3399FF" />
 
                             <TextView
-                                android:id="@+id/monHour4"
+                                android:id="@+id/MonHour4"
                                 android:layout_width="match_parent"
                                 android:layout_height="40dp"
                                 android:layout_marginTop="120dp"
-                                android:background="#FFE64D" />
+                                android:background="#3399FF" />
 
                             <TextView
-                                android:id="@+id/monHour5"
+                                android:id="@+id/MonHour5"
                                 android:layout_width="match_parent"
                                 android:layout_height="40dp"
                                 android:layout_marginTop="160dp"
-                                android:background="#00E64D" />
+                                android:background="#3399FF" />
 
                             <TextView
-                                android:id="@+id/monHour6"
+                                android:id="@+id/MonHour6"
                                 android:layout_width="match_parent"
                                 android:layout_height="40dp"
                                 android:layout_marginTop="200dp"
-                                android:background="#FFE64D" />
+                                android:background="#3399FF" />
 
                             <TextView
-                                android:id="@+id/monHour7"
+                                android:id="@+id/MonHour7"
                                 android:layout_width="match_parent"
                                 android:layout_height="40dp"
                                 android:layout_marginTop="240dp"
-                                android:background="#00E64D" />
+                                android:background="#3399FF" />
 
                             <TextView
-                                android:id="@+id/monHour8"
+                                android:id="@+id/MonHour8"
                                 android:layout_width="match_parent"
                                 android:layout_height="40dp"
                                 android:layout_marginTop="280dp"
-                                android:background="#FFE64D" />
+                                android:background="#3399FF" />
 
 
                         </RelativeLayout>
@@ -406,59 +406,60 @@
 
                             <!--HIT SKA VI!!!!!-->
                             <TextView
-                                android:id="@+id/tisHour1"
+                                android:id="@+id/TueHour1"
                                 android:layout_width="match_parent"
                                 android:layout_height="40dp"
-                                android:background="#FFE64D" />
+                                android:background="#3399FF" />
 
                             <TextView
-                                android:id="@+id/tisHour2"
+                                android:id="@+id/TueHour2"
                                 android:layout_width="match_parent"
                                 android:layout_height="40dp"
                                 android:layout_marginTop="40dp"
-                                android:background="#00E64D" />
+                                android:background="#3399FF" />
 
                             <TextView
-                                android:id="@+id/tisHour3"
+                                android:id="@+id/TueHour3"
                                 android:layout_width="match_parent"
                                 android:layout_height="40dp"
                                 android:layout_marginTop="80dp"
-                                android:background="#FFE64D" />
+                                android:background="#3399FF" />
 
                             <TextView
-                                android:id="@+id/tisHour4"
+                                android:id="@+id/TueHour4"
                                 android:layout_width="match_parent"
                                 android:layout_height="40dp"
+                                android:layout_alignParentStart="true"
                                 android:layout_marginTop="120dp"
-                                android:background="#00E64D" />
+                                android:background="#3399FF" />
 
                             <TextView
-                                android:id="@+id/tisHour5"
+                                android:id="@+id/TueHour5"
                                 android:layout_width="match_parent"
                                 android:layout_height="40dp"
                                 android:layout_marginTop="160dp"
-                                android:background="#FFE64D" />
+                                android:background="#3399FF" />
 
                             <TextView
-                                android:id="@+id/tisHour6"
+                                android:id="@+id/TueHour6"
                                 android:layout_width="match_parent"
                                 android:layout_height="40dp"
                                 android:layout_marginTop="200dp"
-                                android:background="#00E64D" />
+                                android:background="#3399FF" />
 
                             <TextView
-                                android:id="@+id/tisHour7"
+                                android:id="@+id/TueHour7"
                                 android:layout_width="match_parent"
                                 android:layout_height="40dp"
                                 android:layout_marginTop="240dp"
-                                android:background="#FFE64D" />
+                                android:background="#3399FF" />
 
                             <TextView
-                                android:id="@+id/tisHour8"
+                                android:id="@+id/TueHour8"
                                 android:layout_width="match_parent"
                                 android:layout_height="40dp"
                                 android:layout_marginTop="280dp"
-                                android:background="#00E64D" />
+                                android:background="#3399FF" />
 
 
                         </RelativeLayout>
@@ -473,59 +474,59 @@
                             >
 
                             <TextView
-                                android:id="@+id/wedHour1"
+                                android:id="@+id/WedHour1"
                                 android:layout_width="match_parent"
                                 android:layout_height="40dp"
-                                android:background="#00E64D" />
+                                android:background="#3399FF" />
 
                             <TextView
-                                android:id="@+id/wedHour2"
+                                android:id="@+id/WedHour2"
                                 android:layout_width="match_parent"
                                 android:layout_height="40dp"
                                 android:layout_marginTop="40dp"
-                                android:background="#FFE64D" />
+                                android:background="#3399FF" />
 
                             <TextView
-                                android:id="@+id/wedHour3"
+                                android:id="@+id/WedHour3"
                                 android:layout_width="match_parent"
                                 android:layout_height="40dp"
                                 android:layout_marginTop="80dp"
-                                android:background="#00E64D" />
+                                android:background="#3399FF" />
 
                             <TextView
-                                android:id="@+id/wedHour4"
+                                android:id="@+id/WedHour4"
                                 android:layout_width="match_parent"
                                 android:layout_height="40dp"
                                 android:layout_marginTop="120dp"
-                                android:background="#FFE64D" />
+                                android:background="#3399FF" />
 
                             <TextView
-                                android:id="@+id/wedHour5"
+                                android:id="@+id/WedHour5"
                                 android:layout_width="match_parent"
                                 android:layout_height="40dp"
                                 android:layout_marginTop="160dp"
-                                android:background="#00E64D" />
+                                android:background="#3399FF" />
 
                             <TextView
-                                android:id="@+id/wedHour6"
+                                android:id="@+id/WedHour6"
                                 android:layout_width="match_parent"
                                 android:layout_height="40dp"
                                 android:layout_marginTop="200dp"
-                                android:background="#FFE64D" />
+                                android:background="#3399FF" />
 
                             <TextView
-                                android:id="@+id/wedHour7"
+                                android:id="@+id/WedHour7"
                                 android:layout_width="match_parent"
                                 android:layout_height="40dp"
                                 android:layout_marginTop="240dp"
-                                android:background="#00E64D" />
+                                android:background="#3399FF" />
 
                             <TextView
-                                android:id="@+id/wedHour8"
+                                android:id="@+id/WedHour8"
                                 android:layout_width="match_parent"
                                 android:layout_height="40dp"
                                 android:layout_marginTop="280dp"
-                                android:background="#FFE64D" />
+                                android:background="#3399FF" />
 
 
                         </RelativeLayout>
@@ -537,59 +538,59 @@
                             android:layout_weight="1">
 
                             <TextView
-                                android:id="@+id/thuHour1"
+                                android:id="@+id/ThuHour1"
                                 android:layout_width="match_parent"
                                 android:layout_height="40dp"
-                                android:background="#FFE64D" />
+                                android:background="#3399FF" />
 
                             <TextView
-                                android:id="@+id/thuHour2"
+                                android:id="@+id/ThuHour2"
                                 android:layout_width="match_parent"
                                 android:layout_height="40dp"
                                 android:layout_marginTop="40dp"
-                                android:background="#00E64D" />
+                                android:background="#3399FF" />
 
                             <TextView
-                                android:id="@+id/thuHour3"
+                                android:id="@+id/ThuHour3"
                                 android:layout_width="match_parent"
                                 android:layout_height="40dp"
                                 android:layout_marginTop="80dp"
-                                android:background="#FFE64D" />
+                                android:background="#3399FF" />
 
                             <TextView
-                                android:id="@+id/thuHour4"
+                                android:id="@+id/ThuHour4"
                                 android:layout_width="match_parent"
                                 android:layout_height="40dp"
                                 android:layout_marginTop="120dp"
-                                android:background="#00E64D" />
+                                android:background="#3399FF" />
 
                             <TextView
-                                android:id="@+id/thuHour5"
+                                android:id="@+id/ThuHour5"
                                 android:layout_width="match_parent"
                                 android:layout_height="40dp"
                                 android:layout_marginTop="160dp"
-                                android:background="#FFE64D" />
+                                android:background="#3399FF" />
 
                             <TextView
-                                android:id="@+id/thuHour6"
+                                android:id="@+id/ThuHour6"
                                 android:layout_width="match_parent"
                                 android:layout_height="40dp"
                                 android:layout_marginTop="200dp"
-                                android:background="#00E64D" />
+                                android:background="#3399FF" />
 
                             <TextView
-                                android:id="@+id/thuHour7"
+                                android:id="@+id/ThuHour7"
                                 android:layout_width="match_parent"
                                 android:layout_height="40dp"
                                 android:layout_marginTop="240dp"
-                                android:background="#FFE64D" />
+                                android:background="#3399FF" />
 
                             <TextView
-                                android:id="@+id/thuHour8"
+                                android:id="@+id/ThuHour8"
                                 android:layout_width="match_parent"
                                 android:layout_height="40dp"
                                 android:layout_marginTop="280dp"
-                                android:background="#00E64D" />
+                                android:background="#3399FF" />
 
 
                         </RelativeLayout>
@@ -601,59 +602,59 @@
                             android:layout_weight="1">
 
                             <TextView
-                                android:id="@+id/friHour1"
+                                android:id="@+id/FriHour1"
                                 android:layout_width="match_parent"
                                 android:layout_height="40dp"
-                                android:background="#00E64D" />
+                                android:background="#3399FF" />
 
                             <TextView
-                                android:id="@+id/friHour2"
+                                android:id="@+id/FriHour2"
                                 android:layout_width="match_parent"
                                 android:layout_height="40dp"
                                 android:layout_marginTop="40dp"
-                                android:background="#FFE64D" />
+                                android:background="#3399FF" />
 
                             <TextView
-                                android:id="@+id/friHour3"
+                                android:id="@+id/FriHour3"
                                 android:layout_width="match_parent"
                                 android:layout_height="40dp"
                                 android:layout_marginTop="80dp"
-                                android:background="#00E64D" />
+                                android:background="#3399FF" />
 
                             <TextView
-                                android:id="@+id/friHour4"
+                                android:id="@+id/FriHour4"
                                 android:layout_width="match_parent"
                                 android:layout_height="40dp"
                                 android:layout_marginTop="120dp"
-                                android:background="#FFE64D" />
+                                android:background="#3399FF" />
 
                             <TextView
-                                android:id="@+id/friHour5"
+                                android:id="@+id/FriHour5"
                                 android:layout_width="match_parent"
                                 android:layout_height="40dp"
                                 android:layout_marginTop="160dp"
-                                android:background="#00E64D" />
+                                android:background="#3399FF" />
 
                             <TextView
-                                android:id="@+id/friHour6"
+                                android:id="@+id/FriHour6"
                                 android:layout_width="match_parent"
                                 android:layout_height="40dp"
                                 android:layout_marginTop="200dp"
-                                android:background="#FFE64D" />
+                                android:background="#3399FF" />
 
                             <TextView
-                                android:id="@+id/friHour7"
+                                android:id="@+id/FriHour7"
                                 android:layout_width="match_parent"
                                 android:layout_height="40dp"
                                 android:layout_marginTop="240dp"
-                                android:background="#00E64D" />
+                                android:background="#3399FF" />
 
                             <TextView
-                                android:id="@+id/friHour8"
+                                android:id="@+id/FriHour8"
                                 android:layout_width="match_parent"
                                 android:layout_height="40dp"
                                 android:layout_marginTop="280dp"
-                                android:background="#FFE64D" />
+                                android:background="#3399FF" />
 
                         </RelativeLayout>
 
