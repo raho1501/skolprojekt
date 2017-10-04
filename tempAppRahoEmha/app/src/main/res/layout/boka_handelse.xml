@@ -4,6 +4,34 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+<<<<<<< HEAD:tempAppRahoEmha/app/src/main/res/layout/boka_ledighet.xml
+=======
+    <EditText
+        android:id="@+id/inputBoxSubject"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Ämne"
+        android:inputType="textPersonName"
+        android:textAlignment="textStart" />
+
+    <EditText
+        android:id="@+id/inputBoxName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Namn"
+        android:inputType="textPersonName" />
+    <EditText
+        android:id="@+id/inputBoxDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Beskrivning"
+        android:inputType="textPersonName" />
+
+
+>>>>>>> 6244587bd9a7e8ffe710e98135fe58206d008d71:tempAppRahoEmha/app/src/main/res/layout/boka_handelse.xml
     <TextView
         android:id="@+id/datumText"
         android:layout_width="match_parent"
@@ -12,7 +40,7 @@
         android:textAlignment="center"
         android:textColor="#000000"
         android:textSize="24sp"
-        android:textStyle="bold"/>
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/inputDatum"
@@ -38,8 +66,13 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="date"
+<<<<<<< HEAD:tempAppRahoEmha/app/src/main/res/layout/boka_ledighet.xml
         android:onClick="showTimePickerDialog"
         />
+=======
+        android:onClick="showStartTimePickerDialog"
+        android:textAlignment="center" />
+>>>>>>> 6244587bd9a7e8ffe710e98135fe58206d008d71:tempAppRahoEmha/app/src/main/res/layout/boka_handelse.xml
 
     <EditText
         android:id="@+id/inputBoxTitle"
@@ -54,6 +87,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
+<<<<<<< HEAD:tempAppRahoEmha/app/src/main/res/layout/boka_ledighet.xml
         android:hint="Name"
         android:inputType="textPersonName"
         tools:text="Name" />
@@ -84,6 +118,11 @@
         android:hint="Description"
         android:inputType="textPersonName"
         tools:text="Description" />
+=======
+        android:inputType="date"
+        android:onClick="showStopTimePickerDialog"
+        android:textAlignment="center" />
+>>>>>>> 6244587bd9a7e8ffe710e98135fe58206d008d71:tempAppRahoEmha/app/src/main/res/layout/boka_handelse.xml
 
     <Button
         android:id="@+id/saveButton"

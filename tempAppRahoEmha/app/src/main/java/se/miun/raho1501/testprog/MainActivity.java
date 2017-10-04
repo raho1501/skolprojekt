@@ -24,8 +24,11 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 6244587bd9a7e8ffe710e98135fe58206d008d71
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -80,7 +83,7 @@ public class MainActivity extends AppCompatActivity
             Intent i = new Intent(MainActivity.this,SchemaActivity.class);
             startActivity(i);
         } else if (id == R.id.nav_boka_ledighet) {
-            Intent i = new Intent(MainActivity.this, BokaLedighet.class);
+            Intent i = new Intent(MainActivity.this, BokaHandelse.class);
             startActivity(i);
 
         } /*else if (id == R.id.nav_slideshow) {
