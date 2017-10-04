@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <TextView
         android:id="@+id/datumText"
         android:layout_width="match_parent"
@@ -37,34 +39,58 @@
         android:ems="10"
         android:inputType="date"
         android:onClick="showTimePickerDialog"
-        android:textAlignment="center" />
+        />
 
-    <TextView
-        android:id="@+id/StopTidText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Stopptid"
-        android:textAlignment="center"
-        android:textColor="#000000"
-        android:textSize="24sp"
-        android:textStyle="bold"/>
-
-    <TextView
-        android:id="@+id/inputStoptid"
+    <EditText
+        android:id="@+id/inputBoxTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="date"
-        android:onClick="showTimePickerDialog"
-        android:textAlignment="center" />
+        android:hint="Title"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/inputBoxName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Name"
+        android:inputType="textPersonName"
+        tools:text="Name" />
+
+    <EditText
+        android:id="@+id/inputBoxStartTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Start time"
+        android:inputType="textPersonName"
+        tools:text="Start time" />
+
+    <EditText
+        android:id="@+id/inputBoxStopTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Stop time"
+        android:inputType="textPersonName"
+        tools:text="Stop time" />
+
+    <EditText
+        android:id="@+id/inputBoxDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Description"
+        android:inputType="textPersonName"
+        tools:text="Description" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/saveButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAlignment="center"
-        android:visibility="visible"
-        android:text="Submit" />
+
+        android:text="Save" />
 
 
 </LinearLayout>

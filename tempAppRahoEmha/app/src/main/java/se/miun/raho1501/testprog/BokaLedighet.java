@@ -4,21 +4,28 @@ import android.app.Activity;
 import android.icu.text.SimpleDateFormat;
 import android.icu.util.Calendar;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.EditText;
+import android.widget.Button;
+import android.content.Intent;
 
-import org.w3c.dom.Text;
-
-import java.util.Date;
+import java.util.ArrayList;
 
 /**
  * Created by Limeman on 9/27/2017.
+ * Modified by The Tiny Uncle on 9/27/2017.
  */
 
-public class BokaLedighet extends Activity implements DatePickerFragment.OnCompleteListener {
+public class BokaLedighet extends Activity {
 
     private DatePickerFragment datePicker = new DatePickerFragment();
     private TimePickerFragment timePicker = new TimePickerFragment();
+    private Button btn;
+    public String newAppointment;
 
     @Override
     public void onCreate(Bundle savedInstanceState){
@@ -31,35 +38,56 @@ public class BokaLedighet extends Activity implements DatePickerFragment.OnCompl
         TextView tv = (TextView)v;
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         tv.setText(sdf.format(c.getTime()));
+        //Tiny Uncle stuff
+        /*
+        Bundle b = getIntent().getExtras();
+        String dayTab = b.getString("day");
+        */
+        //input from textboxes
 
-        //insert current time into textfields
-        View startTimeView = findViewById(R.id.inputStarttid);
-        View stopTimeView = findViewById(R.id.inputStoptid);
+        final EditText titleText = (EditText) findViewById(R.id.inputBoxDescription);
+        final EditText startTimeText = (EditText) findViewById(R.id.inputBoxStartTime);
+        final EditText stopTimeText = (EditText) findViewById(R.id.inputBoxStopTime);
+        final EditText nameText = (EditText) findViewById(R.id.inputBoxName);
+        final EditText descriptionText = (EditText) findViewById(R.id.inputBoxDescription);
+        //end
+        //add to textarray
+        btn = (Button) findViewById(R.id.saveButton);
 
-        TextView startTimeTextView = (TextView)startTimeView;
-        TextView stopTimeTextView = (TextView)stopTimeView;
 
-        SimpleDateFormat startTimeSdf = new SimpleDateFormat("HH:mm");
-        SimpleDateFormat stopTimeSdf = new SimpleDateFormat("HH:mm");
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
-        startTimeTextView.setText(startTimeSdf.format(c.getTime()));
-        c.add(Calendar.HOUR, 1);
-        stopTimeTextView.setText(stopTimeSdf.format(c.getTime()));
+                // this line adds the data of your EditText and puts in your array
+                String title = titleText.getText().toString();
+                String start = startTimeText.getText().toString();
+                String stop = stopTimeText.getText().toString();
+                String name = nameText.getText().toString();
+                String description = descriptionText.getText().toString();
+                newAppointment = title+"\n"+name+"\n"+start+" till "+stop +"\n"+description;
+                // next thing you have to do is check if your adapter has changed
+                Intent inRes = new Intent();
+                inRes.putExtra("result",newAppointment);
+                setResult(RESULT_OK,inRes);
+
+                finish();
+            }
+        });
+
 
     }
 
-    public void showDatePickerDialog(View v){
+    public void showDatePickerDialog(View v)
+    {
         datePicker.show(getFragmentManager(), "datePicker");
     }
 
-    public void showTimePickerDialog(View v){
+    public void showTimePickerDialog(View v)
+    {
+
         timePicker.show(getFragmentManager(), "timePicker");
     }
-
-    @Override
-    public void onComplete(String date) {
-        View v = findViewById(R.id.inputDatum);
-        TextView tv = (TextView)v;
-        tv.setText(date);
-    }
 }
+
+
