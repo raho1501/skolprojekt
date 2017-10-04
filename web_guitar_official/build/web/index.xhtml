@@ -15,7 +15,7 @@
             <h:column>Namn: #{customer.firstName} #{customer.lastName}</h:column>
             <h:column>
                 <h:form>
-                    <h:commandButton value="Ta bort" action="#{appointmentManagedBean.removeAppointment(appointment)}"></h:commandButton>
+                    <h:commandButton value="Ta bort" action="#{appointmentManagedBean.removeAppointment(customer.appointmentIdFk)}"></h:commandButton>
                 </h:form>
             </h:column>
         </h:dataTable>
