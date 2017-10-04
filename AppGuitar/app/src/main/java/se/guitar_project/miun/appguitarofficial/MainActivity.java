@@ -1,6 +1,5 @@
 package se.guitar_project.miun.appguitarofficial;
 
-
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -51,7 +50,6 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void postTest(){
-
         XmlRestInterface rest = new XmlRestInterface("POST" ,
                 new XmlRestInterface.AsyncResponse()
                 {
@@ -60,12 +58,13 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void processFinish(String output)
                     {
-                        setText("done");
+                        setText(output);
                     }
                 });
 
         rest.setParam(test());
         rest.execute("http://10.0.2.2:8080/web_guitar_official/webresources/beans.customer");
+        //rest.execute("http://localhost:8080/web_guitar_official/webresources/beans.customer");
     }
 
     public void getTest(){
@@ -89,23 +88,56 @@ public class MainActivity extends AppCompatActivity {
 
     public XmlDocument test()
     {
-        XmlDocument doc = new XmlDocument();
-        XmlElement customer = new XmlElement("customer");
-        XmlElement email = new XmlElement("email","linus@hej.se");
-        XmlElement firstName = new XmlElement("firstName","Linus");
-        XmlElement lastName = new XmlElement("lastName", "Nilsson");
-        XmlElement phoneNr = new XmlElement("phoneNr", "1337");
+        EditText nameText = (EditText)findViewById(R.id.textName);
+        EditText lastText = (EditText)findViewById(R.id.textLast);
+        EditText emailText = (EditText)findViewById(R.id.textEmail);
+        EditText phoneText = (EditText)findViewById(R.id.textPhone);
 
+        XmlDocument doc = new XmlDocument();/*
+        XmlElement customer = new XmlElement("customer");
+        XmlElement email = new XmlElement("email", emailText.getText().toString());
+        XmlElement firstName = new XmlElement("firstName",nameText.getText().toString());
+        XmlElement lastName = new XmlElement("lastName", lastText.getText().toString());
+        XmlElement phoneNr = new XmlElement("phoneNr", phoneText.getText().toString());*/
+
+
+        XmlElement customer = new XmlElement("customer");
+        XmlElement email = new XmlElement("email", "ASDF@mail.com");
+        XmlElement firstName = new XmlElement("firstName", "qwer");
+        XmlElement lastName = new XmlElement("lastName", "lastnameasdf");
+        XmlElement phoneNr = new XmlElement("phoneNr", "123");
+
+        XmlElement appointmentIdFk = new XmlElement("appointmentIdFk");
+        XmlElement info = new XmlElement("info", "info kommer här");
+
+
+
+        XmlElement timeReservationIdFk = new XmlElement("timeReservationIdFk");
+        XmlElement reservationDate = new XmlElement("reservationDate", "2017/10/25");
+        XmlElement startTime = new XmlElement("startTime", "10:10");
+        XmlElement stopTime = new XmlElement("stopTime", "10:10");
+
+
+        timeReservationIdFk.appendChild(reservationDate);
+        timeReservationIdFk.appendChild(startTime);
+        timeReservationIdFk.appendChild(stopTime);
+
+        appointmentIdFk.appendChild(timeReservationIdFk);
+        appointmentIdFk.appendChild(info);
+
+        customer.appendChild(appointmentIdFk);
         customer.appendChild(email);
         customer.appendChild(firstName);
         customer.appendChild(lastName);
         customer.appendChild(phoneNr);
+
         doc.appendChild(customer);
+        setText(doc.toString());
         return doc;
     }
     public void setText(String string)
     {
-        TextView text = null;//new TextView(this);
+        TextView text = null;
         text = (TextView) findViewById(R.id.textfield);
         text.append("\n"+string);
         //text.setText(string);
