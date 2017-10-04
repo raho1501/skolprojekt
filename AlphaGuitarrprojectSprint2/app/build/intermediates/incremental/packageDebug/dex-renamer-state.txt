@@ -1,0 +1,7 @@
+#Tue Oct 03 11:24:56 CEST 2017
+base.0=C\:\\Users\\Limeman\\AndroidStudioProjects\\AlphaGuitarrprojectSprint2\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10000\\instant-run-bootstrap_8064b4e149d8b9f3feab66f75f4c83d49bc499a6
+renamed.1=classes2.dex
+renamed.0=classes.dex
+file.1=C\:\\Users\\Limeman\\AndroidStudioProjects\\AlphaGuitarrprojectSprint2\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10000\\instant-run_113cf4d7429477bd33d54624bc0699c206a921c2\\classes.dex
+base.1=C\:\\Users\\Limeman\\AndroidStudioProjects\\AlphaGuitarrprojectSprint2\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10000\\instant-run_113cf4d7429477bd33d54624bc0699c206a921c2
+file.0=C\:\\Users\\Limeman\\AndroidStudioProjects\\AlphaGuitarrprojectSprint2\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10000\\instant-run-bootstrap_8064b4e149d8b9f3feab66f75f4c83d49bc499a6\\classes.dex
