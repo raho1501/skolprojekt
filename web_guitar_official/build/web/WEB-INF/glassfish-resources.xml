@@ -10,6 +10,5 @@
         <property name="URL" value="jdbc:derby://localhost:1527/guitar_project"/>
         <property name="driverClass" value="org.apache.derby.jdbc.ClientDriver"/>
     </jdbc-connection-pool>
-    <jdbc-resource enabled="true" jndi-name="java:app/guitar project" object-type="user" pool-name="derby_net_guitar_project_korvPool"/>
     <jdbc-resource enabled="true" jndi-name="java:app/guitar_project" object-type="user" pool-name="derby_net_guitar_project_korvPool"/>
 </resources>

@@ -136,7 +136,7 @@ public class Customer implements Serializable {
 
     @Override
     public String toString() {
-        return "beans.Customer[ customerId=" + customerId + " ]";
+        return "service.Customer[ customerId=" + customerId + " ]";
     }
     
 }

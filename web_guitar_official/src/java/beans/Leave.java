@@ -86,7 +86,7 @@ public class Leave implements Serializable {
 
     @Override
     public String toString() {
-        return "beans.Leave[ leaveId=" + leaveId + " ]";
+        return "service.Leave[ leaveId=" + leaveId + " ]";
     }
     
 }

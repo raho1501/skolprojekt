@@ -148,7 +148,7 @@ public class TimeReservation implements Serializable {
 
     @Override
     public String toString() {
-        return "beans.TimeReservation[ timeReservationId=" + timeReservationId + " ]";
+        return "service.TimeReservation[ timeReservationId=" + timeReservationId + " ]";
     }
     
 }

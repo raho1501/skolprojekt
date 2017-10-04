@@ -114,7 +114,7 @@ public class Appointment implements Serializable {
 
     @Override
     public String toString() {
-        return "beans.Appointment[ appointmentId=" + appointmentId + " ]";
+        return "service.Appointment[ appointmentId=" + appointmentId + " ]";
     }
     
 }

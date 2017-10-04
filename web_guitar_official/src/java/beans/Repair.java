@@ -99,7 +99,7 @@ public class Repair implements Serializable {
 
     @Override
     public String toString() {
-        return "beans.Repair[ repairId=" + repairId + " ]";
+        return "service.Repair[ repairId=" + repairId + " ]";
     }
     
 }
