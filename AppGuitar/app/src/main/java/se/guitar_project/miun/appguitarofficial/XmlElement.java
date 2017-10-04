@@ -39,6 +39,9 @@ public class XmlElement
     {
         element = document.createElement(tagName);;
     }
+
+    public String getTag (){ return element.getTagName(); }
+
     public void appendChild(XmlElement xmlElement)
     {
         Element temp = xmlElement.getElement();
