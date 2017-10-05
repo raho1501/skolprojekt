@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.weekView) {
             Intent i = new Intent(this, WeekView.class);
-            startActivity(i);
+            startActivityForResult(i, 1);
 
         } else if (id == R.id.bokaHandelse) {
 

@@ -14,6 +14,7 @@ import java.util.Arrays;
 
 /**
  * Created by Limeman on 9/27/2017.
+ * BokaHandelse class used to receive bookings from the user
  */
 
 public class BokaHandelse extends Activity implements DatePickerFragment.OnCompleteListener, TimePickerFragment.OnCompleteTimeListener {

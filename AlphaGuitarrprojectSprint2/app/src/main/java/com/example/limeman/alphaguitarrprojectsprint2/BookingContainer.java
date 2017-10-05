@@ -35,7 +35,7 @@ public class BookingContainer {
         Calendar c = Calendar.getInstance();
         c.set(year, month-1 ,day);
 
-        SimpleDateFormat tempday = new SimpleDateFormat("EEEE", Locale.ENGLISH);
+        SimpleDateFormat tempday = new SimpleDateFormat("EEE", Locale.ENGLISH);
         dayOfWeek = tempday.format(c.getTime());
     }
 }
