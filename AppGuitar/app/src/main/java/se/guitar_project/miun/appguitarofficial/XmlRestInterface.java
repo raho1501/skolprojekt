@@ -88,14 +88,21 @@ public class XmlRestInterface extends AsyncTask<String, Intent, String> {
     {
         String content = "";
         String paramString = param.toString();
-        HttpURLConnection connection = (HttpURLConnection)url.openConnection();
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setDoOutput(true);
         connection.setRequestMethod(method);
         connection.setRequestProperty("Content-Type", "application/xml");
-        connection.setRequestProperty("Content-Length", String.valueOf(paramString.length()));
+        //connection.setRequestProperty("Content-Length", String.valueOf(paramString.length()));
         OutputStream output = connection.getOutputStream();
         output.write(paramString.getBytes());
-        content = connection.getResponseMessage();
+
+        InputStream input = connection.getInputStream();
+        InputStreamReader inputReader = new InputStreamReader(input);
+
+        int temp = 0;
+        while ((temp = inputReader.read()) != -1) {
+            content += (char) temp;
+        }
         return content;
     }
     public void setParam(XmlDocument xml) //TODO ta in ett helt gäng med sånhär med "..." notationen.

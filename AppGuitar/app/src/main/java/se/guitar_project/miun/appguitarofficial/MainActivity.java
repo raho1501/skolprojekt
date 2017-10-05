@@ -63,8 +63,7 @@ public class MainActivity extends AppCompatActivity {
                 });
 
         rest.setParam(test());
-        rest.execute("http://10.0.2.2:8080/web_guitar_official/webresources/beans.customer");
-        //rest.execute("http://localhost:8080/web_guitar_official/webresources/beans.customer");
+        rest.execute("http://10.0.2.2:8080/web_guitar_official/webresources/beans.timereservation/test");
     }
 
     public void getTest(){
@@ -88,19 +87,20 @@ public class MainActivity extends AppCompatActivity {
 
     public XmlDocument test()
     {
-        EditText nameText = (EditText)findViewById(R.id.textName);
+        /*EditText nameText = (EditText)findViewById(R.id.textName);
         EditText lastText = (EditText)findViewById(R.id.textLast);
         EditText emailText = (EditText)findViewById(R.id.textEmail);
         EditText phoneText = (EditText)findViewById(R.id.textPhone);
-
-        XmlDocument doc = new XmlDocument();/*
+        */
+        XmlDocument doc;// = new XmlDocument();
+        /*
         XmlElement customer = new XmlElement("customer");
         XmlElement email = new XmlElement("email", emailText.getText().toString());
         XmlElement firstName = new XmlElement("firstName",nameText.getText().toString());
         XmlElement lastName = new XmlElement("lastName", lastText.getText().toString());
         XmlElement phoneNr = new XmlElement("phoneNr", phoneText.getText().toString());*/
 
-
+        /*
         XmlElement customer = new XmlElement("customer");
         XmlElement email = new XmlElement("email", "ASDF@mail.com");
         XmlElement firstName = new XmlElement("firstName", "qwer");
@@ -133,6 +133,13 @@ public class MainActivity extends AppCompatActivity {
 
         doc.appendChild(customer);
         setText(doc.toString());
+
+        */
+
+        doc = new XmlDocument("<timeReservation><reservationDate>1014-10-10T00:00:00+01:00</reservationDate><startTime>1970-01-01T10:10:00+01:00</startTime><stopTime>1970-01-01T11:10:00+01:00</stopTime></timeReservation>",
+                "timeResarvation"
+        );
+
         return doc;
     }
     public void setText(String string)
