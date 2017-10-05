@@ -162,4 +162,10 @@ public class DayView extends AppCompatActivity {
             return null;
         }
     }
+
+    @Override
+    public void onBackPressed(){
+        finish();
+    }
 }
+
