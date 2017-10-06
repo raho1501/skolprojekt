@@ -52,9 +52,8 @@ public class TimeReservationFacadeREST extends AbstractFacade<TimeReservation> {
     public Response create2(TimeReservation entity)
     {
         super.create(entity);
-        getEntityManager().flush();
         String temp = entity.getTimeReservationId().toString();
-         return Response.status(201).entity(temp).build(); //TODO dela upp raden.
+        return Response.status(201).entity(temp).build(); //TODO dela upp raden.
     }
 
     @PUT

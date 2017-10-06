@@ -13,7 +13,6 @@ import org.w3c.dom.Element;
 import java.util.Vector;
 
 public class MainActivity extends AppCompatActivity {
-
     private static String textContent = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         button2.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                getTest();
+
             }
         });
 
@@ -50,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void postTest(){
+        String retVal = "";
         XmlRestInterface rest = new XmlRestInterface("POST" ,
                 new XmlRestInterface.AsyncResponse()
                 {
@@ -58,11 +58,11 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void processFinish(String output)
                     {
-                        setText(output);
+                        postAppointment(output);
                     }
                 });
 
-        rest.setParam(test());
+        rest.setParam(timeResarvationTest());
         rest.execute("http://10.0.2.2:8080/web_guitar_official/webresources/beans.timereservation/test");
     }
 
@@ -83,47 +83,93 @@ public class MainActivity extends AppCompatActivity {
         rest2.execute("http://10.0.2.2:8080/web_guitar_official/webresources/beans.customer");
 
     }
-
-
-    public XmlDocument test()
+    public void postAppointment(String fk)
     {
-        /*EditText nameText = (EditText)findViewById(R.id.textName);
+        XmlRestInterface rest = new XmlRestInterface("POST" ,
+                new XmlRestInterface.AsyncResponse()
+                {
+                    //Implementera processFinish som körs när tasken är klar.
+                    //Anledningen till att vi överlagrar den här är att vi ska komma åt medlemar här.
+                    @Override
+                    public void processFinish(String output)
+                    {
+                        postCustomer(output);
+                    }
+                });
+        rest.setParam(appointmentTest(fk));
+        rest.execute("http://10.0.2.2:8080/web_guitar_official/webresources/beans.appointment/test");
+    }
+    public void postCustomer(String fk)
+    {
+        XmlRestInterface rest = new XmlRestInterface("POST" ,
+                new XmlRestInterface.AsyncResponse()
+                {
+                    //Implementera processFinish som körs när tasken är klar.
+                    //Anledningen till att vi överlagrar den här är att vi ska komma åt medlemar här.
+                    @Override
+                    public void processFinish(String output)
+                    {
+
+                    }
+                });
+        rest.setParam(customer(fk));
+        rest.execute("http://10.0.2.2:8080/web_guitar_official/webresources/beans.customer/test");
+    }
+
+    public XmlDocument appointmentTest(String fk)
+    {
+        XmlDocument doc = new XmlDocument();
+        XmlElement appointment = new XmlElement("appointment");
+
+        XmlElement info = new XmlElement("info", "info kommer här");
+        XmlElement timeReservationFk = new XmlElement("timeReservationIdFk", fk);
+
+        appointment.appendChild(timeReservationFk);
+        appointment.appendChild(info);
+
+        doc.appendChild(appointment);
+        return doc;
+    }
+    public XmlDocument timeResarvationTest()
+    {
+        XmlDocument doc = new XmlDocument();
+        XmlElement timeResarvation = new XmlElement("timeReservation");
+
+        XmlElement reservationDate = new XmlElement("reservationDate", "1014-10-10T00:00:00+01:00");
+        XmlElement startTime = new XmlElement("startTime", "1014-10-10T10:00:00+01:00");
+        XmlElement stopTime = new XmlElement("stopTime", "1014-10-10T00:11:00+01:00");
+
+        timeResarvation.appendChild(reservationDate);
+        timeResarvation.appendChild(startTime);
+        timeResarvation.appendChild(stopTime);
+
+        doc.appendChild(timeResarvation);
+        return doc;
+    }
+    public XmlDocument customer(String fk)
+    {
+        XmlDocument doc = new XmlDocument();
+
+        EditText nameText = (EditText)findViewById(R.id.textName);
         EditText lastText = (EditText)findViewById(R.id.textLast);
         EditText emailText = (EditText)findViewById(R.id.textEmail);
         EditText phoneText = (EditText)findViewById(R.id.textPhone);
-        */
-        XmlDocument doc;// = new XmlDocument();
-        /*
-        XmlElement customer = new XmlElement("customer");
+
+
+       /* XmlElement customer = new XmlElement("customer");
         XmlElement email = new XmlElement("email", emailText.getText().toString());
         XmlElement firstName = new XmlElement("firstName",nameText.getText().toString());
         XmlElement lastName = new XmlElement("lastName", lastText.getText().toString());
         XmlElement phoneNr = new XmlElement("phoneNr", phoneText.getText().toString());*/
 
-        /*
+
         XmlElement customer = new XmlElement("customer");
         XmlElement email = new XmlElement("email", "ASDF@mail.com");
         XmlElement firstName = new XmlElement("firstName", "qwer");
         XmlElement lastName = new XmlElement("lastName", "lastnameasdf");
         XmlElement phoneNr = new XmlElement("phoneNr", "123");
 
-        XmlElement appointmentIdFk = new XmlElement("appointmentIdFk");
-        XmlElement info = new XmlElement("info", "info kommer här");
-
-
-
-        XmlElement timeReservationIdFk = new XmlElement("timeReservationIdFk");
-        XmlElement reservationDate = new XmlElement("reservationDate", "2017/10/25");
-        XmlElement startTime = new XmlElement("startTime", "10:10");
-        XmlElement stopTime = new XmlElement("stopTime", "10:10");
-
-
-        timeReservationIdFk.appendChild(reservationDate);
-        timeReservationIdFk.appendChild(startTime);
-        timeReservationIdFk.appendChild(stopTime);
-
-        appointmentIdFk.appendChild(timeReservationIdFk);
-        appointmentIdFk.appendChild(info);
+        XmlElement appointmentIdFk = new XmlElement("appointmentIdFk", fk);
 
         customer.appendChild(appointmentIdFk);
         customer.appendChild(email);
@@ -132,13 +178,10 @@ public class MainActivity extends AppCompatActivity {
         customer.appendChild(phoneNr);
 
         doc.appendChild(customer);
-        setText(doc.toString());
 
-        */
-
-        doc = new XmlDocument("<timeReservation><reservationDate>1014-10-10T00:00:00+01:00</reservationDate><startTime>1970-01-01T10:10:00+01:00</startTime><stopTime>1970-01-01T11:10:00+01:00</stopTime></timeReservation>",
+        /*doc = new XmlDocument("<timeReservation><reservationDate>1014-10-10T00:00:00+01:00</reservationDate><startTime>1970-01-01T10:10:00+01:00</startTime><stopTime>1970-01-01T11:10:00+01:00</stopTime></timeReservation>",
                 "timeResarvation"
-        );
+        );*/
 
         return doc;
     }
