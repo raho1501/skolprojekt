@@ -122,6 +122,17 @@
                     {
                         start.minute(0);
                     }
+                    var currentDate = moment();
+                    if(start.week() < currentDate.week())
+                    {
+                        return;
+                    }
+                    else if((start.day() < currentDate.day()) &&
+                            (start.week() == currentDate.week()))
+                    {
+                        return;
+                    }
+                    
                     end.minute(0);
                     end.hour(start.hour() + 1);
                     end.day(start.day());
@@ -132,7 +143,7 @@
                     }
                     currentEvent = {
                         id: newid,
-                        title: 'New Event',
+                        title: 'Ny konsultation',
                         start: start,
                         end: end,
                         allDay: false,
