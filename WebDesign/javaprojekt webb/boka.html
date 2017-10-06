@@ -112,7 +112,7 @@
 			snapDuration: "00:30:00",
 			height: "auto",
 			selectable: true,
-			weekends: false,
+			weekends: true,
 			selectOverlap: false,
 			viewRender: function() {
 				displayEvents();
@@ -132,7 +132,8 @@
 				}
 				currentEvent = {
 					id: newid,
-					title: 'New Event',
+					title: 'Konsultation',
+					description: 'Klicka igen för att bekräfta bokningen',
 					start: start,
 					end: end,
 					allDay: false,

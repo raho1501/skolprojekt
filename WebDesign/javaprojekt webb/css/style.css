@@ -2,13 +2,24 @@
 @import url(font-awesome.min.css);
 @import url("http://fonts.googleapis.com/css?family=Roboto:500,300");
 
+	.header {
+		width: 100%;
+	}
+	.card {
+		display: block;
+		border: 1px solid #666f77;
+		border-radius: 5px;
+		float: left;
+		height: 300px;
+	}
+
 	body {
 		background: #fff;
 	}
 
 	body, input, select, textarea {
 		color: #555f66;
-		font-family: "Roboto", Helvetica, sans-serif;
+		font-family: "Roboto", Helvetica, sans-serif !important;
 		font-size: 14pt;
 		font-weight: 300;
 		line-height: 1.75em;
@@ -19,9 +30,9 @@
 		text-decoration: underline;
 	}
 
-		a:hover {
-			text-decoration: none;
-		}
+	a:hover {
+		text-decoration: none;
+	}
 
 	strong, b {
 		color: #666f77;
