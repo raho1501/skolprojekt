@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>Boka tid</title>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <meta name="description" content="" />
+        <meta name="keywords" content="" />
+
+        <script type="text/javascript" src="js/jquery.min.js"></script>
+        <script type="text/javascript" src="js/skel.min.js"></script>
+        <script type="text/javascript" src="js/skel-layers.min.js"></script>
+        <script type="text/javascript" src="js/init.js"></script>
+
+
+        <link rel="stylesheet" href="css/style.css" />
+        <link rel='stylesheet' href='fullcalendar/fullcalendar.css' />
+        <script type="text/javascript" src='js/moment.min.js'></script>
+        <script type="text/javascript" src='fullcalendar/fullcalendar.js'></script>
+        <script type="text/javascript" src='fullcalendar/locale/sv.js'></script>
+        <link rel='stylesheet' href='jquery-ui/jquery-ui.css' />
+        <script type="text/javascript" src="jquery-ui/jquery-ui.js"></script>
+    </head>
+    <body>
+        <div>
+            <div id="boka1" style ="margin-bottom:25px">
+                <div style="margin: 10px" id="calendar"></div>
+            </div>
+        </div>
+        <script type="text/javascript">
+            //<![CDATA[
+            $(document).ready(function() {
+                $("#calendar").fullCalendar();
+            });
+            //]]>
+        </script>
+    </body>
+</html>
