@@ -48,7 +48,6 @@ public class AppointmentFacadeREST extends AbstractFacade<Appointment> {
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @Path("test")
-    @Transactional
     public Response create2(Appointment entity)
     {
         super.create(entity);

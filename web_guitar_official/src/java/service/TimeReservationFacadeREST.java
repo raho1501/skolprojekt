@@ -48,7 +48,6 @@ public class TimeReservationFacadeREST extends AbstractFacade<TimeReservation> {
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @Path("test")
-    @Transactional
     public Response create2(TimeReservation entity)
     {
         super.create(entity);

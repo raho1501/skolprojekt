@@ -48,7 +48,6 @@ public class CustomerFacadeREST extends AbstractFacade<Customer> {
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @Path("test")
-    @Transactional
     public Response create2(Customer entity)
     {
         super.create(entity);

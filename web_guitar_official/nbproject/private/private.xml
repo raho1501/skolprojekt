@@ -6,6 +6,9 @@
             <file>file:/C:/Users/linus/Documents/GitHub/skolprojekt/web_guitar_official/src/java/service/AppointmentFacadeREST.java</file>
             <file>file:/C:/Users/linus/Documents/GitHub/skolprojekt/web_guitar_official/src/java/service/TimeReservationFacadeREST.java</file>
             <file>file:/C:/Users/linus/Documents/GitHub/skolprojekt/web_guitar_official/src/java/service/CustomerFacadeREST.java</file>
+            <file>file:/C:/Users/linus/Documents/GitHub/skolprojekt/web_guitar_official/src/java/service/RepairFacadeREST.java</file>
+            <file>file:/C:/Users/linus/Documents/GitHub/skolprojekt/web_guitar_official/src/java/service/LeaveFacadeREST.java</file>
+            <file>file:/C:/Users/linus/Documents/GitHub/skolprojekt/web_guitar_official/src/java/service/ApplicationConfig.java</file>
             <file>file:/C:/Users/linus/Documents/GitHub/skolprojekt/web_guitar_official/src/java/service/AbstractFacade.java</file>
         </group>
     </open-files>
