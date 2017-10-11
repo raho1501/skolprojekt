@@ -12,4 +12,8 @@ import retrofit2.http.GET;
 public interface RestInterface {
     @GET("beans.timereservation")
     Call<TimeReservations> getAllTimeResarvations();
+
+    @GET("beans.customer")
+    Call<Customers> getAllCustomers();
 }
+

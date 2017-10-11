@@ -25,22 +25,24 @@ public class MainActivity extends AppCompatActivity {
         Retrofit retrofit = builder.build();
 
         RestInterface client = retrofit.create(RestInterface.class);
-        Call<TimeReservations> call = client.getAllTimeResarvations();
+        Call<Customers> call = client.getAllCustomers();
 
-        call.enqueue(new Callback<TimeReservations>() {
+        call.enqueue(new Callback<Customers>() {
             @Override
-            public void onResponse(Call<TimeReservations> call, Response<TimeReservations> response) {
-                TimeReservations timeReservations= response.body();
+            public void onResponse(Call<Customers> call, Response<Customers> response) {
+                Customers customers= response.body();
 
 
-                for (int i = 0; i < 3; i++)
+                for (int i = 0; i < 1; i++)
                 {
-                    appendText(String.valueOf(timeReservations.getTimeReservation(i).getTimeResarvationId()));
+                    appendText(String.valueOf(customers.getCustomer(i).getFirstName()));
                 }
+
+
             }
 
             @Override
-            public void onFailure(Call<TimeReservations> call, Throwable t) {
+            public void onFailure(Call<Customers> call, Throwable t) {
                 appendText("FAIL!");
             }
         });
