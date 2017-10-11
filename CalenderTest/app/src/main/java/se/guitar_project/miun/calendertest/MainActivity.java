@@ -34,6 +34,8 @@ public class MainActivity extends AppCompatActivity implements WeekView.EventCli
         // Set long press listener for events.
         weekView.setEventLongPressListener(this);
 
+        //Set the number of visible days.
+        weekView.setNumberOfVisibleDays(5);
     }
     @Override
     public void onEventClick(WeekViewEvent event, RectF eventRect) {
@@ -48,6 +50,11 @@ public class MainActivity extends AppCompatActivity implements WeekView.EventCli
     public List<WeekViewEvent> onMonthChange(int newYear, int newMonth){
         // Populate the week view with some events.
         List<WeekViewEvent> events = new ArrayList<WeekViewEvent>();
+        Calendar startTime = Calendar.getInstance();
+        Calendar endTime = (Calendar) startTime.clone();
+        endTime.add(Calendar.HOUR, 4);
+        WeekViewEvent event = new WeekViewEvent(1, "Random", startTime, endTime);
+        events.add(event);
         return events;
     }
 }
