@@ -4,29 +4,44 @@
     Author     : markus
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="beans.CustomerManagedBean"%>
+<%@page import="beans.Customer"%>
+<%@page import="javax.faces.context.FacesContext"%>
+<%@taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
+<%@taglib uri="http://java.sun.com/jsf/core" prefix="f"%>
+<%@page language="java" contentType="text/html" pageEncoding="UTF-8"%>
+
+<%
+        FacesContext context = FacesContext.getCurrentInstance();
+        CustomerManagedBean customerManagedBean = (CustomerManagedBean)context.getELContext().getELResolver().getValue(context.getELContext(), null, "customerManagedBean");
+        
+        for(Customer customer : customerManagedBean.getCustomers())
+        {
+                
+        }
+%>
+
 <!DOCTYPE html>
-<html>
+<html xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Boka tid</title>
         <meta name="description" content="" />
         <meta name="keywords" content="" />
 
-        <script src="js/jquery.min.js"></script>
-        <script src="js/skel.min.js"></script>
-        <script src="js/skel-layers.min.js"></script>
-        <script src="js/init.js"></script>
+        <script src="resources/js/jquery.min.js"></script>
+        <script src="resources/js/skel.min.js"></script>
+        <script src="resources/js/skel-layers.min.js"></script>
+        <script src="resources/js/init.js"></script>
 
 
-        <link rel="stylesheet" href="css/style.css" />
-        <link rel='stylesheet' href='fullcalendar/fullcalendar.css' />
-        <script src='js/jquery.min.js'></script>
-        <script src='js/moment.min.js'></script>
-        <script src='fullcalendar/fullcalendar.js'></script>
-        <script src='fullcalendar/locale/sv.js'></script>
-        <link rel='stylesheet' href='jquery-ui/jquery-ui.css' />
-        <script src="jquery-ui/jquery-ui.js"></script>
+        <link rel="stylesheet" href="resources/css/style.css" />
+        <link rel='stylesheet' href='resources/fullcalendar/fullcalendar.css' />
+        <script src='resources/js/moment.min.js'></script>
+        <script src='resources/fullcalendar/fullcalendar.js'></script>
+        <script src='resources/fullcalendar/locale/sv.js'></script>
+        <link rel='stylesheet' href='resources/jquery-ui/jquery-ui.css' />
+        <script src="resources/jquery-ui/jquery-ui.js"></script>
     </head>
     <body id="top">
         <!-- Header -->
@@ -69,6 +84,27 @@
             // page is now ready, initialize the calendar...
             var events = [];
             var currentEvent;
+            
+            function insertEvent(name, date, startTime, endTime)
+            {
+                var startValue = moment(date + " " + startTime, "MM/DD/YYYY HH:mm");
+                var endValue = moment(date + " " + endTime, "MM/DD/YYYY HH:mm");
+                
+                var newid = 0;
+                if(events.length > 0)
+                {
+                    newid = events[events.length-1].id + 1;
+                }
+                var event = {
+                    id: newid,
+                    title: name,
+                    start: startValue,
+                    end: endValue,
+                    allDay: false,
+                    editable: false,
+                    color: 'red'};
+                events.push(event);
+            }
 
             function displayEvents()
             {
@@ -83,7 +119,6 @@
                 events.push(currentEvent);
                 $('#calendar').fullCalendar('refetchEvents');
                 displayEvents();
-                // TODO: Gör så att dialog rutan försvinner.
                 $('#dialog').dialog("close");
                 currentEvent = (function () { return; });
             });
@@ -91,6 +126,10 @@
             $('#calendar').fullCalendar({
                     // put your options and callbacks here
                 eventClick: function(calEvent, jsEvent, view) {
+                    if(currentEvent == undefined)
+                    {
+                        return;
+                    }
                     if(calEvent.id == currentEvent.id)
                     {
                         $(function() {
@@ -153,7 +192,8 @@
                     $('#calendar').fullCalendar('renderEvent', currentEvent);
                 },
                 timeFormat: 'H(:mm)' // uppercase H for 24-hour clock
-            })
+            });
+            insertEvent("Markus", "10/10/2017", "11:00", "12:00");
             displayEvents();
         });
         </script>
