@@ -9,5 +9,6 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Gallery Bitches" />
+        android:text="Veckoschema här"
+        android:textAlignment="center" />
 </LinearLayout>

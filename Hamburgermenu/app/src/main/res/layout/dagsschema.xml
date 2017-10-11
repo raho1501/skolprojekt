@@ -4,10 +4,10 @@
 
     <EditText
         android:id="@+id/editText2"
-        android:layout_width="188dp"
+        android:layout_width="match_parent"
         android:layout_height="64dp"
         android:ems="10"
         android:inputType="text"
-        android:text="Main Fragment!"
+        android:text="Dagschema här"
         android:textAlignment="center" />
 </FrameLayout>

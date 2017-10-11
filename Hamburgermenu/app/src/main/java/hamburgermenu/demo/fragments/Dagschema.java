@@ -13,13 +13,13 @@ import com.example.markus.hamburgermenu.R;
  * Created by Markus on 2017-10-11.
  */
 
-public class MainFragment extends Fragment {
+public class Dagschema extends Fragment {
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+        View rootView = inflater.inflate(R.layout.dagsschema, container, false);
 
         return rootView;
     }

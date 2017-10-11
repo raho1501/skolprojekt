@@ -13,14 +13,14 @@ import com.example.markus.hamburgermenu.R;
  * Created by Markus on 2017-10-11.
  */
 
-public class GalleryFragment extends Fragment{
+public class Ekonomi extends Fragment {
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.fragment_gallery, container, false);
+        View rootView = inflater.inflate(R.layout.ekonomi, container, false);
 
         return rootView;
     }
-}
+};

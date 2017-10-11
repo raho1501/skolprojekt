@@ -14,9 +14,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import hamburgermenu.demo.fragments.GalleryFragment;
-import hamburgermenu.demo.fragments.ImportFragment;
-import hamburgermenu.demo.fragments.MainFragment;
+import hamburgermenu.demo.fragments.Bokahandelse;
+import hamburgermenu.demo.fragments.Dagschema;
+import hamburgermenu.demo.fragments.Ekonomi;
+import hamburgermenu.demo.fragments.Veckoschema;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -47,7 +48,7 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         FragmentManager fn = getSupportFragmentManager();
-        fn.beginTransaction().replace(R.id.content_frame, new MainFragment()).commit();
+        fn.beginTransaction().replace(R.id.content_frame, new Dagschema()).commit();
     }
 
     @Override
@@ -91,16 +92,15 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
-            fn.beginTransaction().replace(R.id.content_frame, new ImportFragment()).commit();
+            fn.beginTransaction().replace(R.id.content_frame, new Dagschema()).commit();
 
         } else if (id == R.id.nav_gallery) {
-            fn.beginTransaction().replace(R.id.content_frame, new GalleryFragment()).commit();
-
+            fn.beginTransaction().replace(R.id.content_frame, new Veckoschema()).commit();
 
         } else if (id == R.id.nav_slideshow) {
-
+            fn.beginTransaction().replace(R.id.content_frame, new Bokahandelse()).commit();
         } else if (id == R.id.nav_manage) {
-
+            fn.beginTransaction().replace(R.id.content_frame, new Ekonomi()).commit();
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
