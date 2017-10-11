@@ -20,7 +20,7 @@ import java.util.logging.Logger;
  */
 @Named(value = "appointmentManagedBean")
 @RequestScoped
-public class AppointmentManagedBean 
+public class AppointmentManagedBean
 {
     @PersistenceContext(unitName="web_guitar_officialPU")
     private EntityManager entityManager;
