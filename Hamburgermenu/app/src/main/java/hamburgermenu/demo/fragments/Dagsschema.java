@@ -21,10 +21,8 @@ import java.util.List;
  * Created by Markus on 2017-10-11.
  */
 
-public class Dagschema extends Fragment implements WeekView.EventClickListener, MonthLoader.MonthChangeListener, WeekView.EventLongPressListener {
-
+public class Dagsschema extends Fragment implements WeekView.EventClickListener, MonthLoader.MonthChangeListener, WeekView.EventLongPressListener {
     public List<WeekViewEvent> eventList = new ArrayList<WeekViewEvent>();
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
