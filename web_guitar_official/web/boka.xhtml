@@ -51,9 +51,9 @@
             </div>
         </footer>
         <div id="dialog" title="Bekräfta bokning" style="display:none">
-            <h:form>
+            <h:form id="dialog-form">
                 <label>Förnamn: </label>
-                <h:inputText value="#{userInputBean.firstName}"></h:inputText><br/>
+                <h:inputText id="test" value="#{userInputBean.firstName}"></h:inputText><br/>
                 <label>Efternamn: </label>
                 <h:inputText value="#{userInputBean.lastName}"></h:inputText><br/>
                 <label>Email: </label>
@@ -63,7 +63,12 @@
                 <label>Beskrivning: </label>
                 <h:inputTextarea value="#{userInputBean.info}"></h:inputTextarea><br/>
                 <label>Bilder: </label>
-                <h:inputFile></h:inputFile>
+
+                
+                <h:inputHidden id="hidden-date" value="#{userInputBean.date}"></h:inputHidden>
+                <h:inputHidden id="hidden-start" value="#{userInputBean.startTime}"></h:inputHidden>
+                <h:inputHidden id="hidden-end" value="#{userInputBean.endTime}" ></h:inputHidden>
+                
                 <h:commandButton id="reserve-button" value="Boka" action="#{userInputBean.submit()}"></h:commandButton>
             </h:form>
         </div>
@@ -196,7 +201,13 @@
                         start: start,
                         end: end,
                         allDay: false,
-                        editable: false};
+                        editable: false
+                    };
+                    
+                    document.getElementById("dialog-form:hidden-date").value = currentEvent.start.format("MM/DD/YYYY");
+                    document.getElementById("dialog-form:hidden-start").value = currentEvent.start.format("HH:mm");
+                    document.getElementById("dialog-form:hidden-end").value = currentEvent.end.format("HH:mm");
+                    
                     $('#calendar').fullCalendar('refetchEvents');
                     displayEvents();
                     $('#calendar').fullCalendar('renderEvent', currentEvent);
