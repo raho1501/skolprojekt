@@ -17,6 +17,7 @@ import android.view.View;
 import hamburgermenu.demo.fragments.Bokahandelse;
 import hamburgermenu.demo.fragments.Dagsschema;
 import hamburgermenu.demo.fragments.Ekonomi;
+import hamburgermenu.demo.fragments.Kamera;
 import hamburgermenu.demo.fragments.Veckoschema;
 
 public class MainActivity extends AppCompatActivity
@@ -102,7 +103,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_ekonomi) {
             fn.beginTransaction().replace(R.id.content_frame, new Ekonomi()).commit();
         } else if (id == R.id.nav_kamera) {
-            fn.beginTransaction().replace(R.id.content_frame, new Ekonomi()).commit();
+            fn.beginTransaction().replace(R.id.content_frame, new Kamera()).commit();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
