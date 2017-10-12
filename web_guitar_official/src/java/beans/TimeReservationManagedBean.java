@@ -43,6 +43,13 @@ public class TimeReservationManagedBean {
 		return query.getResultList();
 	}
 	
+	public TimeReservation getReservation(Integer id)
+        {
+            TypedQuery<TimeReservation>  appointmentQuery = 
+                entityManager.createNamedQuery("TimeReservation.findByTimeReservationId", TimeReservation.class).setParameter("timeReservationId", id);
+            return appointmentQuery.getResultList().get(0);  // TODO Kanske borde se till att vi inte krashar här.
+	}
+	
 	public void removeTimeReservation(TimeReservation timeReservation)
 	{
 		remove(timeReservation);

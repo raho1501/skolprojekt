@@ -378,3 +378,13 @@
         #dialog > input, label {
             margin: 5px;
         }
+        
+        .fc-future {
+            background: #f8f8f8;
+        }
+        .fc-past {
+            background: #eee;
+        }
+        .fc-today {
+            background: #fff;
+        }

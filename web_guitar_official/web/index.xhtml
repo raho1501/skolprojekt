@@ -8,16 +8,9 @@
     </h:head>
     <h:body>
         <h:dataTable var="customer" value="#{customerManagedBean.customers}">
-            <h:column>Start tid: #{customer.appointmentIdFk.timeReservationIdFk.startTime}</h:column>
-            <h:column>Stop tid: #{customer.appointmentIdFk.timeReservationIdFk.stopTime}</h:column>
-            <h:column>Datum: #{customer.appointmentIdFk.timeReservationIdFk.reservationDate}</h:column>
-            <h:column>Beskrivning: #{customer.appointmentIdFk.info}</h:column>
-            <h:column>Namn: #{customer.firstName} #{customer.lastName}</h:column>
-            <h:column>
-                <h:form>
-                    <h:commandButton value="Ta bort" action="#{appointmentManagedBean.removeAppointment(customer.appointmentIdFk)}"></h:commandButton>
-                </h:form>
-            </h:column>
+            <h:column>Förnamn: #{customer.firstName} || </h:column>
+            <h:column>Efternamn  #{customer.lastName} || </h:column>
+            <h:column>Info: #{appointmentManagedBean.getAppointment(customer.appointmentIdFk).info} ||</h:column>
         </h:dataTable>
         
         Här är en form!
