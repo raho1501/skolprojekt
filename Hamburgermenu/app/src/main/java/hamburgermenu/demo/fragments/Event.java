@@ -65,7 +65,7 @@ public class Event
         Calendar reservationDate = (Calendar) now.clone();
         try
         {
-            Date temp = hourMinutes.parse(getStartTime()); // TODO Någonting med parsingen går fel.
+            Date temp = hourMinutes.parse(getStartTime());
             start.setTime(temp);
         }
         catch(ParseException e)
