@@ -369,3 +369,12 @@
 		background: #f8f8f8;
 		padding: 4em 0 6em 0;
 	}
+        
+        label {
+            display: inline-block;
+            width: 140px;
+        }
+        
+        #dialog > input, label {
+            margin: 5px;
+        }
