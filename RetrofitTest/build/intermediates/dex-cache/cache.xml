@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="true"
+        jar="C:\Users\Limeman\.gradle\caches\modules-2\files-2.1\com.google.code.gson\gson\2.7\751f548c85fa49f330cecbb1875893f971b33c4e\gson-2.7.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="751f548c85fa49f330cecbb1875893f971b33c4e">
+        <dex dex="C:\Users\Limeman\Documents\GitHub\skolprojekt\RetrofitTest\app\build\intermediates\transforms\dex\debug\folders\1000\10\gson-2.7_61fb0a3dd07164fc07481263a59887fe98cd3265\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Limeman\.android\build-cache\889646cccecad7ca295a75be6555d277068adfcd\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="88246166d5afb106f532f6e6deae683c66b42c89">
+        <dex dex="C:\Users\Limeman\Documents\GitHub\skolprojekt\RetrofitTest\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_b963390e7f2ccfcf58aa7f269f153600468c2c59\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Limeman\.gradle\caches\modules-2\files-2.1\org.simpleframework\simple-xml\2.7.1\dd91fb744c2ff921407475cb29a1e3fee397d411\simple-xml-2.7.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="dd91fb744c2ff921407475cb29a1e3fee397d411">
+        <dex dex="C:\Users\Limeman\Documents\GitHub\skolprojekt\RetrofitTest\app\build\intermediates\transforms\dex\debug\folders\1000\10\simple-xml-2.7.1_18297d8d49362200fcb9fbfc2309df202da03a2c\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Limeman\.gradle\caches\modules-2\files-2.1\com.squareup.retrofit2\converter-simplexml\2.3.0\978a360e2e1b85b3c3d30fb4230be6eddd8397e4\converter-simplexml-2.3.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="978a360e2e1b85b3c3d30fb4230be6eddd8397e4">
+        <dex dex="C:\Users\Limeman\Documents\GitHub\skolprojekt\RetrofitTest\app\build\intermediates\transforms\dex\debug\folders\1000\10\converter-simplexml-2.3.0_7a23af653023399d2d0ecd27426cd1c1bd9337a4\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Limeman\.android\build-cache\f7aa2fad48d338bfd93d68fdd2551b22fa019c9f\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
+        <dex dex="C:\Users\Limeman\Documents\GitHub\skolprojekt\RetrofitTest\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_ea12705d151eab57110104fa3c05918d9a4d5e25\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Limeman\.android\build-cache\64febfc1f66108f75a9b37481d2f251c2a3f429a\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="9935891f23923f39d002087085d9696568a9f657">
+        <dex dex="C:\Users\Limeman\Documents\GitHub\skolprojekt\RetrofitTest\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_dd7cf5db24719e00e9c316c860a60115bfad7f6f\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Limeman\.gradle\caches\modules-2\files-2.1\com.squareup.okhttp3\okhttp\3.8.0\5a11f020cce2d11eb71ba916700600e18c4547e7\okhttp-3.8.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="5a11f020cce2d11eb71ba916700600e18c4547e7">
+        <dex dex="C:\Users\Limeman\Documents\GitHub\skolprojekt\RetrofitTest\app\build\intermediates\transforms\dex\debug\folders\1000\10\okhttp-3.8.0_556698b19c8daa4cf52d1bb0b2fa4ef0e90f93e5\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Limeman\.gradle\caches\modules-2\files-2.1\com.squareup.retrofit2\converter-gson\2.3.0\9e09011e9767bb76b5e27c9b8223476b93b14631\converter-gson-2.3.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="9e09011e9767bb76b5e27c9b8223476b93b14631">
+        <dex dex="C:\Users\Limeman\Documents\GitHub\skolprojekt\RetrofitTest\app\build\intermediates\transforms\dex\debug\folders\1000\10\converter-gson-2.3.0_40cf69731f70961bb67dbe9f407b30296cf3b88d\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Limeman\.gradle\caches\modules-2\files-2.1\com.squareup.retrofit2\retrofit\2.3.0\bcacde6a8ccedcc56c127403d26b76072fe6214d\retrofit-2.3.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="bcacde6a8ccedcc56c127403d26b76072fe6214d">
+        <dex dex="C:\Users\Limeman\Documents\GitHub\skolprojekt\RetrofitTest\app\build\intermediates\transforms\dex\debug\folders\1000\10\retrofit-2.3.0_c9327e9e18eebb2073055aba95251ea7dceedcc2\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Limeman\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\26.0.0-alpha1\support-annotations-26.0.0-alpha1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="023ee503b631f69511e335a061ea008f8da60f40">
+        <dex dex="C:\Users\Limeman\Documents\GitHub\skolprojekt\RetrofitTest\app\build\intermediates\transforms\dex\debug\folders\1000\10\support-annotations-26.0.0-alpha1_35b9728d7216cb9084d18df19e5e4cf26dc90c85\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Limeman\.android\build-cache\a7095dca51073a3c9fe0d3d055a596d2b27bae1c\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="fcd01fd11233459f546c437ec927e9b61bf7caf1">
+        <dex dex="C:\Users\Limeman\Documents\GitHub\skolprojekt\RetrofitTest\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_d81253ac724b5781070817ed1d17ccfff09cb852\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Limeman\.android\build-cache\fad1001888d365da5a858183e30a66a82b93c903\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="952944218ecedea1554a513dec0c14d570642843">
+        <dex dex="C:\Users\Limeman\Documents\GitHub\skolprojekt\RetrofitTest\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_1e5738c861707f8292d2796b6638b27a6c6cb8e7\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Limeman\.android\build-cache\3922f766b72411de95c3a4af3122751b78a9d4b7\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="2e92aa0163544a804a0b34f169ca61801770839a">
+        <dex dex="C:\Users\Limeman\Documents\GitHub\skolprojekt\RetrofitTest\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_738589237c9b82e68bc82967064f8d1dd8c32478\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Limeman\.android\build-cache\5550ac67080c4edecd8ccffb46fa8b0b4b02fb6b\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="18d31838aa4fcc768a8a0516e22cc13b94655d89">
+        <dex dex="C:\Users\Limeman\Documents\GitHub\skolprojekt\RetrofitTest\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_de387618a49fd483e70d9ce496089448b98ca744\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Limeman\.android\build-cache\8a64000b5aa389ccc60396c367249e9260b1ef68\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="8df0e365e40beb151bc42dee20817721a6cab7b0">
+        <dex dex="C:\Users\Limeman\Documents\GitHub\skolprojekt\RetrofitTest\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_214bb6754e64e398c4eae1d8f0767e4d94f0f9a7\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Limeman\.android\build-cache\6558afe288f5917fb8cd94760aae5d85759491c2\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="47471eb19df288158b00b8d9cfa41bce7373f5cc">
+        <dex dex="C:\Users\Limeman\Documents\GitHub\skolprojekt\RetrofitTest\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_f82a933a21ec694f1979ae9c25d012df82303d13\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Limeman\Documents\GitHub\skolprojekt\RetrofitTest\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="9c3553e186bf861bcf8ec2cb9e2dc523eb1776bc">
+        <dex dex="C:\Users\Limeman\Documents\GitHub\skolprojekt\RetrofitTest\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_f28c085769730fb433e41da26e151269e81a50f3\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Limeman\.gradle\caches\modules-2\files-2.1\com.squareup.okio\okio\1.13.0\a9283170b7305c8d92d25aff02a6ab7e45d06cbe\okio-1.13.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="a9283170b7305c8d92d25aff02a6ab7e45d06cbe">
+        <dex dex="C:\Users\Limeman\Documents\GitHub\skolprojekt\RetrofitTest\app\build\intermediates\transforms\dex\debug\folders\1000\10\okio-1.13.0_0420233d263142bc35d30358b3a370b965ea433d\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Limeman\Documents\GitHub\skolprojekt\RetrofitTest\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="3be78ebc2706b2e1fe2f12d5726887a92d6c183b">
+        <dex dex="C:\Users\Limeman\Documents\GitHub\skolprojekt\RetrofitTest\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run_96890b8217d6fdcc99c6e9d600bc5a471a4de4c1\classes.dex" />
+    </item>
+
+</items>
