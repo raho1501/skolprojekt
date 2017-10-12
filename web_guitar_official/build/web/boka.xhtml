@@ -73,6 +73,10 @@
             </h:form>
         </div>
         
+        <div id="error" title="Error" style="display: none">
+            <p>Kan inte boka då detta tillfälle redan har inträffat</p>
+        </div>
+        
         <script>
             var addAllEvents = [];
         </script>
@@ -152,6 +156,8 @@
                         $(this).css('border-color', 'red');
                     }
                 },
+                dayNamesShort: ['', 'Måndag', 'Tisdag', 'Onsdag', 'Torsdag','Fredag'],
+                dayOfMonthFormat:'ddd DD',
                 defaultView: 'agendaWeek',
                 weekNumbers: true,
                 allDaySlot: false,
@@ -173,17 +179,32 @@
                     var currentDate = moment();
                     if(start.week() < currentDate.week())
                     {
+                        $("#error").dialog({
+                            width: "auto",
+                            resizable: false,
+                            modal: false
+                        });
                         return;
                     }
                     else if((start.day() < currentDate.day()) &&
                             (start.week() == currentDate.week()))
                     {
+                        $("#error").dialog({
+                            width: "auto",
+                            resizable: false,
+                            modal: false
+                        });
                         return;
                     }
                     else if((start.hour() < currentDate.hour() + 1) &&
                             (start.day() == currentDate.day()) &&
                             (start.week() == currentDate.week()))
                     {
+                        $("#error").dialog({
+                            width: "auto",
+                            resizable: false,
+                            modal: false
+                        });
                         return;
                     }
                     
@@ -227,9 +248,9 @@
             <script>
                 addAllEvents.push(function(){
                     insertEvent("#{customer.firstName}",
-                                "#{customer.appointmentIdFk.timeReservationIdFk.reservationDate}",
-                                "#{customer.appointmentIdFk.timeReservationIdFk.startTime}",
-                                "#{customer.appointmentIdFk.timeReservationIdFk.stopTime}");
+                                "#{timeReservationManagedBean.getReservation(appointmentManagedBean.getAppointment(customer.appointmentIdFk).timeReservationIdFk).reservationDate}",
+                                "#{timeReservationManagedBean.getReservation(appointmentManagedBean.getAppointment(customer.appointmentIdFk).timeReservationIdFk).startTime}",
+                                "#{timeReservationManagedBean.getReservation(appointmentManagedBean.getAppointment(customer.appointmentIdFk).timeReservationIdFk).stopTime}");
                 });
             </script>
         </c:forEach>
