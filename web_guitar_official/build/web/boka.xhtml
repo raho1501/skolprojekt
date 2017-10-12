@@ -51,21 +51,18 @@
             </div>
         </footer>
         <div id="dialog" title="Bekräfta bokning" style="display:none">
-            <h:form>
-                <label>Namn: </label>
-                <h:inputText></h:inputText><br/>
-                <label>Email: </label>
-                <h:inputText></h:inputText><br/>
-                <label>Tel: </label>
-                <h:inputText></h:inputText><br/>
-                <label>Beskrivning: </label>
-                <h:inputTextarea></h:inputTextarea><br/>
-                <label>Bilder: </label>
-                <h:inputFile></h:inputFile>
-                <h:commandButton id="reserve-button"></h:commandButton>
-            </h:form>
+            <form>
+                <input type="text" placeholder="Namn"/><br/>
+                <input type="text" placeholder="Email"/><br/>
+                <input type="text" placeholder="Telefon"/><br/>
+                <input type="textarea" placeholder="Beskrivning"/><br/>
+                <input type="file" multiple=""/>
+                <input id="reserve-button" type="button" value="BOKA" style="width:170px; margin-left:10px"/>
+            </form>
         </div>
-        
+        <div id="error" title="Error" style="display: none">
+            <p>Kan inte boka då detta tillfälle redan har inträffat</p>
+        </div>
         <script>
             var addAllEvents = [];
         </script>
@@ -155,9 +152,12 @@
                 selectable: true,
                 weekends: false,
                 selectOverlap: false,
+                dayNamesShort: ['', 'Måndag', 'Tisdag', 'Onsdag', 'Torsdag','Fredag'],
+                dayOfMonthFormat:'ddd DD', 
+                
                 viewRender: function() {
                     displayEvents();
-                },
+                }, 
                 select: function(start, end) {
                     if(!Number.isInteger(start.time().asHours()))
                     {
@@ -166,17 +166,32 @@
                     var currentDate = moment();
                     if(start.week() < currentDate.week())
                     {
+                        $("#error").dialog({
+                            width: "auto",
+                            resizable: false,
+                            modal: false
+                        });
                         return;
                     }
                     else if((start.day() < currentDate.day()) &&
                             (start.week() == currentDate.week()))
                     {
+                        $("#error").dialog({
+                            width: "auto",
+                            resizable: false,
+                            modal: false
+                        });
                         return;
                     }
                     else if((start.hour() < currentDate.hour() + 1) &&
                             (start.day() == currentDate.day()) &&
                             (start.week() == currentDate.week()))
                     {
+                        $("#error").dialog({
+                            width: "auto",
+                            resizable: false,
+                            modal: false
+                        });
                         return;
                     }
                     

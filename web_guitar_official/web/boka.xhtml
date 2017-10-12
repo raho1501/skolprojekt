@@ -51,28 +51,18 @@
             </div>
         </footer>
         <div id="dialog" title="Bekräfta bokning" style="display:none">
-            <h:form id="dialog-form">
-                <label>Förnamn: </label>
-                <h:inputText id="test" value="#{userInputBean.firstName}"></h:inputText><br/>
-                <label>Efternamn: </label>
-                <h:inputText value="#{userInputBean.lastName}"></h:inputText><br/>
-                <label>Email: </label>
-                <h:inputText value="#{userInputBean.email}"></h:inputText><br/>
-                <label>Tel: </label>
-                <h:inputText value="#{userInputBean.phoneNumber}"></h:inputText><br/>
-                <label>Beskrivning: </label>
-                <h:inputTextarea value="#{userInputBean.info}"></h:inputTextarea><br/>
-                <label>Bilder: </label>
-
-                
-                <h:inputHidden id="hidden-date" value="#{userInputBean.date}"></h:inputHidden>
-                <h:inputHidden id="hidden-start" value="#{userInputBean.startTime}"></h:inputHidden>
-                <h:inputHidden id="hidden-end" value="#{userInputBean.endTime}" ></h:inputHidden>
-                
-                <h:commandButton id="reserve-button" value="Boka" action="#{userInputBean.submit()}"></h:commandButton>
-            </h:form>
+            <form>
+                <input type="text" placeholder="Namn"/><br/>
+                <input type="text" placeholder="Email"/><br/>
+                <input type="text" placeholder="Telefon"/><br/>
+                <input type="textarea" placeholder="Beskrivning"/><br/>
+                <input type="file" multiple=""/>
+                <input id="reserve-button" type="button" value="BOKA" style="width:170px; margin-left:10px"/>
+            </form>
         </div>
-        
+        <div id="error" title="Error" style="display: none">
+            <p>Kan inte boka då detta tillfälle redan har inträffat</p>
+        </div>
         <script>
             var addAllEvents = [];
         </script>
@@ -162,9 +152,12 @@
                 selectable: true,
                 weekends: false,
                 selectOverlap: false,
+                dayNamesShort: ['', 'Måndag', 'Tisdag', 'Onsdag', 'Torsdag','Fredag'],
+                dayOfMonthFormat:'ddd DD', 
+                
                 viewRender: function() {
                     displayEvents();
-                },
+                }, 
                 select: function(start, end) {
                     if(!Number.isInteger(start.time().asHours()))
                     {
@@ -173,17 +166,32 @@
                     var currentDate = moment();
                     if(start.week() < currentDate.week())
                     {
+                        $("#error").dialog({
+                            width: "auto",
+                            resizable: false,
+                            modal: false
+                        });
                         return;
                     }
                     else if((start.day() < currentDate.day()) &&
                             (start.week() == currentDate.week()))
                     {
+                        $("#error").dialog({
+                            width: "auto",
+                            resizable: false,
+                            modal: false
+                        });
                         return;
                     }
                     else if((start.hour() < currentDate.hour() + 1) &&
                             (start.day() == currentDate.day()) &&
                             (start.week() == currentDate.week()))
                     {
+                        $("#error").dialog({
+                            width: "auto",
+                            resizable: false,
+                            modal: false
+                        });
                         return;
                     }
                     
@@ -201,13 +209,7 @@
                         start: start,
                         end: end,
                         allDay: false,
-                        editable: false
-                    };
-                    
-                    document.getElementById("dialog-form:hidden-date").value = currentEvent.start.format("MM/DD/YYYY");
-                    document.getElementById("dialog-form:hidden-start").value = currentEvent.start.format("HH:mm");
-                    document.getElementById("dialog-form:hidden-end").value = currentEvent.end.format("HH:mm");
-                    
+                        editable: false};
                     $('#calendar').fullCalendar('refetchEvents');
                     displayEvents();
                     $('#calendar').fullCalendar('renderEvent', currentEvent);
