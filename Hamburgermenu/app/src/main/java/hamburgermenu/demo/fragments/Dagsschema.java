@@ -1,5 +1,6 @@
 package hamburgermenu.demo.fragments;
 
+import android.content.Intent;
 import android.graphics.RectF;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -22,12 +23,14 @@ import java.util.List;
  */
 
 public class Dagsschema extends Fragment implements WeekView.EventClickListener, MonthLoader.MonthChangeListener, WeekView.EventLongPressListener {
-    public List<WeekViewEvent> eventList = new ArrayList<WeekViewEvent>();
+    //public Events events;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.dagsschema, container, false);
+
         return rootView;
     }
 
@@ -48,14 +51,6 @@ public class Dagsschema extends Fragment implements WeekView.EventClickListener,
 
         //Set the number of visible days.
         weekView.setNumberOfVisibleDays(1);
-
-        Event event = new Event();
-        event.setName("Event");
-        event.setDate("10/12/2017");
-        event.setStartTime("15:00");
-        event.setStopTime("16:00");
-        addEvent(event);
-
     }
 
     @Override
@@ -71,14 +66,10 @@ public class Dagsschema extends Fragment implements WeekView.EventClickListener,
     public List<WeekViewEvent> onMonthChange(int newYear, int newMonth){
         // Populate the week view with some events.
         List<WeekViewEvent> matchList = new ArrayList<WeekViewEvent>();
-        for (WeekViewEvent weekEvent : eventList) {
+        for (Event weekEvent : Events.events) {
             //TODO hitta ett sätt att bara adda events som är i vyn just nu.
-            matchList.add(weekEvent);
+            matchList.add(weekEvent.toWeekViewEvent());
         }
         return matchList;
-    }
-    public void addEvent(Event event)
-    {
-        eventList.add(event.toWeekViewEvent());
     }
 }

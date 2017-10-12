@@ -1,5 +1,6 @@
 package hamburgermenu.demo.fragments;
 
+
 import java.util.ArrayList;
 
 /**
@@ -7,8 +8,5 @@ import java.util.ArrayList;
  */
 
 public class Events {
-    private ArrayList<Event> events;
-    public ArrayList<Event> getEvents(){
-        return  events;
-    }
+    public static ArrayList<Event> events = new ArrayList<Event>();
 }

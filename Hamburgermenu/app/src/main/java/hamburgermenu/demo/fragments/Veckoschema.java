@@ -23,7 +23,6 @@ import java.util.List;
 
 public class Veckoschema extends Fragment implements WeekView.EventClickListener, MonthLoader.MonthChangeListener, WeekView.EventLongPressListener{
 
-    public List<WeekViewEvent> eventList = new ArrayList<WeekViewEvent>();
 
     @Nullable
     @Override
@@ -51,13 +50,6 @@ public class Veckoschema extends Fragment implements WeekView.EventClickListener
         //Set the number of visible days.
         weekView.setNumberOfVisibleDays(5);
 
-        Event event = new Event();
-        event.setName("Event");
-        event.setDate("10/12/2017");
-        event.setStartTime("15:00");
-        event.setStopTime("16:00");
-        addEvent(event);
-
     }
     @Override
     public void onEventClick(WeekViewEvent event, RectF eventRect) {
@@ -72,15 +64,11 @@ public class Veckoschema extends Fragment implements WeekView.EventClickListener
     public List<WeekViewEvent> onMonthChange(int newYear, int newMonth){
         // Populate the week view with some events.
         List<WeekViewEvent> matchList = new ArrayList<WeekViewEvent>();
-        for (WeekViewEvent weekEvent : eventList) {
+        for (Event weekEvent : Events.events) {
             //TODO hitta ett sätt att bara adda events som är i vyn just nu.
-            matchList.add(weekEvent);
+            matchList.add(weekEvent.toWeekViewEvent());
         }
         return matchList;
-    }
-    public void addEvent(Event event)
-    {
-        eventList.add(event.toWeekViewEvent());
     }
 
 
