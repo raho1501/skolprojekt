@@ -17,6 +17,8 @@ import java.util.Vector;
 
 public class MainActivity extends AppCompatActivity implements WeekView.EventClickListener, MonthLoader.MonthChangeListener, WeekView.EventLongPressListener{
 
+    public List<WeekViewEvent> eventList = new ArrayList<WeekViewEvent>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +38,14 @@ public class MainActivity extends AppCompatActivity implements WeekView.EventCli
 
         //Set the number of visible days.
         weekView.setNumberOfVisibleDays(5);
+
+        Event event = new Event();
+        event.setName("Event");
+        event.setDate("10/12/2017");
+        event.setStartTime("15:00");
+        event.setStopTime("16:00");
+        addEvent(event);
+
     }
     @Override
     public void onEventClick(WeekViewEvent event, RectF eventRect) {
@@ -49,12 +59,15 @@ public class MainActivity extends AppCompatActivity implements WeekView.EventCli
     @Override
     public List<WeekViewEvent> onMonthChange(int newYear, int newMonth){
         // Populate the week view with some events.
-        List<WeekViewEvent> events = new ArrayList<WeekViewEvent>();
-        Calendar startTime = Calendar.getInstance();
-        Calendar endTime = (Calendar) startTime.clone();
-        endTime.add(Calendar.HOUR, 4);
-        WeekViewEvent event = new WeekViewEvent(1, "Random", startTime, endTime);
-        events.add(event);
-        return events;
+        List<WeekViewEvent> matchList = new ArrayList<WeekViewEvent>();
+        for (WeekViewEvent weekEvent : eventList) {
+            //TODO hitta ett sätt att bara adda events som är i vyn just nu.
+            matchList.add(weekEvent);
+        }
+        return matchList;
+    }
+    public void addEvent(Event event)
+    {
+        eventList.add(event.toWeekViewEvent());
     }
 }
