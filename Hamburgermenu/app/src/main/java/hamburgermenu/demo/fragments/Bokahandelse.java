@@ -2,6 +2,7 @@ package hamburgermenu.demo.fragments;
 
 import android.icu.text.SimpleDateFormat;
 import android.icu.util.Calendar;
+import android.icu.util.GregorianCalendar;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -10,12 +11,14 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.markus.hamburgermenu.R;
 
+import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,14 +26,17 @@ import java.util.List;
  * Created by Markus on 2017-10-11.
  */
 
-public class Bokahandelse extends Fragment {
-    private String[] arraySpinner;
+public class Bokahandelse extends Fragment implements AdapterView.OnItemSelectedListener {
 
-
+    int monthNum;
+    List<String> dayList= new ArrayList<String>();
+    Calendar c = Calendar.getInstance();
+    Spinner monthSpinner;
+    ArrayAdapter<String> monthAdapter;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
-                                                        @Nullable Bundle savedInstanceState) {
+                             @Nullable Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.bokahandelse, container, false);
 
@@ -41,19 +47,19 @@ public class Bokahandelse extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        Calendar c = Calendar.getInstance();
+
         TextView tv = (TextView)getView().findViewById(R.id.inputBoxName);
         //create desired formatting for displaying the date
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        tv.setText(sdf.format(c.getTime()));
+        //tv.setText(sdf.format(c.getTime()));
 
-        Spinner monthSpinner = (Spinner) getView().findViewById(R.id.monthSpinner);
+        monthSpinner = (Spinner) getView().findViewById(R.id.monthSpinner);
         Spinner dateSpinner = (Spinner) getView().findViewById(R.id.datumSpinner);
         Spinner startTidSpinner = (Spinner) getView().findViewById(R.id.startTidSpinner);
         Spinner stopTidSpinner = (Spinner) getView().findViewById(R.id.stopTidSpinner);
 
 
-        ArrayAdapter<String> monthAdapter;
+
         List<String> list;
 
         list = new ArrayList<String>();
@@ -74,12 +80,38 @@ public class Bokahandelse extends Fragment {
                 android.R.layout.simple_spinner_item, list);
         monthAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         monthSpinner.setAdapter(monthAdapter);
+        monthSpinner.setOnItemSelectedListener(this);
+
+
+
+
+        dayList.clear();
+        String selectedMonth =monthSpinner.getSelectedItem().toString();
+        monthNum = Integer.parseInt(selectedMonth);
+        monthNum--;
+        Calendar mycal = new GregorianCalendar(c.get(Calendar.YEAR),monthNum, 1);
+        int daysInMonth = mycal.getActualMaximum(Calendar.DAY_OF_MONTH);
+
+
+        for(int k = 1; k<= daysInMonth; k++)
+        {
+            String t = String.valueOf(k);
+            dayList.add(t);
+            t="";
+        }
+
 
 
         ArrayAdapter<String> dateAdapter= new ArrayAdapter<String>(this.getContext(),
-                android.R.layout.simple_spinner_item, list);
+                android.R.layout.simple_spinner_item, dayList);
         dateAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         dateSpinner.setAdapter(dateAdapter);
+
+
+
+
+
+
 
         ArrayAdapter<String> startTidAdapter= new ArrayAdapter<String>(this.getContext(),
                 android.R.layout.simple_spinner_item, tidList);
@@ -93,6 +125,8 @@ public class Bokahandelse extends Fragment {
 
 
 
+
+
         View view = getView();
         if(view != null) {
             view.findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
@@ -102,8 +136,36 @@ public class Bokahandelse extends Fragment {
                 }
             });
         }
+
     }
 
+    @Override
+    public void onItemSelected(AdapterView<?> parent,View view , int position , long id)
+    {
+        if(parent.getId()== monthSpinner.getId()){
+
+            System.out.println(parent.getId() + " no id"+monthSpinner.getId() );
+            dayList.clear();
+            String selectedMonth =parent.getSelectedItem().toString();
+            monthNum = Integer.parseInt(selectedMonth);
+            monthNum--;
+            Calendar mycal = new GregorianCalendar(c.get(Calendar.YEAR),monthNum, 1);
+            int daysInMonth = mycal.getActualMaximum(Calendar.DAY_OF_MONTH);
+
+
+            for(int k = 1; k<= daysInMonth; k++)
+            {
+                String t = String.valueOf(k);
+                dayList.add(t);
+                t="";
+            }
+        }
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
+    }
 
 
 }
