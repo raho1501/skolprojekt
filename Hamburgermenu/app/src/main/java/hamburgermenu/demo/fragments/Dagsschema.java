@@ -1,5 +1,6 @@
 package hamburgermenu.demo.fragments;
 
+import android.content.Intent;
 import android.graphics.RectF;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -21,21 +22,22 @@ import java.util.List;
  * Created by Markus on 2017-10-11.
  */
 
-public class Veckoschema extends Fragment implements WeekView.EventClickListener, MonthLoader.MonthChangeListener, WeekView.EventLongPressListener{
-
+public class Dagsschema extends Fragment implements WeekView.EventClickListener, MonthLoader.MonthChangeListener, WeekView.EventLongPressListener {
+    //public Events events;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.veckoschema, container, false);
+        View rootView = inflater.inflate(R.layout.dagsschema, container, false);
 
         return rootView;
     }
+
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState){
         // Get a reference for the week view in the layout.
-        WeekView weekView = (WeekView)view.findViewById(R.id.weekView);
+        WeekView weekView = (WeekView)view.findViewById(R.id.dayView);
 
         // Set an action when any event is clicked.
         weekView.setOnEventClickListener(this);
@@ -48,9 +50,9 @@ public class Veckoschema extends Fragment implements WeekView.EventClickListener
         weekView.setEventLongPressListener(this);
 
         //Set the number of visible days.
-        weekView.setNumberOfVisibleDays(5);
-
+        weekView.setNumberOfVisibleDays(1);
     }
+
     @Override
     public void onEventClick(WeekViewEvent event, RectF eventRect) {
         Toast.makeText(getActivity(), "Clicked " + event.getName(), Toast.LENGTH_SHORT).show();
@@ -70,6 +72,4 @@ public class Veckoschema extends Fragment implements WeekView.EventClickListener
         }
         return matchList;
     }
-
-
 }

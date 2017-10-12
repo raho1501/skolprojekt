@@ -15,8 +15,10 @@ import android.view.MenuItem;
 import android.view.View;
 
 import hamburgermenu.demo.fragments.Bokahandelse;
-import hamburgermenu.demo.fragments.Dagschema;
+import hamburgermenu.demo.fragments.Dagsschema;
 import hamburgermenu.demo.fragments.Ekonomi;
+import hamburgermenu.demo.fragments.Event;
+import hamburgermenu.demo.fragments.Events;
 import hamburgermenu.demo.fragments.Veckoschema;
 
 public class MainActivity extends AppCompatActivity
@@ -48,7 +50,14 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         FragmentManager fn = getSupportFragmentManager();
-        fn.beginTransaction().replace(R.id.content_frame, new Dagschema()).commit();
+        fn.beginTransaction().replace(R.id.content_frame, new Dagsschema()).commit();
+
+        Event event = new Event();
+        event.setName("Event");
+        event.setDate("10/12/2017");
+        event.setStartTime("15:00");
+        event.setStopTime("16:00");
+        Events.events.add(event);
     }
 
     @Override
@@ -91,20 +100,18 @@ public class MainActivity extends AppCompatActivity
 
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            fn.beginTransaction().replace(R.id.content_frame, new Dagschema()).commit();
+        if (id == R.id.nav_dagsschema) {
+            fn.beginTransaction().replace(R.id.content_frame, new Dagsschema()).commit();
 
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.nav_veckoschema) {
             fn.beginTransaction().replace(R.id.content_frame, new Veckoschema()).commit();
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_bokahandelse) {
             fn.beginTransaction().replace(R.id.content_frame, new Bokahandelse()).commit();
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.nav_ekonomi) {
             fn.beginTransaction().replace(R.id.content_frame, new Ekonomi()).commit();
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+        } else if (id == R.id.nav_kamera) {
+            fn.beginTransaction().replace(R.id.content_frame, new Ekonomi()).commit();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
