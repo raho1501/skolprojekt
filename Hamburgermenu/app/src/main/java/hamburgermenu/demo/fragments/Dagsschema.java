@@ -13,7 +13,7 @@ import com.example.markus.hamburgermenu.R;
  * Created by Markus on 2017-10-11.
  */
 
-public class Dagschema extends Fragment {
+public class Dagsschema extends Fragment {
 
     @Nullable
     @Override
