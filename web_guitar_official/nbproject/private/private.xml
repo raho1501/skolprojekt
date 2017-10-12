@@ -1,30 +1,9 @@
-<<<<<<< HEAD
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/linus/Documents/GitHub/skolprojekt/web_guitar_official/src/java/service/AppointmentFacadeREST.java</file>
-            <file>file:/C:/Users/linus/Documents/GitHub/skolprojekt/web_guitar_official/src/java/service/TimeReservationFacadeREST.java</file>
-            <file>file:/C:/Users/linus/Documents/GitHub/skolprojekt/web_guitar_official/src/java/service/CustomerFacadeREST.java</file>
-            <file>file:/C:/Users/linus/Documents/GitHub/skolprojekt/web_guitar_official/src/java/service/RepairFacadeREST.java</file>
-            <file>file:/C:/Users/linus/Documents/GitHub/skolprojekt/web_guitar_official/src/java/service/LeaveFacadeREST.java</file>
-            <file>file:/C:/Users/linus/Documents/GitHub/skolprojekt/web_guitar_official/src/java/service/ApplicationConfig.java</file>
-            <file>file:/C:/Users/linus/Documents/GitHub/skolprojekt/web_guitar_official/src/java/service/AbstractFacade.java</file>
+            <file>file:/C:/Users/linus/Documents/NetBeansProjects/skol_projekt/skolprojekt/skolprojekt/web_guitar_official/web/boka.jsp</file>
         </group>
     </open-files>
 </project-private>
-=======
-<?xml version="1.0" encoding="UTF-8"?>
-<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
-    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/home/markus/NetBeansProjects/skolprojekt/web_guitar_official/web/boka.jsp</file>
-            <file>file:/home/markus/NetBeansProjects/skolprojekt/web_guitar_official/src/java/beans/CustomerManagedBean.java</file>
-            <file>file:/home/markus/NetBeansProjects/skolprojekt/web_guitar_official/web/boka.html</file>
-            <file>file:/home/markus/NetBeansProjects/skolprojekt/web_guitar_official/web/boka.xhtml</file>
-        </group>
-    </open-files>
-</project-private>
->>>>>>> 4c6020a0a42454c4983231a16d066b9187b37527
