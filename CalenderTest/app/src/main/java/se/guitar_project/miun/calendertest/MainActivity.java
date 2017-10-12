@@ -45,7 +45,8 @@ public class MainActivity extends AppCompatActivity implements WeekView.EventCli
         event.setStartTime("15:00");
         event.setStopTime("16:00");
         addEvent(event);
-
+        RetrofitWrapper retro = new RetrofitWrapper();
+        retro.getEvents();
     }
     @Override
     public void onEventClick(WeekViewEvent event, RectF eventRect) {
