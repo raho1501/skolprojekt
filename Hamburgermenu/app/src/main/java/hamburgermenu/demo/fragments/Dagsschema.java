@@ -56,9 +56,6 @@ public class Dagsschema extends Fragment implements WeekView.EventClickListener,
         event.setStopTime("16:00");
         addEvent(event);
 
-
-
-
     }
 
     @Override
