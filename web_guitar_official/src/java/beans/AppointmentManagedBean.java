@@ -63,7 +63,7 @@ public class AppointmentManagedBean
         {
             userTransaction.begin();
             entityManager.remove(
-		    entityManager.merge(appointment.getTimeReservationIdFk()));
+		    entityManager.merge(appointment));
             userTransaction.commit();
         }
         catch(Exception e)

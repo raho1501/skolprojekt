@@ -58,7 +58,7 @@ public class CustomerManagedBean
 		try
 		{
 			userTransaction.begin();
-			entityManager.remove(entityManager.merge(customer.getAppointmentIdFk()));
+			entityManager.remove(entityManager.merge(customer));
 			userTransaction.commit();
 		}
 		catch(Exception e)

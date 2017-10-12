@@ -11,6 +11,12 @@
             <h:column>Förnamn: #{customer.firstName} || </h:column>
             <h:column>Efternamn  #{customer.lastName} || </h:column>
             <h:column>Info: #{appointmentManagedBean.getAppointment(customer.appointmentIdFk).info} ||</h:column>
+            <h:column>
+                <h:form>
+                <h:commandButton value="ta bort" action="#{userInputBean.removeCustomer(customer)}">
+                </h:commandButton>
+                </h:form>
+            </h:column>
         </h:dataTable>
         
         Här är en form!

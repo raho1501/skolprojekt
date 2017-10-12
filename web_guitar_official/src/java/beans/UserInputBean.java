@@ -50,6 +50,19 @@ public class UserInputBean {
 	{
 	}
 	
+	public void removeCustomer(Customer customer)
+	{
+		Appointment appointment =
+			appointmentManagedBean.getAppointment(customer.getAppointmentIdFk());
+	
+		TimeReservation timeReservation =
+			timeReservationManagedBean.getReservation(appointment.getTimeReservationIdFk());
+		
+		customerManagedBean.removeCustomer(customer);
+		appointmentManagedBean.removeAppointment(appointment);
+		timeReservationManagedBean.removeTimeReservation(timeReservation);
+	}
+	
 	private String toUTF_8(String s)
 	{
 		byte[] ptext = s.getBytes(ISO_8859_1);
