@@ -51,8 +51,7 @@ public class AppointmentFacadeREST extends AbstractFacade<Appointment> {
     public Response create2(Appointment entity)
     {
         super.create(entity);
-        String temp = entity.getAppointmentId().toString();
-        return Response.status(201).entity(temp).build(); //TODO dela upp raden.
+        return Response.status(201).entity(entity).build(); //TODO dela upp raden.
     }
 
     @PUT
