@@ -73,7 +73,7 @@ public class UserInputBean {
 	{
 		this.timeReservationManagedBean = timeReservationManagedBean;
 	}
-
+        
 	/**
 	 * @return the firstName
 	 */
