@@ -11,6 +11,7 @@ import java.util.logging.Logger;
 import javax.annotation.Resource;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.bean.ManagedBean;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
@@ -57,7 +58,7 @@ public class CustomerManagedBean
 		try
 		{
 			userTransaction.begin();
-			entityManager.remove(entityManager.merge(customer.getAppointmentIdFk()));
+			entityManager.remove(entityManager.merge(customer));
 			userTransaction.commit();
 		}
 		catch(Exception e)

@@ -50,6 +50,19 @@ public class UserInputBean {
 	{
 	}
 	
+	public void removeCustomer(Customer customer)
+	{
+		Appointment appointment =
+			appointmentManagedBean.getAppointment(customer.getAppointmentIdFk());
+	
+		TimeReservation timeReservation =
+			timeReservationManagedBean.getReservation(appointment.getTimeReservationIdFk());
+		
+		customerManagedBean.removeCustomer(customer);
+		appointmentManagedBean.removeAppointment(appointment);
+		timeReservationManagedBean.removeTimeReservation(timeReservation);
+	}
+	
 	private String toUTF_8(String s)
 	{
 		byte[] ptext = s.getBytes(ISO_8859_1);
@@ -73,7 +86,7 @@ public class UserInputBean {
 	{
 		this.timeReservationManagedBean = timeReservationManagedBean;
 	}
-
+        
 	/**
 	 * @return the firstName
 	 */
@@ -216,12 +229,12 @@ public class UserInputBean {
 		
 		timeReservationManagedBean.addTimeReservation(reservation);
 		
-		appoint.setTimeReservationIdFk(reservation);
+		appoint.setTimeReservationIdFk(reservation.getTimeReservationId());
 		appoint.setInfo(info);
 		
 		appointmentManagedBean.addAppointment(appoint);
 		
-		cust.setAppointmentIdFk(appoint);
+		cust.setAppointmentIdFk(appoint.getAppointmentId());
 		cust.setFirstName(firstName);
 		cust.setLastName(lastName);
 		cust.setEmail(email);

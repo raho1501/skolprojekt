@@ -14,12 +14,12 @@ public class TimeReservation
 {
     @Element(name = "timeReservationId")
     private int timeResarvationId;
-    @Element(name = "reservationDate")
-    private String reservationDate;
     @Element(name = "startTime")
     private String startTime;
     @Element(name = "stopTime")
     private String stopTime;
+    @Element(name = "reservationDate")
+    private String reservationDate;
 
 
     public String getStopTime() {
@@ -38,11 +38,11 @@ public class TimeReservation
         this.startTime = startTime;
     }
 
-    public String getreservationDate() {
+    public String getReservationDate() {
         return reservationDate;
     }
 
-    public void setreservationDate(String reservationDate) {
+    public void setReservationDate(String reservationDate) {
         this.reservationDate = reservationDate;
     }
 

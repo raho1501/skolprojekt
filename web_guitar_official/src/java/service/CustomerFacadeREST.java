@@ -51,8 +51,7 @@ public class CustomerFacadeREST extends AbstractFacade<Customer> {
     public Response create2(Customer entity)
     {
         super.create(entity);
-        String temp = entity.getCustomerId().toString();
-        return Response.status(201).entity(temp).build(); //TODO dela upp raden.
+        return Response.status(201).entity(entity).build(); //TODO dela upp raden.
     }
 
     @PUT

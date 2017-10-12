@@ -10,7 +10,6 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.transaction.Transactional;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -51,8 +50,7 @@ public class TimeReservationFacadeREST extends AbstractFacade<TimeReservation> {
     public Response create2(TimeReservation entity)
     {
         super.create(entity);
-        String temp = entity.getTimeReservationId().toString();
-        return Response.status(201).entity(temp).build(); //TODO dela upp raden.
+        return Response.status(201).entity(entity).build(); //TODO dela upp raden.
     }
 
     @PUT

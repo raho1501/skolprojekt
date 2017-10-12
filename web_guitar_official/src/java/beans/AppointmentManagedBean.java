@@ -20,7 +20,7 @@ import java.util.logging.Logger;
  */
 @Named(value = "appointmentManagedBean")
 @RequestScoped
-public class AppointmentManagedBean 
+public class AppointmentManagedBean
 {
     @PersistenceContext(unitName="web_guitar_officialPU")
     private EntityManager entityManager;
@@ -40,6 +40,13 @@ public class AppointmentManagedBean
         return appointmentQuery.getResultList();
     }
     
+    public Appointment getAppointment(Integer id)
+    {
+        TypedQuery<Appointment>  appointmentQuery = 
+		entityManager.createNamedQuery("Appointment.findByAppointmentId", Appointment.class).setParameter("appointmentId", id);
+	return appointmentQuery.getResultList().get(0);  // TODO Kanske borde se till att vi inte krashar här.
+    }
+    
     public void addAppointment(Appointment appointment)
     {
         presist(appointment);
@@ -56,7 +63,7 @@ public class AppointmentManagedBean
         {
             userTransaction.begin();
             entityManager.remove(
-		    entityManager.merge(appointment.getTimeReservationIdFk()));
+		    entityManager.merge(appointment));
             userTransaction.commit();
         }
         catch(Exception e)

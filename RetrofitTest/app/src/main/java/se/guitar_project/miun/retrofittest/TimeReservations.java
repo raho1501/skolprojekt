@@ -19,4 +19,8 @@ public class TimeReservations {
     {
         return timeReservationList.get(index);
     }
+    public Integer size()
+    {
+        return timeReservationList.size();
+    }
 }
