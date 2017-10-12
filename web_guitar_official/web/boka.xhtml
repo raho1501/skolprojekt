@@ -51,14 +51,19 @@
             </div>
         </footer>
         <div id="dialog" title="Bekräfta bokning" style="display:none">
-            <form>
-                <input type="text" placeholder="Namn"/><br/>
-                <input type="text" placeholder="Email"/><br/>
-                <input type="text" placeholder="Telefon"/><br/>
-                <input type="textarea" placeholder="Beskrivning"/><br/>
-                <input type="file" multiple=""/>
-                <input id="reserve-button" type="button" value="BOKA" style="width:170px; margin-left:10px"/>
-            </form>
+            <h:form>
+                <label>Namn: </label>
+                <h:inputText></h:inputText><br/>
+                <label>Email: </label>
+                <h:inputText></h:inputText><br/>
+                <label>Tel: </label>
+                <h:inputText></h:inputText><br/>
+                <label>Beskrivning: </label>
+                <h:inputTextarea></h:inputTextarea><br/>
+                <label>Bilder: </label>
+                <h:inputFile></h:inputFile>
+                <h:commandButton id="reserve-button"></h:commandButton>
+            </h:form>
         </div>
         
         <script>
