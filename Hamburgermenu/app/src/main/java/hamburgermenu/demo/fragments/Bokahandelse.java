@@ -13,10 +13,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.alamkanak.weekview.WeekView;
 import com.example.markus.hamburgermenu.R;
+
+
+import org.w3c.dom.Text;
 
 import java.time.YearMonth;
 import java.util.ArrayList;
@@ -33,6 +38,8 @@ public class Bokahandelse extends Fragment implements AdapterView.OnItemSelected
     Calendar c = Calendar.getInstance();
     Spinner monthSpinner;
     ArrayAdapter<String> monthAdapter;
+    Button btn;
+    Event evn;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
@@ -54,9 +61,9 @@ public class Bokahandelse extends Fragment implements AdapterView.OnItemSelected
         //tv.setText(sdf.format(c.getTime()));
 
         monthSpinner = (Spinner) getView().findViewById(R.id.monthSpinner);
-        Spinner dateSpinner = (Spinner) getView().findViewById(R.id.datumSpinner);
-        Spinner startTidSpinner = (Spinner) getView().findViewById(R.id.startTidSpinner);
-        Spinner stopTidSpinner = (Spinner) getView().findViewById(R.id.stopTidSpinner);
+        final Spinner dateSpinner = (Spinner) getView().findViewById(R.id.datumSpinner);
+        final Spinner startTidSpinner = (Spinner) getView().findViewById(R.id.startTidSpinner);
+        final Spinner stopTidSpinner = (Spinner) getView().findViewById(R.id.stopTidSpinner);
 
 
 
@@ -137,6 +144,34 @@ public class Bokahandelse extends Fragment implements AdapterView.OnItemSelected
             });
         }
 
+        btn = (Button)getView().findViewById(R.id.button);
+        btn.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                evn = new Event();
+                evn.setDate( monthSpinner.getSelectedItem().toString() + "/" +
+                        dateSpinner.getSelectedItem().toString()  + "/" +
+                        Integer.toString(c.get(Calendar.YEAR)));
+                TextView namn = (TextView)getView().findViewById(R.id.inputBoxName);
+                evn.setName(namn.getText().toString());
+                evn.setStartTime(
+                        startTidSpinner.getSelectedItem().toString()
+                );
+                evn.setStopTime(
+                        stopTidSpinner.getSelectedItem().toString()
+                );
+                TextView decr = (TextView)getView().findViewById(R.id.inputBoxDescription);
+                evn.setDecription(
+                        decr.getText().toString()
+                );
+                TextView subj = (TextView)getView().findViewById(R.id.inputBoxSubject);
+                evn.setSubject(
+                        subj.getText().toString()
+                );
+                Events.events.add(evn);
+            }
+
+        });
+
     }
 
     @Override
@@ -166,6 +201,5 @@ public class Bokahandelse extends Fragment implements AdapterView.OnItemSelected
     public void onNothingSelected(AdapterView<?> adapterView) {
 
     }
-
 
 }

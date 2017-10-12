@@ -19,7 +19,24 @@ public class Event
     private String startTime;
     private String stopTime;
     private String date;
+    private String decription;
+    private String subject;
 
+    public String getSubject(){
+        return subject;
+    }
+
+    public void setSubject(String subject) {
+        this.subject = subject;
+    }
+
+    public String getDecription(){
+        return decription;
+    }
+
+    public void setDecription(String decription) {
+        this.decription = decription;
+    }
 
     public String getName() {
         return name;
@@ -49,9 +66,7 @@ public class Event
         return date;
     }
 
-    public void setDate(String date) {
-        this.date = date;
-    }
+    public void setDate(String date) {this.date = date;}
     public WeekViewEvent toWeekViewEvent()
     {
         WeekViewEvent weekViewEvent = new WeekViewEvent();
