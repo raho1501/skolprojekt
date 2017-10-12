@@ -3,41 +3,62 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html">
     <h:head>
-        <meta charset="UTF-8"></meta>
-        <title>Facelet Title</title>
+        <title>ANDERS GITARRVERKSTAD</title>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <meta name="description" content="" />
+        <meta name="keywords" content="" />
+        <script src="resources/js/jquery.min.js"></script>
+        <script src="resources/js/skel.min.js"></script>
+        <script src="resources/js/skel-layers.min.js"></script>
+        <script src="resources/js/init.js"></script>
+        <link rel="stylesheet" href="resources/resources/css/skel.css" />
+        <link rel="stylesheet" href="resources/css/style.css" />
+        <link rel="stylesheet" href="resources/css/style-xlarge.css" />
     </h:head>
-    <h:body>
-        <h:dataTable var="customer" value="#{customerManagedBean.customers}">
-            <h:column>Förnamn: #{customer.firstName} || </h:column>
-            <h:column>Efternamn  #{customer.lastName} || </h:column>
-            <h:column>Info: #{appointmentManagedBean.getAppointment(customer.appointmentIdFk).info} ||</h:column>
-            <h:column>
-                <h:form>
-                <h:commandButton value="ta bort" action="#{userInputBean.removeCustomer(customer)}">
-                </h:commandButton>
-                </h:form>
-            </h:column>
-        </h:dataTable>
+    <h:body id="top">
+        <!-- Header -->
+        <header id="header" class="skel-layers-fixed">
+            <h1><a href="#">ANDERS GITARRVERKSTAD</a></h1>
+            <nav id="nav">
+                <ul>
+                    <li><a href="faces/index.xhtml">START</a></li>
+                    <li><a href="faces/shop.xhtml">SHOP</a></li>
+                    <li><a href="faces/boka.xhtml">BOKA TID</a></li>
+                    <li><a href="faces/kontakt.xhtml">KONTAKT</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <section>
+            <img src="resources/images/gitarr.jpg" alt="gitarr bild" style ="width:1685px;"/>
+            <div id ="lankar" style ="height: 500px;">
+                <img src="resources/images/skiss.jpg" alt ="skiss bild"/>
+                <a href ="left-sidebar.html">
+            <div id="link1" style ="width: 350px; 
+                        height:270px; left:220px; position:absolute; bottom:480px;"></div></a>
+                <a href ="right-sidebar.html">
+            <div id="link2" style ="width: 350px; 
+                        height:270px; left:643px; position:absolute; bottom:480px;"></div></a>
+                <a href ="no-sidebar.html">
+            <div id="link3" style ="width: 350px; 
+                        height:270px; left:1065px; position:absolute; bottom:480px;"></div></a>
+            </div>
+        </section>
         
-        Här är en form!
-        <h:form>
-            Förnamn: 
-            <h:inputText value="#{userInputBean.firstName}"></h:inputText><br/>
-            Efternamn: 
-            <h:inputText value="#{userInputBean.lastName}"></h:inputText><br/>
-            Mejl: 
-            <h:inputText value="#{userInputBean.email}"></h:inputText><br/>
-            Telefon: 
-            <h:inputText value="#{userInputBean.phoneNumber}"></h:inputText><br/>
-            Beskrivning av fel: 
-            <h:inputText value="#{userInputBean.info}"></h:inputText><br/>
-            Datum: 
-            <h:inputText value="#{userInputBean.date}"></h:inputText><br/>
-            Start tid: 
-            <h:inputText value="#{userInputBean.startTime}"></h:inputText><br/>
-            Slut tid:
-            <h:inputText value="#{userInputBean.endTime}"></h:inputText><br/>
-            <h:commandButton value="Skicka" action="#{userInputBean.submit()}"></h:commandButton>
-        </h:form>
+        
+        <!-- Footer -->
+        <footer id="footer">
+            <div class="container">
+                <div class="row double">
+                    <ul class="icons">
+                        <li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+                        <li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+                        <li><a href="#" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
+                        <li><a href="#" class="icon fa-linkedin"><span class="label">LinkedIn</span></a></li>
+                        <li><a href="#" class="icon fa-pinterest"><span class="label">Pinterest</span></a></li>
+                    </ul>
+                </div>
+            </div>
+        </footer>
     </h:body>
 </html>
