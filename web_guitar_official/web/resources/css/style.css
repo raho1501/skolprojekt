@@ -388,3 +388,8 @@
         .fc-today {
             background: #fff;
         }
+        
+        #mapid { 
+            height: 400px; 
+            width: 100%;
+        }
