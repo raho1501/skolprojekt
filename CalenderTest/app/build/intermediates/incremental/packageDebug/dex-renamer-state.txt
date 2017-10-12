@@ -1,7 +1,0 @@
-#Thu Oct 12 09:32:35 CEST 2017
-base.0=C\:\\Users\\linus\\Documents\\NetBeansProjects\\skol_projekt\\skolprojekt\\skolprojekt\\CalenderTest\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10000\\instant-run-bootstrap_b1dbbfd330cf1f0dc3db7636e4531fa2b29de404
-renamed.1=classes2.dex
-renamed.0=classes.dex
-file.1=C\:\\Users\\linus\\Documents\\NetBeansProjects\\skol_projekt\\skolprojekt\\skolprojekt\\CalenderTest\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10000\\instant-run_c807dc987c5708eeca5a22bedaa081dafd43cc69\\classes.dex
-base.1=C\:\\Users\\linus\\Documents\\NetBeansProjects\\skol_projekt\\skolprojekt\\skolprojekt\\CalenderTest\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10000\\instant-run_c807dc987c5708eeca5a22bedaa081dafd43cc69
-file.0=C\:\\Users\\linus\\Documents\\NetBeansProjects\\skol_projekt\\skolprojekt\\skolprojekt\\CalenderTest\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10000\\instant-run-bootstrap_b1dbbfd330cf1f0dc3db7636e4531fa2b29de404\\classes.dex
