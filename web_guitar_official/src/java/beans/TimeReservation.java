@@ -6,7 +6,6 @@
 package beans;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -16,12 +15,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -53,12 +50,6 @@ public class TimeReservation implements Serializable {
     @Column(name = "RESERVATION_DATE")
     @Temporal(TemporalType.DATE)
     private Date reservationDate;
-    @OneToMany(mappedBy = "timeReservationIdFk")
-    private Collection<Repair> repairCollection;
-    @OneToMany(mappedBy = "timeReservationIdFk")
-    private Collection<Appointment> appointmentCollection;
-    @OneToMany(mappedBy = "timeReservationIdFk")
-    private Collection<Leave> leaveCollection;
 
     public TimeReservation() {
     }
@@ -99,33 +90,6 @@ public class TimeReservation implements Serializable {
         this.reservationDate = reservationDate;
     }
 
-    @XmlTransient
-    public Collection<Repair> getRepairCollection() {
-        return repairCollection;
-    }
-
-    public void setRepairCollection(Collection<Repair> repairCollection) {
-        this.repairCollection = repairCollection;
-    }
-
-    @XmlTransient
-    public Collection<Appointment> getAppointmentCollection() {
-        return appointmentCollection;
-    }
-
-    public void setAppointmentCollection(Collection<Appointment> appointmentCollection) {
-        this.appointmentCollection = appointmentCollection;
-    }
-
-    @XmlTransient
-    public Collection<Leave> getLeaveCollection() {
-        return leaveCollection;
-    }
-
-    public void setLeaveCollection(Collection<Leave> leaveCollection) {
-        this.leaveCollection = leaveCollection;
-    }
-
     @Override
     public int hashCode() {
         int hash = 0;
@@ -148,7 +112,7 @@ public class TimeReservation implements Serializable {
 
     @Override
     public String toString() {
-        return "service.TimeReservation[ timeReservationId=" + timeReservationId + " ]";
+        return "beans.TimeReservation[ timeReservationId=" + timeReservationId + " ]";
     }
     
 }

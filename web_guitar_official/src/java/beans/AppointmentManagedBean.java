@@ -32,14 +32,18 @@ public class AppointmentManagedBean
     {
         
     }
-    
     public List<Appointment> getAppointments()
     {
         TypedQuery<Appointment>  appointmentQuery = 
             entityManager.createNamedQuery("Appointment.findAll", Appointment.class);
         return appointmentQuery.getResultList();
     }
-    
+    public Appointment getAppointment(Integer id)
+    {
+        TypedQuery<Appointment>  appointmentQuery = 
+            entityManager.createNamedQuery("Appointment.findByAppointmentId", Appointment.class).setParameter("appointmentId", id);
+        return appointmentQuery.getResultList().get(0);  // TODO Kanske borde se till att vi inte krashar här.
+    }
     public void addAppointment(Appointment appointment)
     {
         presist(appointment);

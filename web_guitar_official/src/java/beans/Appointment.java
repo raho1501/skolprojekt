@@ -6,23 +6,17 @@
 package beans;
 
 import java.io.Serializable;
-import java.util.Collection;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -34,7 +28,8 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Appointment.findAll", query = "SELECT a FROM Appointment a")
     , @NamedQuery(name = "Appointment.findByAppointmentId", query = "SELECT a FROM Appointment a WHERE a.appointmentId = :appointmentId")
-    , @NamedQuery(name = "Appointment.findByInfo", query = "SELECT a FROM Appointment a WHERE a.info = :info")})
+    , @NamedQuery(name = "Appointment.findByInfo", query = "SELECT a FROM Appointment a WHERE a.info = :info")
+    , @NamedQuery(name = "Appointment.findByTimeReservationIdFk", query = "SELECT a FROM Appointment a WHERE a.timeReservationIdFk = :timeReservationIdFk")})
 public class Appointment implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -46,11 +41,8 @@ public class Appointment implements Serializable {
     @Size(max = 256)
     @Column(name = "INFO")
     private String info;
-    @JoinColumn(name = "TIME_RESERVATION_ID_FK", referencedColumnName = "TIME_RESERVATION_ID")
-    @ManyToOne
-    private TimeReservation timeReservationIdFk;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "appointmentIdFk")
-    private Collection<Customer> customerCollection;
+    @Column(name = "TIME_RESERVATION_ID_FK")
+    private Integer timeReservationIdFk;
 
     public Appointment() {
     }
@@ -75,21 +67,12 @@ public class Appointment implements Serializable {
         this.info = info;
     }
 
-    public TimeReservation getTimeReservationIdFk() {
+    public Integer getTimeReservationIdFk() {
         return timeReservationIdFk;
     }
 
-    public void setTimeReservationIdFk(TimeReservation timeReservationIdFk) {
+    public void setTimeReservationIdFk(Integer timeReservationIdFk) {
         this.timeReservationIdFk = timeReservationIdFk;
-    }
-
-    @XmlTransient
-    public Collection<Customer> getCustomerCollection() {
-        return customerCollection;
-    }
-
-    public void setCustomerCollection(Collection<Customer> customerCollection) {
-        this.customerCollection = customerCollection;
     }
 
     @Override
@@ -114,7 +97,7 @@ public class Appointment implements Serializable {
 
     @Override
     public String toString() {
-        return "service.Appointment[ appointmentId=" + appointmentId + " ]";
+        return "beans.Appointment[ appointmentId=" + appointmentId + " ]";
     }
     
 }

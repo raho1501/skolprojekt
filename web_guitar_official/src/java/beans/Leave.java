@@ -12,8 +12,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -28,7 +26,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Leave.findAll", query = "SELECT l FROM Leave l")
-    , @NamedQuery(name = "Leave.findByLeaveId", query = "SELECT l FROM Leave l WHERE l.leaveId = :leaveId")})
+    , @NamedQuery(name = "Leave.findByLeaveId", query = "SELECT l FROM Leave l WHERE l.leaveId = :leaveId")
+    , @NamedQuery(name = "Leave.findByTimeReservationIdFk", query = "SELECT l FROM Leave l WHERE l.timeReservationIdFk = :timeReservationIdFk")})
 public class Leave implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -37,9 +36,8 @@ public class Leave implements Serializable {
     @Basic(optional = false)
     @Column(name = "LEAVE_ID")
     private Integer leaveId;
-    @JoinColumn(name = "TIME_RESERVATION_ID_FK", referencedColumnName = "TIME_RESERVATION_ID")
-    @ManyToOne
-    private TimeReservation timeReservationIdFk;
+    @Column(name = "TIME_RESERVATION_ID_FK")
+    private Integer timeReservationIdFk;
 
     public Leave() {
     }
@@ -56,11 +54,11 @@ public class Leave implements Serializable {
         this.leaveId = leaveId;
     }
 
-    public TimeReservation getTimeReservationIdFk() {
+    public Integer getTimeReservationIdFk() {
         return timeReservationIdFk;
     }
 
-    public void setTimeReservationIdFk(TimeReservation timeReservationIdFk) {
+    public void setTimeReservationIdFk(Integer timeReservationIdFk) {
         this.timeReservationIdFk = timeReservationIdFk;
     }
 
@@ -86,7 +84,7 @@ public class Leave implements Serializable {
 
     @Override
     public String toString() {
-        return "service.Leave[ leaveId=" + leaveId + " ]";
+        return "beans.Leave[ leaveId=" + leaveId + " ]";
     }
     
 }

@@ -12,11 +12,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.TypedQuery;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -33,7 +32,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Customer.findByEmail", query = "SELECT c FROM Customer c WHERE c.email = :email")
     , @NamedQuery(name = "Customer.findByPhoneNr", query = "SELECT c FROM Customer c WHERE c.phoneNr = :phoneNr")
     , @NamedQuery(name = "Customer.findByFirstName", query = "SELECT c FROM Customer c WHERE c.firstName = :firstName")
-    , @NamedQuery(name = "Customer.findByLastName", query = "SELECT c FROM Customer c WHERE c.lastName = :lastName")})
+    , @NamedQuery(name = "Customer.findByLastName", query = "SELECT c FROM Customer c WHERE c.lastName = :lastName")
+    , @NamedQuery(name = "Customer.findByAppointmentIdFk", query = "SELECT c FROM Customer c WHERE c.appointmentIdFk = :appointmentIdFk")})
 public class Customer implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -55,9 +55,8 @@ public class Customer implements Serializable {
     @Size(max = 50)
     @Column(name = "LAST_NAME")
     private String lastName;
-    @JoinColumn(name = "APPOINTMENT_ID_FK", referencedColumnName = "APPOINTMENT_ID")
-    @ManyToOne(optional = false)
-    private Appointment appointmentIdFk;
+    @Column(name = "APPOINTMENT_ID_FK")
+    private Integer appointmentIdFk;
 
     public Customer() {
     }
@@ -69,7 +68,6 @@ public class Customer implements Serializable {
     public Integer getCustomerId() {
         return customerId;
     }
-
     public void setCustomerId(Integer customerId) {
         this.customerId = customerId;
     }
@@ -106,11 +104,11 @@ public class Customer implements Serializable {
         this.lastName = lastName;
     }
 
-    public Appointment getAppointmentIdFk() {
+    public Integer getAppointmentIdFk() {
         return appointmentIdFk;
     }
 
-    public void setAppointmentIdFk(Appointment appointmentIdFk) {
+    public void setAppointmentIdFk(Integer appointmentIdFk) {
         this.appointmentIdFk = appointmentIdFk;
     }
 
@@ -136,7 +134,7 @@ public class Customer implements Serializable {
 
     @Override
     public String toString() {
-        return "service.Customer[ customerId=" + customerId + " ]";
+        return "beans.Customer[ customerId=" + customerId + " ]";
     }
     
 }

@@ -12,8 +12,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -30,7 +28,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Repair.findAll", query = "SELECT r FROM Repair r")
     , @NamedQuery(name = "Repair.findByRepairId", query = "SELECT r FROM Repair r WHERE r.repairId = :repairId")
-    , @NamedQuery(name = "Repair.findByInfo", query = "SELECT r FROM Repair r WHERE r.info = :info")})
+    , @NamedQuery(name = "Repair.findByInfo", query = "SELECT r FROM Repair r WHERE r.info = :info")
+    , @NamedQuery(name = "Repair.findByTimeReservationIdFk", query = "SELECT r FROM Repair r WHERE r.timeReservationIdFk = :timeReservationIdFk")})
 public class Repair implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -42,9 +41,8 @@ public class Repair implements Serializable {
     @Size(max = 256)
     @Column(name = "INFO")
     private String info;
-    @JoinColumn(name = "TIME_RESERVATION_ID_FK", referencedColumnName = "TIME_RESERVATION_ID")
-    @ManyToOne
-    private TimeReservation timeReservationIdFk;
+    @Column(name = "TIME_RESERVATION_ID_FK")
+    private Integer timeReservationIdFk;
 
     public Repair() {
     }
@@ -69,11 +67,11 @@ public class Repair implements Serializable {
         this.info = info;
     }
 
-    public TimeReservation getTimeReservationIdFk() {
+    public Integer getTimeReservationIdFk() {
         return timeReservationIdFk;
     }
 
-    public void setTimeReservationIdFk(TimeReservation timeReservationIdFk) {
+    public void setTimeReservationIdFk(Integer timeReservationIdFk) {
         this.timeReservationIdFk = timeReservationIdFk;
     }
 
@@ -99,7 +97,7 @@ public class Repair implements Serializable {
 
     @Override
     public String toString() {
-        return "service.Repair[ repairId=" + repairId + " ]";
+        return "beans.Repair[ repairId=" + repairId + " ]";
     }
     
 }

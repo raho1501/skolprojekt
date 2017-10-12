@@ -209,9 +209,9 @@
             <script>
                 addAllEvents.push(function(){
                     insertEvent("#{customer.firstName}",
-                                "#{customer.appointmentIdFk.timeReservationIdFk.reservationDate}",
-                                "#{customer.appointmentIdFk.timeReservationIdFk.startTime}",
-                                "#{customer.appointmentIdFk.timeReservationIdFk.stopTime}");
+                                "##{timeReservationManagedBean.getReservation(appointmentManagedBean.getAppointment(customer.appointmentIdFk).timeReservationIdFk).reservationDate}",
+                                "#{timeReservationManagedBean.getReservation(appointmentManagedBean.getAppointment(customer.appointmentIdFk).timeReservationIdFk).startTime}",
+                                "#{timeReservationManagedBean.getReservation(appointmentManagedBean.getAppointment(customer.appointmentIdFk).timeReservationIdFk).stopTime}");
                 });
             </script>
         </c:forEach>

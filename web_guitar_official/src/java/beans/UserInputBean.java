@@ -216,12 +216,12 @@ public class UserInputBean {
 		
 		timeReservationManagedBean.addTimeReservation(reservation);
 		
-		appoint.setTimeReservationIdFk(reservation);
+		appoint.setTimeReservationIdFk(reservation.getTimeReservationId());
 		appoint.setInfo(info);
 		
 		appointmentManagedBean.addAppointment(appoint);
 		
-		cust.setAppointmentIdFk(appoint);
+		cust.setAppointmentIdFk(appoint.getAppointmentId());
 		cust.setFirstName(firstName);
 		cust.setLastName(lastName);
 		cust.setEmail(email);

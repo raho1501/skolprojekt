@@ -42,7 +42,6 @@ public class CustomerManagedBean
 			"Customer.findAll", Customer.class);
 		return typedQuery.getResultList();
 	}
-	
 	public void removeCustomer(Customer customer)
 	{
 		remove(customer);
