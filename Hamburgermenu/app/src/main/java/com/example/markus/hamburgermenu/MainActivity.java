@@ -1,10 +1,14 @@
 package com.example.markus.hamburgermenu;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -19,14 +23,47 @@ import hamburgermenu.demo.fragments.Dagsschema;
 import hamburgermenu.demo.fragments.Ekonomi;
 import hamburgermenu.demo.fragments.Event;
 import hamburgermenu.demo.fragments.Events;
+import hamburgermenu.demo.fragments.Kamera;
 import hamburgermenu.demo.fragments.Veckoschema;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    private static final int CAM_REQUEST = 1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.CAMERA)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            // Should we show an explanation?
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.CAMERA)) {
+
+                // Show an explanation to the user *asynchronously* -- don't block
+                // this thread waiting for the user's response! After the user
+                // sees the explanation, try again to request the permission.
+
+            } else {
+
+                // No explanation needed, we can request the permission.
+
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.CAMERA},
+                        CAM_REQUEST);
+
+                // MY_PERMISSIONS_REQUEST_CAMERA is an
+                // app-defined int constant. The callback method gets the
+                // result of the request.
+            }
+        }
+
+
+
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -111,7 +148,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_ekonomi) {
             fn.beginTransaction().replace(R.id.content_frame, new Ekonomi()).commit();
         } else if (id == R.id.nav_kamera) {
-            fn.beginTransaction().replace(R.id.content_frame, new Ekonomi()).commit();
+            fn.beginTransaction().replace(R.id.content_frame, new Kamera()).commit();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
