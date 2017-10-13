@@ -242,7 +242,7 @@ public class UserInputBean {
 		
 		customerManagedBean.addCustomer(cust);
 		
-		return "index";
+		return "redirect";
 	}
 	
 }
