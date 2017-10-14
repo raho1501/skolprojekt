@@ -5,15 +5,23 @@
  */
 package beans;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import static java.nio.charset.StandardCharsets.ISO_8859_1;
 import static java.nio.charset.StandardCharsets.UTF_8;
+import java.nio.file.Files;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
+import javax.mail.MessagingException;
+import javax.servlet.http.Part;
 
 /**
  *
@@ -28,15 +36,15 @@ public class CalendarInputBean {
 	private String email;
 	private String phoneNumber;
 	
-	// TODO(markus): Kanske ska byta typen på startTime och endTime
-	// till något annat.
+	
 	private String startTime;
 	private String endTime;
 	
-	// TODO(markus): Kanske byta typen på date till något annat.
 	private String date;
 	
 	private String info;
+	
+	private Part imageFile;
 	
 	
 	@Inject
@@ -199,8 +207,56 @@ public class CalendarInputBean {
 		this.date = date;
 	}
 	
+	/**
+	 * @return the imageFile
+	 */
+	public Part getImageFile() {
+		return imageFile;
+	}
+
+	/**
+	 * @param imageFile the imageFile to set
+	 */
+	public void setImageFile(Part imageFile) {
+		this.imageFile = imageFile;
+	}
+	
+	public void save() throws MessagingException
+	{
+		//TODO(markus f): fixa buggar här. (refresh bugg när man bokar.)
+		//TODO(markus f): Skapa sökväg som alla kan använda för att ladda upp bilder.
+		//TODO(markus f): undersök om ajax måste användas för att ladda upp bilder.
+		//TODO(markus f): generera unika filnamn för de uppladdade bilderna.
+		
+		String filename = imageFile.getSubmittedFileName();
+		///home/markus/GlassFish_Server/glassfish/domains/domain1/config
+		File savedFile = new File(System.getenv("UPLOAD_LOCATION"), filename);
+
+		try(InputStream input = imageFile.getInputStream())
+		{
+			Files.copy(input, savedFile.toPath());
+		}
+		catch(IOException e)
+		{
+			Logger.getLogger(getClass().getName()).
+				log(Level.SEVERE, "exception caught", e);
+			throw new RuntimeException(e);
+		}
+	}
+	
 	public String submit()
 	{
+		if(firstName.isEmpty()) return "redirect";
+		if(lastName.isEmpty()) return "redirect";
+		if(email.isEmpty()) return "redirect";
+		if(phoneNumber.isEmpty()) return "redirect";
+
+		if(startTime.isEmpty()) return "redirect";
+		if(endTime.isEmpty()) return "redirect";
+		if(date.isEmpty()) return "redirect";
+
+		if(info.isEmpty()) return "redirect";
+		
 		Customer cust = new Customer();
 		Appointment appoint = new Appointment();
 		TimeReservation reservation = new TimeReservation();
@@ -244,5 +300,4 @@ public class CalendarInputBean {
 		
 		return "redirect";
 	}
-	
 }
