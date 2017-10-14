@@ -3,10 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/markus/NetBeansProjects/skolprojekt/web_guitar_official/src/java/beans/UserInputBean.java</file>
-            <file>file:/home/markus/NetBeansProjects/skolprojekt/web_guitar_official/web/index.xhtml</file>
+            <file>file:/home/markus/NetBeansProjects/skolprojekt/web_guitar_official/src/java/beans/Shop.java</file>
+            <file>file:/home/markus/NetBeansProjects/skolprojekt/web_guitar_official/src/java/beans/AppointmentManagedBean.java</file>
+            <file>file:/home/markus/NetBeansProjects/skolprojekt/web_guitar_official/src/java/beans/ShopManagedBean.java</file>
+            <file>file:/home/markus/NetBeansProjects/skolprojekt/web_guitar_official/src/java/beans/TimeReservationManagedBean.java</file>
             <file>file:/home/markus/NetBeansProjects/skolprojekt/web_guitar_official/web/boka.xhtml</file>
-            <file>file:/home/markus/NetBeansProjects/skolprojekt/web_guitar_official/web/kontakt.xhtml</file>
         </group>
     </open-files>
 </project-private>

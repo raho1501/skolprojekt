@@ -29,6 +29,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 	@NamedQuery(name = "Appointment.findAll", query = "SELECT a FROM Appointment a")
 	, @NamedQuery(name = "Appointment.findByAppointmentId", query = "SELECT a FROM Appointment a WHERE a.appointmentId = :appointmentId")
 	, @NamedQuery(name = "Appointment.findByInfo", query = "SELECT a FROM Appointment a WHERE a.info = :info")
+	, @NamedQuery(name = "Appointment.findByImageUrl", query = "SELECT a FROM Appointment a WHERE a.imageUrl = :imageUrl")
 	, @NamedQuery(name = "Appointment.findByTimeReservationIdFk", query = "SELECT a FROM Appointment a WHERE a.timeReservationIdFk = :timeReservationIdFk")})
 public class Appointment implements Serializable {
 
@@ -41,6 +42,9 @@ public class Appointment implements Serializable {
 	@Size(max = 256)
         @Column(name = "INFO")
 	private String info;
+	@Size(max = 256)
+        @Column(name = "IMAGE_URL")
+	private String imageUrl;
 	@Column(name = "TIME_RESERVATION_ID_FK")
 	private Integer timeReservationIdFk;
 
@@ -65,6 +69,14 @@ public class Appointment implements Serializable {
 
 	public void setInfo(String info) {
 		this.info = info;
+	}
+
+	public String getImageUrl() {
+		return imageUrl;
+	}
+
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
 	}
 
 	public Integer getTimeReservationIdFk() {

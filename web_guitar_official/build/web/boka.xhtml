@@ -60,25 +60,27 @@
             </div>
         </footer>
         <div id="dialog" title="Bekräfta bokning" style="display:none">
-            <h:form id="dialog-form">
+            <h:form id="dialog-form" enctype="multipart/form-data">
                 <label>Förnamn: </label>
-                <h:inputText id="test" value="#{userInputBean.firstName}"></h:inputText><br/>
+                <h:inputText id="test" value="#{calendarInputBean.firstName}"></h:inputText><br/>
                 <label>Efternamn: </label>
-                <h:inputText value="#{userInputBean.lastName}"></h:inputText><br/>
+                <h:inputText value="#{calendarInputBean.lastName}"></h:inputText><br/>
                 <label>Email: </label>
-                <h:inputText value="#{userInputBean.email}"></h:inputText><br/>
+                <h:inputText value="#{calendarInputBean.email}"></h:inputText><br/>
                 <label>Tel: </label>
-                <h:inputText value="#{userInputBean.phoneNumber}"></h:inputText><br/>
-                <label>Beskrivning: </label>
-                <h:inputTextarea value="#{userInputBean.info}"></h:inputTextarea><br/>
-                <label>Bilder: </label>
+                <h:inputText value="#{calendarInputBean.phoneNumber}"></h:inputText><br/>
+                <label style="vertical-align: top;">Kort beskrivning: </label>
+                <h:inputTextarea value="#{calendarInputBean.info}"></h:inputTextarea><br/>
+                
+                <label>Bild: </label>
+                <h:inputFile></h:inputFile>
 
                 
-                <h:inputHidden id="hidden-date" value="#{userInputBean.date}"></h:inputHidden>
-                <h:inputHidden id="hidden-start" value="#{userInputBean.startTime}"></h:inputHidden>
-                <h:inputHidden id="hidden-end" value="#{userInputBean.endTime}" ></h:inputHidden>
+                <h:inputHidden id="hidden-date" value="#{calendarInputBean.date}"></h:inputHidden>
+                <h:inputHidden id="hidden-start" value="#{calendarInputBean.startTime}"></h:inputHidden>
+                <h:inputHidden id="hidden-end" value="#{calendarInputBean.endTime}" ></h:inputHidden>
                 
-                <h:commandButton id="reserve-button" value="Boka" action="#{userInputBean.submit()}"></h:commandButton>
+                <h:commandButton id="reserve-button" value="Boka" action="#{calendarInputBean.submit()}"></h:commandButton>
             </h:form>
         </div>
         

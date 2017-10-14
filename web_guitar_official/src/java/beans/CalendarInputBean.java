@@ -19,9 +19,9 @@ import javax.inject.Inject;
  *
  * @author markus
  */
-@Named(value = "userInputBean")
+@Named(value = "calendarInputBean")
 @RequestScoped
-public class UserInputBean {
+public class CalendarInputBean {
 
 	private String firstName;
 	private String lastName;
@@ -46,7 +46,7 @@ public class UserInputBean {
 	@Inject
 	private TimeReservationManagedBean timeReservationManagedBean;
 
-	public UserInputBean()
+	public CalendarInputBean()
 	{
 	}
 	
