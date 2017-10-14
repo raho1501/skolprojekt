@@ -223,6 +223,11 @@ public class CalendarInputBean {
 	
 	public void save() throws MessagingException
 	{
+		//TODO(markus f): fixa buggar här. (refresh bugg när man bokar.)
+		//TODO(markus f): Skapa sökväg som alla kan använda för att ladda upp bilder.
+		//TODO(markus f): undersök om ajax måste användas för att ladda upp bilder.
+		//TODO(markus f): generera unika filnamn för de uppladdade bilderna.
+		
 		String filename = imageFile.getSubmittedFileName();
 		///home/markus/GlassFish_Server/glassfish/domains/domain1/config
 		File savedFile = new File(System.getenv("UPLOAD_LOCATION"), filename);
