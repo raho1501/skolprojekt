@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
         <title>Boka tid</title>
@@ -73,7 +74,9 @@
                 <h:inputTextarea value="#{calendarInputBean.info}"></h:inputTextarea><br/>
                 
                 <label>Bild: </label>
-                <h:inputFile></h:inputFile>
+                <h:inputFile value="#{calendarInputBean.imageFile}">
+                    <f:ajax listener="#{calendarInputBean.save}"></f:ajax>
+                </h:inputFile>
 
                 
                 <h:inputHidden id="hidden-date" value="#{calendarInputBean.date}"></h:inputHidden>
