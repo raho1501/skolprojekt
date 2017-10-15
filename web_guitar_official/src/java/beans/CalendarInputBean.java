@@ -15,6 +15,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.inject.Named;
@@ -221,16 +222,19 @@ public class CalendarInputBean {
 		this.imageFile = imageFile;
 	}
 	
-	public void save() throws MessagingException
+	public void saveImage() throws MessagingException
 	{
-		//TODO(markus f): fixa buggar här. (refresh bugg när man bokar.)
 		//TODO(markus f): Skapa sökväg som alla kan använda för att ladda upp bilder.
-		//TODO(markus f): undersök om ajax måste användas för att ladda upp bilder.
-		//TODO(markus f): generera unika filnamn för de uppladdade bilderna.
+		//TODO(markus f): fixa så att bara bild filer kan laddas upp detta borde kanske också göras i boka.xhtml
 		
 		String filename = imageFile.getSubmittedFileName();
-		///home/markus/GlassFish_Server/glassfish/domains/domain1/config
-		File savedFile = new File(System.getenv("UPLOAD_LOCATION"), filename);
+		String extension = filename.substring(filename.indexOf("."), filename.length());
+		
+		String randFileName = UUID.randomUUID().toString();
+		
+		filename = randFileName + extension;
+		///home/markus/NetBeansProjects/skolprojekt/web_guitar_official/web/resources/uploaded_img
+		File savedFile = new File("home/markus/NetBeansProjects/skolprojekt/web_guitar_official/web/resources/uploaded_img", filename);
 
 		try(InputStream input = imageFile.getInputStream())
 		{
@@ -256,6 +260,20 @@ public class CalendarInputBean {
 		if(date.isEmpty()) return "redirect";
 
 		if(info.isEmpty()) return "redirect";
+		
+		if(imageFile != null)
+		{
+			try
+			{
+				saveImage();
+			}
+			catch(MessagingException e)
+			{
+				Logger.getLogger(getClass().getName()).
+					log(Level.SEVERE, "exception caught", e);
+				throw new RuntimeException(e);
+			}
+		}
 		
 		Customer cust = new Customer();
 		Appointment appoint = new Appointment();
