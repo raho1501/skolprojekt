@@ -33,22 +33,27 @@
             <h2>AKUSTISKA GITARRER TILL SALU</h2>
         </header>
     </section>
-    <!--TODO: Implement this with the backing bean. Probably using <ui:component> or something-->
     <section class="container">
-        <div class="shopItem row">
-            <img class="3u" src="inget.png" alt="Tom Bild"/>
-            <div class="6u">
-                <h3>
-                    Title
-                </h3>
-                <p>
-                    En lätt beskrivning om gitarren.
-                </p>
-            </div>
-            <div class="3u">
-                <input type="button" value="Reservera" />
-            </div>
-        </div>
+        <!--TODO: Implement this with the backing bean. Probably using <ui:component> or something-->
+        <ui:repeat var="item" value="#{shopManagedBean.shops}" varStatus="status">
+            <div class="shopItem row">
+                <img class="3u" src="#{item.imageUrl}" alt="Tom Bild"/>
+                <div class="6u">
+                    <h3>
+                        #{item.title}
+                    </h3>
+                    <p>
+                        #{item.info}
+                    </p>
+                    <p>
+                        #{item.price} kronor
+                    </p>
+                </div>
+                <div class="3u">
+                    <input type="button" value="Reservera" />
+                </div>
+            </div>            
+        </ui:repeat>
     </section>
     <footer id="footer">
         <div class="container">
