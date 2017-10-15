@@ -222,7 +222,7 @@ public class CalendarInputBean {
 		this.imageFile = imageFile;
 	}
 	
-	public void saveImage() throws MessagingException
+	public String saveImage() throws MessagingException
 	{
 		//TODO(markus f): Skapa sökväg som alla kan använda för att ladda upp bilder.
 		//TODO(markus f): fixa så att bara bild filer kan laddas upp detta borde kanske också göras i boka.xhtml
@@ -233,8 +233,9 @@ public class CalendarInputBean {
 		String randFileName = UUID.randomUUID().toString();
 		
 		filename = randFileName + extension;
-		///home/markus/NetBeansProjects/skolprojekt/web_guitar_official/web/resources/uploaded_img
-		File savedFile = new File("home/markus/NetBeansProjects/skolprojekt/web_guitar_official/web/resources/uploaded_img", filename);
+		// /home/markus/NetBeansProjects/skolprojekt/web_guitar_official/web/resources/uploaded_img
+		// /var/web_guitar_official/images
+		File savedFile = new File("/home/markus/NetBeansProjects/skolprojekt/web_guitar_official/web/resources/uploaded_img", filename);
 
 		try(InputStream input = imageFile.getInputStream())
 		{
@@ -246,6 +247,8 @@ public class CalendarInputBean {
 				log(Level.SEVERE, "exception caught", e);
 			throw new RuntimeException(e);
 		}
+		
+		return filename;
 	}
 	
 	public String submit()
@@ -261,11 +264,13 @@ public class CalendarInputBean {
 
 		if(info.isEmpty()) return "redirect";
 		
+		String filename = null;
+		
 		if(imageFile != null)
 		{
 			try
 			{
-				saveImage();
+				filename = saveImage();
 			}
 			catch(MessagingException e)
 			{
@@ -305,6 +310,7 @@ public class CalendarInputBean {
 		
 		appoint.setTimeReservationIdFk(reservation.getTimeReservationId());
 		appoint.setInfo(info);
+		appoint.setImageUrl(filename);
 		
 		appointmentManagedBean.addAppointment(appoint);
 		

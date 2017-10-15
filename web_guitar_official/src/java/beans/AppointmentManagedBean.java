@@ -5,6 +5,9 @@
  */
 package beans;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.List;
 import java.util.logging.Level;
 import javax.inject.Named;
@@ -63,22 +66,35 @@ public class AppointmentManagedBean
 	remove(appointment);
     }
     
-    private void remove(Appointment appointment)
-    {
-        try
-        {
-            userTransaction.begin();
-            entityManager.remove(
-		    entityManager.merge(appointment));
-            userTransaction.commit();
-        }
-        catch(Exception e)
-        {
-            Logger.getLogger(getClass().getName()).
-                log(Level.SEVERE, "exception caught", e);
-            throw new RuntimeException(e);
-        }
-    }
+	private void remove(Appointment appointment)
+	{
+		if(appointment.getImageUrl() != null)
+		{
+			try
+			{
+				Files.deleteIfExists(new File("/home/markus/NetBeansProjects/skolprojekt/web_guitar_official/web/resources/uploaded_img", appointment.getImageUrl()).toPath());
+			}
+			catch (IOException ex)
+			{
+				Logger.getLogger(AppointmentManagedBean.class.getName()).log(Level.SEVERE, null, ex);
+				throw new RuntimeException(ex);
+			}
+		}
+
+		try
+		{
+			userTransaction.begin();
+			entityManager.remove(
+				entityManager.merge(appointment));
+			userTransaction.commit();
+		}
+		catch(Exception e)
+		{
+			Logger.getLogger(getClass().getName()).
+			    log(Level.SEVERE, "exception caught", e);
+			throw new RuntimeException(e);
+		}
+	}
     
     private void presist(Appointment appointment)
     {
