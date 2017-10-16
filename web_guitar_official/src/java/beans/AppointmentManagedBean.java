@@ -72,7 +72,7 @@ public class AppointmentManagedBean
 		{
 			try
 			{
-				Files.deleteIfExists(new File("/home/markus/NetBeansProjects/skolprojekt/web_guitar_official/web/resources/uploaded_img", appointment.getImageUrl()).toPath());
+				Files.deleteIfExists(new File(Constants.uploadPath, appointment.getImageUrl()).toPath());
 			}
 			catch (IOException ex)
 			{
