@@ -7,6 +7,11 @@
     </h:head>
     <h:body>
         <h:form>
+            start tid: <h:inputText value="#{leaveInputBean.startTime}"/><br/>
+            stop tid: <h:inputText value="#{leaveInputBean.stopTime}"/><br/>
+            datum: <h:inputText value="#{leaveInputBean.date}"/><br/>
+            
+            <h:commandButton value="Skicka" action="#{leaveInputBean.submit()}"/>
         </h:form>
     </h:body>
 </html>
