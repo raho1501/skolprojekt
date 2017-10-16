@@ -23,15 +23,9 @@ public class RetrofitWrapper
 {
     private Retrofit retrofit;
     private RestInterface client;
-    private List<Customer> customerList = new ArrayList<Customer>();
-    private List<Appointment> appointmentList = new ArrayList<Appointment>();;
-    private List<TimeReservation> timeReservationsList = new ArrayList<TimeReservation>();;
 
     public RetrofitWrapper()
     {
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-
-        StrictMode.setThreadPolicy(policy);
         Retrofit.Builder builder = new Retrofit.Builder().baseUrl("http://10.0.2.2:8080/web_guitar_official/webresources/").addConverterFactory(SimpleXmlConverterFactory.create());
         retrofit = builder.build();
 
@@ -39,74 +33,59 @@ public class RetrofitWrapper
     }
     public void getEvents(final RetroCallback<List<Event>> func)
     {
-        final EventResponse response = new EventResponse();
-        List<Event> list = new ArrayList<Event>();
-
-
-        getCustomers(new RetroCallback<Customers>()
-        {
+        //Retur värdet samt parametervärdet har ingen betydelse.
+        AsyncTask<Integer, Integer, Integer> task = new AsyncTask<Integer, Integer, Integer>() {
             @Override
-            public void onResponse(Customers entity) {
-                response.setCustomers(entity);
-                Customers customers = response.getCustomers();
-                final int size = customers.size();
+            protected Integer doInBackground(Integer... params) {
+                List<TimeReservation> timeReservations = new ArrayList<>();
+                List<Appointment> appointments = new ArrayList<>();
+
+                Customers customers = getCustomers();
+                int size = customers.size();
                 for (int i = 0; i < size; i++)
                 {
-                    final int finalI = i;
                     Customer customer = customers.getCustomer(i);
-                    getAppointmentById(customer.getAppointmentIdFk(), new RetroCallback<Appointment>()
-                            {
-                                @Override
-                                public void onResponse(Appointment entity) {
-                                    response.addAppointment(entity);
-                                    Appointment appointment = response.getLastAppointment();
-                                    getTimeReservationsById(appointment.getTimeReservationIdFk(), new RetroCallback<TimeReservation>()
-                                            {
-                                                @Override
-                                                public void onResponse(TimeReservation entity) {
-                                                    response.addTimeReservation(entity);
-                                                    if(finalI >= size-1)
-                                                    {
-                                                        func.onResponse(response.getEventList());
-                                                    }
-                                                }
-                                            }
-                                    );
-                                }
-                            }
-                    );
+                    Appointment appointment = getAppointmentById(customer.getAppointmentIdFk());
+                    TimeReservation timeReservation = getTimeReservationsById(appointment.getTimeReservationIdFk());
 
-
+                    appointments.add(appointment);
+                    timeReservations.add(timeReservation);
                 }
-            }
-        });
 
+                func.onResponse(generateEvents(customers, appointments, timeReservations));
+                return 0;
+            }
+        };
+        task.execute(0);
     }
-    public void getCustomers(final RetroCallback<Customers> func)
+    private Customers getCustomers()
     {
+        Customers customers = new Customers();
         Call<Customers> call;
         call = client.getAllCustomers();
         try
         {
-            Customers temp = call.execute().body();
-            func.onResponse(temp);
+            customers = call.execute().body();
         }
         catch (IOException e)
         {
             e.printStackTrace();
         }
+        return customers;
     }
-    public void getCustomerById(int id, final RetroCallback<Customer> func)
+    private Customer getCustomerById(int id)
     {
+        Customer customer = new Customer();
         Call<Customer> call = client.getCustomerById(id);
         try
         {
-            func.onResponse(call.execute().body());
+            customer = call.execute().body();
         }
         catch (IOException e)
         {
             e.printStackTrace();
         }
+        return customer;
     }
     public void postCustomer(Customer customer, final RetroCallback<Customer> func)
     {
@@ -123,30 +102,34 @@ public class RetrofitWrapper
             }
         });
     }
-    public void getTimeReservations(final RetroCallback<TimeReservations> func)
+    private TimeReservations getTimeReservations()
     {
+        TimeReservations timeReservations = new TimeReservations();
         Call<TimeReservations> call;
         call = client.getAllTimeResarvations();
         try
         {
-            func.onResponse(call.execute().body());
+            timeReservations = call.execute().body();
         }
         catch (IOException e)
         {
             e.printStackTrace();
         }
+        return timeReservations;
     }
-    public void getTimeReservationsById(int id, final RetroCallback<TimeReservation> func)
+    private TimeReservation getTimeReservationsById(int id)
     {
+        TimeReservation timeReservation = new TimeReservation();
         Call<TimeReservation> call = client.getTimeReservationById(id);
         try
         {
-            func.onResponse(call.execute().body());
+            timeReservation = call.execute().body();
         }
         catch (IOException e)
         {
             e.printStackTrace();
         }
+        return timeReservation;
     }
     public void postTimeReservation(TimeReservation timeReservation, final RetroCallback<TimeReservation> func)
     {
@@ -163,30 +146,34 @@ public class RetrofitWrapper
             }
         });
     }
-    public void getAppointments(final RetroCallback<Appointments> func)
+    private Appointments getAppointments()
     {
+        Appointments appointments = new Appointments();
         Call<Appointments> call;
         call = client.getAllAppointments();
         try
         {
-            func.onResponse(call.execute().body());
+            appointments = call.execute().body();
         }
         catch (IOException e)
         {
             e.printStackTrace();
         }
+        return appointments;
     }
-    public void getAppointmentById(int id, final RetroCallback<Appointment> func)
+    private Appointment getAppointmentById(int id)
     {
+        Appointment appointment = new Appointment();
         Call<Appointment> call = client.getAppointmentById(id);
         try
         {
-            func.onResponse(call.execute().body());
+            appointment = call.execute().body();
         }
         catch (IOException e)
         {
             e.printStackTrace();
         }
+        return appointment;
     }
     public void postAppointment(Appointment appointment, final RetroCallback<Appointment> func)
     {
@@ -237,40 +224,19 @@ public class RetrofitWrapper
 
         );
     }
-    private void addCustomerList(Customer customer)
-    {
-        customerList.add(customer);
-    }
-    private void clearCustomerList(Customer customer)
-    {
-        customerList.clear();
-    }
-    private void addAppointentList(Appointment appointment)
-    {
-        appointmentList.add(appointment);
-    }
-    private void clearAppointentList(Appointment appointment)
-    {
-        appointmentList.clear();
-    }
-    private void addTimeReservationList(TimeReservation timeReservation)
-    {
-        timeReservationsList.add(timeReservation);
-    }
-    private void clearTimeReservationList(TimeReservation timeReservation)
-    {
-        timeReservationsList.clear();
-    }
-    private List<Event> generateEvents()
+    private List<Event> generateEvents(Customers customers, List<Appointment> appointments, List<TimeReservation> timeReservations)
     {
         List<Event> eventList = new ArrayList<>();
-        int size = customerList.size();
+        int size = customers.size();
         for(int i = 0; i < size; i++)
         {
-            Customer customer = customerList.get(i);
-            Appointment appointment = appointmentList.get(i);
-            TimeReservation timeReservation = timeReservationsList.get(i);
+            Customer customer = customers.getCustomer(i);
+            Appointment appointment = appointments.get(i);
+            TimeReservation timeReservation = timeReservations.get(i);
             Event event = new Event();
+            event.setInfo(appointment.getInfo());
+            event.setPhoneNr(customer.getPhoneNr());
+            event.setEmail(customer.getEmail());
             event.setName(customer.getFirstName());
             event.setDate(timeReservation.getReservationDate());
             event.setStartTime(timeReservation.getStartTime());

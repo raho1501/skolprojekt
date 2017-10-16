@@ -102,14 +102,16 @@ public class Event
 
         Calendar startTime = (Calendar) now.clone();
         startTime.set(Calendar.YEAR, reservationDate.get(Calendar.YEAR));
-        startTime.set(Calendar.DATE, reservationDate.get(Calendar.DATE));
+        startTime.set(Calendar.MONTH, reservationDate.get(Calendar.MONTH));
+        startTime.set(Calendar.DAY_OF_MONTH, reservationDate.get(Calendar.DAY_OF_MONTH));
         startTime.set(Calendar.HOUR_OF_DAY, start.get(Calendar.HOUR_OF_DAY));
         startTime.set(Calendar.MINUTE, start.get(Calendar.MINUTE));
         startTime.set(Calendar.SECOND, start.get(Calendar.SECOND));
 
         Calendar stopTime = (Calendar) now.clone();
         stopTime.set(Calendar.YEAR, reservationDate.get(Calendar.YEAR));
-        stopTime.set(Calendar.DATE, reservationDate.get(Calendar.DATE));
+        stopTime.set(Calendar.MONTH, reservationDate.get(Calendar.MONTH));
+        stopTime.set(Calendar.DAY_OF_MONTH, reservationDate.get(Calendar.DAY_OF_MONTH));
         stopTime.set(Calendar.HOUR_OF_DAY, stop.get(Calendar.HOUR_OF_DAY));
         stopTime.set(Calendar.MINUTE, stop.get(Calendar.MINUTE));
         stopTime.set(Calendar.SECOND, stop.get(Calendar.SECOND));

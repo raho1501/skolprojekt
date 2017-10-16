@@ -44,12 +44,7 @@ public class MainActivity extends AppCompatActivity implements WeekView.EventCli
         //Set the number of visible days.
         weekView.setNumberOfVisibleDays(5);
 
-        //Event event = new Event();
-        //event.setName("Event");
-        //event.setDate("10/12/2017");
-        //event.setStartTime("15:00");
-        //event.setStopTime("16:00");
-        //addEvent(event);
+
         RetrofitWrapper retro = new RetrofitWrapper();
         retro.getEvents(
             new RetroCallback<List<Event>>()
@@ -75,11 +70,16 @@ public class MainActivity extends AppCompatActivity implements WeekView.EventCli
     @Override
     public List<WeekViewEvent> onMonthChange(int newYear, int newMonth){
         // Populate the week view with some events.
-        List<WeekViewEvent> matchList = new ArrayList<WeekViewEvent>();
+        List<WeekViewEvent> matchList = new ArrayList<>();
             //TODO hitta ett sätt att bara adda events som är i vyn just nu.
         for (Event event : eventList)
         {
-            matchList.add(event.toWeekViewEvent());
+            WeekViewEvent weekEvent = event.toWeekViewEvent();
+            int month = weekEvent.getStartTime().get(Calendar.MONTH);
+            if(month == newMonth)
+            {
+                matchList.add(event.toWeekViewEvent());
+            }
         }
         return matchList;
     }
