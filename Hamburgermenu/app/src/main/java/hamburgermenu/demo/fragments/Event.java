@@ -8,6 +8,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * Created by linus on 2017-10-11.
@@ -70,6 +71,7 @@ public class Event
         return Integer.parseInt(date.substring(3,5));
     }
     public int getMonth(){
+        System.out.println(date.substring(0,2));
         return Integer.parseInt(date.substring(0, 2));
     }
     public int getYear(){
@@ -120,14 +122,14 @@ public class Event
         Calendar startTime = (Calendar) now.clone();
         startTime.set(Calendar.YEAR, reservationDate.get(Calendar.YEAR));
         startTime.set(Calendar.DATE, reservationDate.get(Calendar.DATE));
-        startTime.set(Calendar.HOUR, start.get(Calendar.HOUR));
+        startTime.set(Calendar.HOUR_OF_DAY, start.get(Calendar.HOUR_OF_DAY));
         startTime.set(Calendar.MINUTE, start.get(Calendar.MINUTE));
         startTime.set(Calendar.SECOND, start.get(Calendar.SECOND));
 
         Calendar stopTime = (Calendar) now.clone();
         stopTime.set(Calendar.YEAR, reservationDate.get(Calendar.YEAR));
         stopTime.set(Calendar.DATE, reservationDate.get(Calendar.DATE));
-        stopTime.set(Calendar.HOUR, stop.get(Calendar.HOUR));
+        stopTime.set(Calendar.HOUR_OF_DAY, stop.get(Calendar.HOUR_OF_DAY));
         stopTime.set(Calendar.MINUTE, stop.get(Calendar.MINUTE));
         stopTime.set(Calendar.SECOND, stop.get(Calendar.SECOND));
 

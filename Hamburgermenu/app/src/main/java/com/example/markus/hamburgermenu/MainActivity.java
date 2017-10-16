@@ -17,6 +17,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 
 import hamburgermenu.demo.fragments.Bokahandelse;
 import hamburgermenu.demo.fragments.Dagsschema;
@@ -95,6 +96,8 @@ public class MainActivity extends AppCompatActivity
         event.setStartTime("15:00");
         event.setStopTime("16:00");
         Events.events.add(event);
+
+
     }
 
     @Override
