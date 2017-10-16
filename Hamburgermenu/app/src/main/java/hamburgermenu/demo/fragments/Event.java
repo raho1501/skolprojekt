@@ -66,6 +66,16 @@ public class Event
         return date;
     }
 
+    public int getDay(){
+        return Integer.parseInt(date.substring(3,5));
+    }
+    public int getMonth(){
+        return Integer.parseInt(date.substring(0, 2));
+    }
+    public int getYear(){
+        return Integer.parseInt(date.substring(6, 10));
+    }
+
     public void setDate(String date) {this.date = date;}
     public WeekViewEvent toWeekViewEvent()
     {
