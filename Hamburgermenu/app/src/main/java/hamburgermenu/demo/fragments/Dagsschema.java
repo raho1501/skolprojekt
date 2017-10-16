@@ -68,7 +68,9 @@ public class Dagsschema extends Fragment implements WeekView.EventClickListener,
         List<WeekViewEvent> matchList = new ArrayList<WeekViewEvent>();
         for (Event weekEvent : Events.events) {
             //TODO hitta ett sätt att bara adda events som är i vyn just nu.
-            matchList.add(weekEvent.toWeekViewEvent());
+            if(weekEvent.getMonth() == newMonth){
+                matchList.add(weekEvent.toWeekViewEvent());
+            }
         }
         return matchList;
     }
