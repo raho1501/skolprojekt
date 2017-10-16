@@ -11,20 +11,21 @@ import com.alamkanak.weekview.WeekViewEvent;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Vector;
 
 public class MainActivity extends AppCompatActivity implements WeekView.EventClickListener, MonthLoader.MonthChangeListener, WeekView.EventLongPressListener{
 
-    public List<WeekViewEvent> eventList = new ArrayList<WeekViewEvent>();
+    public List<Event> eventList = new ArrayList<Event>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         // Get a reference for the week view in the layout.
-        WeekView weekView = (WeekView) findViewById(R.id.weekView);
+        final WeekView weekView = (WeekView) findViewById(R.id.weekView);
 
         // Set an action when any event is clicked.
         weekView.setOnEventClickListener(this);
@@ -38,15 +39,24 @@ public class MainActivity extends AppCompatActivity implements WeekView.EventCli
 
         //Set the number of visible days.
         weekView.setNumberOfVisibleDays(5);
-
-        Event event = new Event();
-        event.setName("Event");
-        event.setDate("10/12/2017");
-        event.setStartTime("15:00");
-        event.setStopTime("16:00");
-        addEvent(event);
+        //Event event = new Event();
+        //event.setName("Event");
+        //event.setDate("10/12/2017");
+        //event.setStartTime("15:00");
+        //event.setStopTime("16:00");
+        //addEvent(event);
         RetrofitWrapper retro = new RetrofitWrapper();
-        retro.getEvents();
+        retro.getEvents(
+            new RetroCallback<List<Event>>()
+            {
+                @Override
+                public void onResponse(List<Event> entity) {
+                    setList(entity);
+                    weekView.getMonthChangeListener().onMonthChange(2017,10);
+                    weekView.notifyDatasetChanged();
+                }
+            }
+        );
     }
     @Override
     public void onEventClick(WeekViewEvent event, RectF eventRect) {
@@ -61,14 +71,19 @@ public class MainActivity extends AppCompatActivity implements WeekView.EventCli
     public List<WeekViewEvent> onMonthChange(int newYear, int newMonth){
         // Populate the week view with some events.
         List<WeekViewEvent> matchList = new ArrayList<WeekViewEvent>();
-        for (WeekViewEvent weekEvent : eventList) {
             //TODO hitta ett sätt att bara adda events som är i vyn just nu.
-            matchList.add(weekEvent);
+        for (Event event : eventList)
+        {
+            matchList.add(event.toWeekViewEvent());
         }
         return matchList;
     }
     public void addEvent(Event event)
     {
-        eventList.add(event.toWeekViewEvent());
+        eventList.add(event);
+    }
+    public void setList(List<Event> events)
+    {
+        eventList = events;
     }
 }

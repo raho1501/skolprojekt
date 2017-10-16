@@ -57,8 +57,8 @@ public class Event
         WeekViewEvent weekViewEvent = new WeekViewEvent();
 
         Calendar now = Calendar.getInstance();
-        SimpleDateFormat hourMinutes = new SimpleDateFormat("HH:mm");
-        SimpleDateFormat years = new SimpleDateFormat("MM/dd/yyyy");
+        SimpleDateFormat hourMinutes = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
+        SimpleDateFormat years = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
         Calendar start = (Calendar) now.clone();
 
         Calendar stop = (Calendar) now.clone();
@@ -75,7 +75,8 @@ public class Event
 
         try
         {
-            stop.setTime(hourMinutes.parse(getStopTime()));
+            Date temp = hourMinutes.parse(getStopTime());
+            stop.setTime(temp);
         }
         catch(ParseException e)
         {
@@ -83,7 +84,8 @@ public class Event
         }
         try
         {
-            reservationDate.setTime(years.parse(getDate()));
+            Date temp = years.parse(getDate());
+            reservationDate.setTime(temp);
         }
         catch(ParseException e)
         {
