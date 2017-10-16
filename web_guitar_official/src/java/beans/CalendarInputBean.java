@@ -235,7 +235,7 @@ public class CalendarInputBean {
 		filename = randFileName + extension;
 		// /home/markus/NetBeansProjects/skolprojekt/web_guitar_official/web/resources/uploaded_img
 		// /var/web_guitar_official/images
-		File savedFile = new File("/home/markus/NetBeansProjects/skolprojekt/web_guitar_official/web/resources/uploaded_img", filename);
+		File savedFile = new File(Constants.uploadPath, filename);
 
 		try(InputStream input = imageFile.getInputStream())
 		{
