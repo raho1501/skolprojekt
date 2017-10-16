@@ -84,6 +84,12 @@
                 
                 <h:commandButton id="reserve-button" value="Boka" action="#{calendarInputBean.submit()}"></h:commandButton>
             </h:form>
+            <div id="Information" style ="float:right; position: absolute; right:1%;
+                 top: 3%; width:40%;">
+                <p>För att utföra bokningen behöver du fylla i detta formulär.
+                   Bilder behövs ej.
+                </p>
+            </div>
         </div>
         
         <div id="error" title="Oj" style="display: none">
@@ -98,6 +104,8 @@
             //<![CDATA[
         var events = [];
         var currentEvent;
+        var weekDays =  ['', 'Måndag', 'Tisdag', 'Onsdag', 'Torsdag','Fredag'];
+        
 
         function insertEvent(name, date, startTime, endTime)
         {
@@ -151,6 +159,7 @@
 
             $('#calendar').fullCalendar({
                     // put your options and callbacks here
+                    
                 eventClick: function(calEvent, jsEvent, view) {
                     if(currentEvent == undefined)
                     {
@@ -158,18 +167,29 @@
                     }
                     if(calEvent.id == currentEvent.id)
                     {
+                        var bokningsTidStart = currentEvent.start.hours();
+                        var bokningsTidEnd = currentEvent.end.hours();
+                        var bokningsTidDate = currentEvent.start.date();
+                        var bokningsTidDay = currentEvent.start.day();
+                        var bokningsTidMonth = currentEvent.start.month();
+                        
+                     
                         $(function() {
                             $("#dialog").dialog({
                                 width: "auto",
                                 resizable: false,
-                                modal: false
+                                modal: false,
+                                title: "Bekräfta bokningen " + weekDays[bokningsTidDay] + " den " +
+                                bokningsTidDate + " kl: " + bokningsTidStart + " - " + 
+                                bokningsTidEnd
                             });
                         });
+                        
                         // change the border color just for fun
                         $(this).css('border-color', 'red');
                     }
                 },
-                dayNamesShort: ['', 'Måndag', 'Tisdag', 'Onsdag', 'Torsdag','Fredag'],
+                dayNamesShort: weekDays,
                 dayOfMonthFormat:'ddd DD',
                 defaultView: 'agendaWeek',
                 weekNumbers: true,
@@ -231,13 +251,12 @@
                     }
                     currentEvent = {
                         id: newid,
-                        title: 'Ny konsultation',
+                        title: 'Klicka här igen för att boka',
                         start: start,
                         end: end,
                         allDay: false,
                         editable: false
-                    };
-                    
+                    };                   
                     document.getElementById("dialog-form:hidden-date").value = currentEvent.start.format("MM/DD/YYYY");
                     document.getElementById("dialog-form:hidden-start").value = currentEvent.start.format("HH:mm");
                     document.getElementById("dialog-form:hidden-end").value = currentEvent.end.format("HH:mm");
