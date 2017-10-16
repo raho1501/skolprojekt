@@ -15,10 +15,15 @@ import java.util.Date;
 
 public class Event
 {
+
     private String name;
     private String startTime;
     private String stopTime;
     private String date;
+    private String info;
+    private String email;
+    private String phoneNr;
+
 
 
     public String getName() {
@@ -65,7 +70,7 @@ public class Event
         Calendar reservationDate = (Calendar) now.clone();
         try
         {
-            Date temp = hourMinutes.parse(getStartTime()); // TODO Någonting med parsingen går fel.
+            Date temp = hourMinutes.parse(getStartTime());
             start.setTime(temp);
         }
         catch(ParseException e)
@@ -115,5 +120,29 @@ public class Event
 
 
         return weekViewEvent;
+    }
+
+    public String getInfo() {
+        return info;
+    }
+
+    public void setInfo(String info) {
+        this.info = info;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhoneNr() {
+        return phoneNr;
+    }
+
+    public void setPhoneNr(String phoneNr) {
+        this.phoneNr = phoneNr;
     }
 }
