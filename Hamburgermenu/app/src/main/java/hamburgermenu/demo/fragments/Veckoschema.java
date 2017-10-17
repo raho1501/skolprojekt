@@ -89,7 +89,7 @@ public class Veckoschema extends Fragment implements WeekView.EventClickListener
         editTitle.setText(event.getTitle());
 
         final TextView editTime = (TextView)view.findViewById(R.id.eventTime);
-        editTime.setText(event.getStartTime().substring(11,16) + "-" + event.getStopTime().substring(11,16));
+        editTime.setText("Tid: " + event.getStartTime().substring(11,16) + "-" + event.getStopTime().substring(11,16));
 
         final TextView editInfo = (TextView)view.findViewById(R.id.eventDescription);
         String info = event.getInfo();
@@ -98,9 +98,6 @@ public class Veckoschema extends Fragment implements WeekView.EventClickListener
         builder.setNegativeButton("OK", null);
         AlertDialog dialog = builder.create();
 
-
-
-        //dialog.getWindow().getAttributes().windowAnimations = animationSource;
         dialog.show();
     }
 
