@@ -59,17 +59,19 @@ public class Veckoschema extends Fragment implements WeekView.EventClickListener
         //TextView custName = (TextView)getView().findViewById(R.id.CustomerInfo);
         //custName.setText(event.getName());
 
-        buildDialog(0, Long.toString(event.getId()), event.getName());
+        buildDialog();
+
 
     }
 
-    private void buildDialog(int animationSource, String type, String title){
+    //Dialog ruta när man klickar på ett event i schemat.
+    private void buildDialog(){
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        builder.setMessage(type);
-        builder.setTitle(title);
+
+        builder.setView(R.layout.event_dialog);
         builder.setNegativeButton("OK", null);
         AlertDialog dialog = builder.create();
-        dialog.getWindow().getAttributes().windowAnimations = animationSource;
+        //dialog.getWindow().getAttributes().windowAnimations = animationSource;
         dialog.show();
     }
 
