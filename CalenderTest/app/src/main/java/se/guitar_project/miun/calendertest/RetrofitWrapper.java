@@ -166,4 +166,71 @@ public class RetrofitWrapper
 
         );
     }
+
+    public void getRepair(final RetroCallback<Repairs> func)
+    {
+        Call<Repairs> call;
+        call = client.getAllRepairs();
+        call.enqueue(new Callback<Repairs>() {
+            @Override
+            public void onResponse(Call<Repairs> call, Response<Repairs> response) {
+                func.onResponse(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<Repairs> call, Throwable t)
+            {
+                t.printStackTrace();
+            }
+        });
+    }
+    public void postRepair(Repair repair, final RetroCallback<Repair> func)
+    {
+        Call<Repair> call = client.postRepair(repair);
+        call.enqueue(new Callback<Repair>() {
+            @Override
+            public void onResponse(Call<Repair> call, Response<Repair> response) {
+                func.onResponse(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<Repair> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
+    }
+
+    public void getLeave(final RetroCallback<Leaves> func)
+    {
+        Call<Leaves> call;
+        call = client.getAllLeaves();
+        call.enqueue(new Callback<Leaves>() {
+            @Override
+            public void onResponse(Call<Leaves> call, Response<Leaves> response) {
+                func.onResponse(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<Leaves> call, Throwable t)
+            {
+                t.printStackTrace();
+            }
+        });
+    }
+    public void postLeave(Leave leave, final RetroCallback<Leave> func)
+    {
+        Call<Leave> call = client.postLeave(leave);
+        call.enqueue(new Callback<Leave>() {
+            @Override
+            public void onResponse(Call<Leave> call, Response<Leave> response) {
+                func.onResponse(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<Leave> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
+    }
+
 }

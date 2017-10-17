@@ -28,4 +28,16 @@ public interface RestInterface {
     @POST("beans.appointment/test")
     Call<Appointment> postAppointment(@Body Appointment appointment);
 
+    @GET("beans.leave")
+    Call<Leaves> getAllLeaves();
+
+    @POST("beans.leave")
+    Call<Leave> postLeave(@Body Leave leave);
+
+    @GET("beans.repair")
+    Call<Repairs> getAllRepairs();
+
+    @POST("beans.repair")
+    Call<Repair> postRepair(@Body Repair repair);
+
 }
