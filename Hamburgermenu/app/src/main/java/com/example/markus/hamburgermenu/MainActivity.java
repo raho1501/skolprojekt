@@ -17,6 +17,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import hamburgermenu.demo.fragments.Bokahandelse;
 import hamburgermenu.demo.fragments.Dagsschema;
@@ -24,6 +28,8 @@ import hamburgermenu.demo.fragments.Ekonomi;
 import hamburgermenu.demo.fragments.Event;
 import hamburgermenu.demo.fragments.Events;
 import hamburgermenu.demo.fragments.Kamera;
+import hamburgermenu.demo.fragments.RetroCallback;
+import hamburgermenu.demo.fragments.RetrofitWrapper;
 import hamburgermenu.demo.fragments.Veckoschema;
 
 public class MainActivity extends AppCompatActivity
@@ -89,12 +95,18 @@ public class MainActivity extends AppCompatActivity
         FragmentManager fn = getSupportFragmentManager();
         fn.beginTransaction().replace(R.id.content_frame, new Dagsschema()).commit();
 
-        Event event = new Event();
-        event.setName("Event");
-        event.setDate("10/12/2017");
-        event.setStartTime("15:00");
-        event.setStopTime("16:00");
-        Events.events.add(event);
+
+        RetrofitWrapper retro = new RetrofitWrapper();
+        retro.getEvents(
+                new RetroCallback<List<Event>>()
+                {
+                    @Override
+                    public void onResponse(List<Event> entity) {
+                        Events.events = (ArrayList<Event>) entity;
+                    }
+                }
+        );
+
     }
 
     @Override

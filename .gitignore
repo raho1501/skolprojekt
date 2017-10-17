@@ -1,0 +1,29 @@
+# Compiled class file
+*.class
+
+# Log file
+*.log
+
+# BlueJ files
+*.ctxt
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files #
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*
+/AGV/nbproject/private/
+/AGV/AGV-war/nbproject/private/
+/AGV/AGV-ejb/nbproject/private/
+/AGV-NetBeans/nbproject/private/
+/AGV-NetBeans/AGV-NetBeans-war/nbproject/private/
+/AGV-NetBeans/AGV-NetBeans-ejb/nbproject/private/
+/web_guitar_official/dist/

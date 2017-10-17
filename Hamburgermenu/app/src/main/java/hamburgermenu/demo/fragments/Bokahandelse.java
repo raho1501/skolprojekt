@@ -6,6 +6,7 @@ import android.icu.util.GregorianCalendar;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -16,6 +17,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.alamkanak.weekview.WeekView;
 import com.example.markus.hamburgermenu.R;
@@ -54,17 +56,10 @@ public class Bokahandelse extends Fragment implements AdapterView.OnItemSelected
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-
-        TextView tv = (TextView)getView().findViewById(R.id.inputBoxName);
-        //create desired formatting for displaying the date
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        //tv.setText(sdf.format(c.getTime()));
-
         monthSpinner = (Spinner) getView().findViewById(R.id.monthSpinner);
         final Spinner dateSpinner = (Spinner) getView().findViewById(R.id.datumSpinner);
         final Spinner startTidSpinner = (Spinner) getView().findViewById(R.id.startTidSpinner);
         final Spinner stopTidSpinner = (Spinner) getView().findViewById(R.id.stopTidSpinner);
-
 
 
         List<String> list;
@@ -72,16 +67,14 @@ public class Bokahandelse extends Fragment implements AdapterView.OnItemSelected
         list = new ArrayList<String>();
         List<String> tidList;
         tidList = new ArrayList<String>();
-        for(int i = 1;i<=12;i++)
-        {
+        for (int i = 1; i <= 12; i++) {
             list.add(String.valueOf(i));
         }
-        for(int j = 10; j <=18;j++)
-        {
+        for (int j = 10; j <= 18; j++) {
             String t = String.valueOf(j);
-            t= t+":00";
+            t = t + ":00";
             tidList.add(t);
-            t="";
+            t = "";
         }
         monthAdapter = new ArrayAdapter<String>(this.getContext(),
                 android.R.layout.simple_spinner_item, list);
@@ -90,52 +83,40 @@ public class Bokahandelse extends Fragment implements AdapterView.OnItemSelected
         monthSpinner.setOnItemSelectedListener(this);
 
 
-
-
         dayList.clear();
-        String selectedMonth =monthSpinner.getSelectedItem().toString();
+        String selectedMonth = monthSpinner.getSelectedItem().toString();
         monthNum = Integer.parseInt(selectedMonth);
         monthNum--;
-        Calendar mycal = new GregorianCalendar(c.get(Calendar.YEAR),monthNum, 1);
+        Calendar mycal = new GregorianCalendar(c.get(Calendar.YEAR), monthNum, 1);
         int daysInMonth = mycal.getActualMaximum(Calendar.DAY_OF_MONTH);
 
 
-        for(int k = 1; k<= daysInMonth; k++)
-        {
+        for (int k = 1; k <= daysInMonth; k++) {
             String t = String.valueOf(k);
             dayList.add(t);
-            t="";
+            t = "";
         }
 
 
-
-        ArrayAdapter<String> dateAdapter= new ArrayAdapter<String>(this.getContext(),
+        ArrayAdapter<String> dateAdapter = new ArrayAdapter<String>(this.getContext(),
                 android.R.layout.simple_spinner_item, dayList);
         dateAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         dateSpinner.setAdapter(dateAdapter);
 
 
-
-
-
-
-
-        ArrayAdapter<String> startTidAdapter= new ArrayAdapter<String>(this.getContext(),
+        ArrayAdapter<String> startTidAdapter = new ArrayAdapter<String>(this.getContext(),
                 android.R.layout.simple_spinner_item, tidList);
         startTidAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         startTidSpinner.setAdapter(startTidAdapter);
 
-        ArrayAdapter<String> stopTidAdapter= new ArrayAdapter<String>(this.getContext(),
+        ArrayAdapter<String> stopTidAdapter = new ArrayAdapter<String>(this.getContext(),
                 android.R.layout.simple_spinner_item, tidList);
         stopTidAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         stopTidSpinner.setAdapter(stopTidAdapter);
 
 
-
-
-
         View view = getView();
-        if(view != null) {
+        if (view != null) {
             view.findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -144,34 +125,44 @@ public class Bokahandelse extends Fragment implements AdapterView.OnItemSelected
             });
         }
 
-        btn = (Button)getView().findViewById(R.id.button);
-        btn.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
+        btn = (Button) getView().findViewById(R.id.button);
+        btn.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
                 evn = new Event();
-                evn.setDate( monthSpinner.getSelectedItem().toString() + "/" +
-                        dateSpinner.getSelectedItem().toString()  + "/" +
-                        Integer.toString(c.get(Calendar.YEAR)));
-                TextView namn = (TextView)getView().findViewById(R.id.inputBoxName);
+                //check the length of the selected item to make sure we have proper formatting
+                String s = monthSpinner.getSelectedItem().toString();
+                if (s.length() == 1){
+                    s = "0" + s;
+                    evn.setDate(s + "/" + dateSpinner.getSelectedItem().toString() + "/"
+                    + Integer.toString(c.get(Calendar.YEAR)));
+                }
+                else{
+                    evn.setDate(monthSpinner.getSelectedItem().toString() + "/" +
+                            dateSpinner.getSelectedItem().toString() + "/" +
+                            Integer.toString(c.get(Calendar.YEAR)));
+                }
+
+                TextView namn = (TextView) getView().findViewById(R.id.inputBoxName);
                 evn.setName(namn.getText().toString());
+                System.out.println(startTidSpinner.getSelectedItem());
                 evn.setStartTime(
                         startTidSpinner.getSelectedItem().toString()
                 );
                 evn.setStopTime(
                         stopTidSpinner.getSelectedItem().toString()
                 );
-                TextView decr = (TextView)getView().findViewById(R.id.inputBoxDescription);
-                evn.setDecription(
+                TextView decr = (TextView) getView().findViewById(R.id.inputBoxDescription);
+                evn.setInfo(
                         decr.getText().toString()
                 );
-                TextView subj = (TextView)getView().findViewById(R.id.inputBoxSubject);
-                evn.setSubject(
-                        subj.getText().toString()
+                TextView subj = (TextView) getView().findViewById(R.id.inputBoxSubject);
+                evn.setInfo(
+                        evn.getInfo() + subj.getText().toString()
                 );
                 Events.events.add(evn);
+                Toast.makeText(getActivity(), "Händelse tillagd!", Toast.LENGTH_SHORT).show();
             }
-
         });
-
     }
 
     @Override
