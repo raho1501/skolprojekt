@@ -60,9 +60,6 @@ public class Veckoschema extends Fragment implements WeekView.EventClickListener
     public void onEventClick(WeekViewEvent event, RectF eventRect) {
         Toast.makeText(getActivity(), "Clicked " + event.getName(), Toast.LENGTH_SHORT).show();
 
-        //TextView custName = (TextView)getView().findViewById(R.id.CustomerInfo);
-        //custName.setText(event.getName());
-
         Event tmpEvent = Events.events.get(0);
 
         for(Event weekEvent : Events.events){
@@ -91,7 +88,7 @@ public class Veckoschema extends Fragment implements WeekView.EventClickListener
         editTitle.setText(event.getName());
 
         final TextView editTime = (TextView)view.findViewById(R.id.eventTime);
-        editTime.setText(event.getStartTime().substring(11,16) + "-" + event.getStopTime().substring(11,16));
+        editTime.setText("Tid: " + event.getStartTime().substring(11,16) + "-" + event.getStopTime().substring(11,16));
 
         final TextView editInfo = (TextView)view.findViewById(R.id.eventDescription);
         editInfo.setText(event.getInfo());
@@ -99,9 +96,6 @@ public class Veckoschema extends Fragment implements WeekView.EventClickListener
         builder.setNegativeButton("OK", null);
         AlertDialog dialog = builder.create();
 
-
-
-        //dialog.getWindow().getAttributes().windowAnimations = animationSource;
         dialog.show();
     }
 

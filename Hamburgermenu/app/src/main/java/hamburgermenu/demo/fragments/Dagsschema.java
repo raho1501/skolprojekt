@@ -5,9 +5,11 @@ import android.graphics.RectF;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alamkanak.weekview.MonthLoader;
@@ -56,11 +58,49 @@ public class Dagsschema extends Fragment implements WeekView.EventClickListener,
     @Override
     public void onEventClick(WeekViewEvent event, RectF eventRect) {
         Toast.makeText(getActivity(), "Clicked " + event.getName(), Toast.LENGTH_SHORT).show();
+
+        Event tempEvent = Events.events.get(0);
+
+        for(Event weekEvent: Events.events){
+            if(weekEvent.getId() == event.getId()){
+                tempEvent = weekEvent;
+            }
+        }
+        buildDialog(tempEvent);
     }
+
+    //Dialog ruta när man klickar på ett event i schemat.
+    private void buildDialog(Event event){
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+
+        LayoutInflater inflater = LayoutInflater.from(getContext());
+
+        View view =  inflater.inflate(R.layout.event_dialog, null);
+
+        builder.setView(view);
+
+        final TextView editTitle = (TextView) view.findViewById(R.id.eventTitle);
+        editTitle.setText(event.getName());
+
+        final TextView editTime = (TextView)view.findViewById(R.id.eventTime);
+        editTime.setText("Tid: " + event.getStartTime().substring(11,16) + "-" + event.getStopTime().substring(11,16));
+
+        final TextView editInfo = (TextView)view.findViewById(R.id.eventDescription);
+        editInfo.setText(event.getInfo());
+
+        builder.setNegativeButton("OK", null);
+        AlertDialog dialog = builder.create();
+
+        dialog.show();
+    }
+
 
     @Override
     public void onEventLongPress(WeekViewEvent event, RectF eventRect) {
         Toast.makeText(getActivity(), "Long pressed event: " + event.getName(), Toast.LENGTH_SHORT).show();
+
+
     }
     @Override
     public List<WeekViewEvent> onMonthChange(int newYear, int newMonth){
