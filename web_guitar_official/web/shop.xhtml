@@ -53,9 +53,9 @@
                 </div>
             </div>            
         </ui:repeat>
-        <h:panelGroup rendered="#{empty shopManagedBean.shops }">
+        <h:outputLabel rendered="#{empty shopManagedBean.shops }">
             Det finns inga gitarrer här just nu!
-        </h:panelGroup>
+        </h:outputLabel>
     </section>
     <footer id="footer">
         <div class="container">

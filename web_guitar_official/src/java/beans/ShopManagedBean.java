@@ -5,7 +5,9 @@
  */
 package beans;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.Resource;
@@ -42,6 +44,17 @@ public class ShopManagedBean {
 		TypedQuery<Shop> typedShop = entityManager.createNamedQuery("Shop.findAll", Shop.class);
 		return typedShop.getResultList();
 	}
+        
+        public List<Shop> getRandomShops(int amnt) {
+            TypedQuery<Shop> typedShop = entityManager.createNamedQuery("Shop.findAll", Shop.class);
+            List<Shop> resultList = typedShop.getResultList();
+            List<Shop> outputList = new ArrayList<Shop>();
+            Random rnd = new Random();
+            for (int i = 0; i < amnt && 0 < resultList.size(); i++) {
+                outputList.add(resultList.remove(rnd.nextInt(resultList.size())));
+            }
+            return outputList;
+        }
 	
 	public void addAppointment(Appointment appointment)
 	{
