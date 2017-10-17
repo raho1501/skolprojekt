@@ -59,13 +59,21 @@ public class Veckoschema extends Fragment implements WeekView.EventClickListener
         //TextView custName = (TextView)getView().findViewById(R.id.CustomerInfo);
         //custName.setText(event.getName());
 
-        buildDialog();
+        Event tmpEvent;
+
+        for(Event weekEvent : Events.events){
+            if(weekEvent.getId() == event.getId() && weekEvent.getName() == event.getName()){
+                tmpEvent = weekEvent;
+            }
+        }
+
+        buildDialog(tmpEvent);
 
 
     }
 
     //Dialog ruta när man klickar på ett event i schemat.
-    private void buildDialog(){
+    private void buildDialog(Event event){
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
 
         builder.setView(R.layout.event_dialog);
@@ -88,9 +96,8 @@ public class Veckoschema extends Fragment implements WeekView.EventClickListener
         for (Event weekEvent : Events.events) {
             //TODO hitta ett sätt att bara adda events som är i vyn just nu.
             if(weekEvent.getMonth() == newMonth){
-                WeekViewEvent wv = weekEvent.toWeekViewEvent();
-                wv.setId(count);
-                matchList.add(wv);
+                weekEvent.setId(count);
+                matchList.add(weekEvent.toWeekViewEvent());
             }
             ++count;
         }

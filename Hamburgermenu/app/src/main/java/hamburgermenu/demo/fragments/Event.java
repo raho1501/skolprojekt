@@ -22,7 +22,15 @@ public class Event
     private String info;
     private String email;
     private String phoneNr;
+    private long id;
 
+    long getId(){
+        return id;
+    }
+
+    void setId(long x){
+        id = x;
+    }
 
     public String getName() {
         return name;
@@ -122,6 +130,7 @@ public class Event
         weekViewEvent.setStartTime(startTime);
         weekViewEvent.setEndTime(stopTime);
         weekViewEvent.setColor(Color.argb(255, 50, 100, 100));
+        weekViewEvent.setId(getId());
 
         return weekViewEvent;
     }
