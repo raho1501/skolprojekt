@@ -96,19 +96,19 @@ public class AppointmentManagedBean
 		}
 	}
     
-    private void presist(Appointment appointment)
-    {
-        try
-        {
-            userTransaction.begin();
-            entityManager.persist(appointment);
-            userTransaction.commit();
-        }
-        catch(Exception e)
-        {
-            Logger.getLogger(getClass().getName()).
-                log(Level.SEVERE, "exception caught", e);
-            throw new RuntimeException(e);
-        }
-    }
+	private void presist(Appointment appointment)
+	{
+		try
+		{
+			userTransaction.begin();
+			entityManager.persist(appointment);
+			userTransaction.commit();
+		}
+		catch(Exception e)
+		{
+			Logger.getLogger(getClass().getName()).
+				log(Level.SEVERE, "exception caught", e);
+			throw new RuntimeException(e);
+		}
+	}
 }

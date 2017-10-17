@@ -6,6 +6,8 @@
 package beans;
 
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.Resource;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
@@ -26,9 +28,12 @@ public class ShopManagedBean {
 
 	@Resource
 	private javax.transaction.UserTransaction userTransaction;
+	
 	/**
 	 * Creates a new instance of ShopManagedBean
 	 */
+	
+	
 	public ShopManagedBean() {
 	}
 	
@@ -36,5 +41,26 @@ public class ShopManagedBean {
 	{
 		TypedQuery<Shop> typedShop = entityManager.createNamedQuery("Shop.findAll", Shop.class);
 		return typedShop.getResultList();
+	}
+	
+	public void addAppointment(Appointment appointment)
+	{
+		presist(appointment);
+	}
+	
+	private void presist(Appointment appointment)
+	{
+		try
+		{
+			userTransaction.begin();
+			entityManager.persist(appointment);
+			userTransaction.commit();
+		}
+		catch(Exception e)
+		{
+			Logger.getLogger(getClass().getName()).
+				log(Level.SEVERE, "exception caught", e);
+			throw new RuntimeException(e);
+		}
 	}
 }
