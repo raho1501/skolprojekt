@@ -105,6 +105,8 @@
         var events = [];
         var currentEvent;
         var weekDays =  ['', 'Måndag', 'Tisdag', 'Onsdag', 'Torsdag','Fredag'];
+        var months = ['', 'Januari', 'Februari', 'Mars', 'April', 'Maj', 'Juni',
+        'Juli', 'Augusti', 'September', 'Oktober', 'November', 'December'];
         
 
         function insertEvent(color, name, date, startTime, endTime)
@@ -186,8 +188,8 @@
                                 resizable: false,
                                 modal: true,
                                 title: "Bekräfta bokningen " + weekDays[bokningsTidDay] + " den " +
-                                bokningsTidDate + " kl: " + bokningsTidStart + " - " + 
-                                bokningsTidEnd
+                                bokningsTidDate + " " + months[bokningsTidMonth +1] + " kl: " + bokningsTidStart 
+                                + " - " + bokningsTidEnd
                             });
                         });
                         
