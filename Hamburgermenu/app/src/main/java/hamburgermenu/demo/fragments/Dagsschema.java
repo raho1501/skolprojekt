@@ -24,7 +24,7 @@ import java.util.List;
 
 public class Dagsschema extends Fragment implements WeekView.EventClickListener, MonthLoader.MonthChangeListener, WeekView.EventLongPressListener {
     //public Events events;
-
+    WeekView weekView;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -37,7 +37,7 @@ public class Dagsschema extends Fragment implements WeekView.EventClickListener,
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState){
         // Get a reference for the week view in the layout.
-        WeekView weekView = (WeekView)view.findViewById(R.id.dayView);
+        weekView = (WeekView)view.findViewById(R.id.dayView);
 
         // Set an action when any event is clicked.
         weekView.setOnEventClickListener(this);
@@ -51,6 +51,8 @@ public class Dagsschema extends Fragment implements WeekView.EventClickListener,
 
         //Set the number of visible days.
         weekView.setNumberOfVisibleDays(1);
+
+        fetchEvents();
     }
 
     @Override
@@ -73,5 +75,20 @@ public class Dagsschema extends Fragment implements WeekView.EventClickListener,
             }
         }
         return matchList;
+    }
+    public void fetchEvents()
+    {
+        RetrofitWrapper retro = new RetrofitWrapper();
+        retro.getEvents(
+                new RetroCallback<List<Event>>()
+                {
+                    @Override
+                    public void onResponse(List<Event> entity) {
+                        Events.events = entity;
+                        weekView.getMonthChangeListener().onMonthChange(2017, 10);
+                        weekView.notifyDatasetChanged();
+                    }
+                }
+        );
     }
 }

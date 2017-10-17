@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import hamburgermenu.demo.fragments.AddGuitarr;
+import hamburgermenu.demo.fragments.BokaReparation;
 import hamburgermenu.demo.fragments.Bokahandelse;
 import hamburgermenu.demo.fragments.Dagsschema;
 import hamburgermenu.demo.fragments.Ekonomi;
@@ -83,19 +84,6 @@ public class MainActivity extends AppCompatActivity
 
         FragmentManager fn = getSupportFragmentManager();
         fn.beginTransaction().replace(R.id.content_frame, new Dagsschema()).commit();
-
-
-        RetrofitWrapper retro = new RetrofitWrapper();
-        retro.getEvents(
-                new RetroCallback<List<Event>>()
-                {
-                    @Override
-                    public void onResponse(List<Event> entity) {
-                        Events.events = (ArrayList<Event>) entity;
-                    }
-                }
-        );
-
     }
 
     @Override
@@ -145,7 +133,7 @@ public class MainActivity extends AppCompatActivity
             fn.beginTransaction().replace(R.id.content_frame, new Veckoschema()).commit();
 
         } else if (id == R.id.nav_bokahandelse) {
-            fn.beginTransaction().replace(R.id.content_frame, new Bokahandelse()).commit();
+            fn.beginTransaction().replace(R.id.content_frame, new BokaReparation()).commit();
         } else if (id == R.id.nav_ekonomi) {
             fn.beginTransaction().replace(R.id.content_frame, new Ekonomi()).commit();
         } else if (id == R.id.nav_kamera){

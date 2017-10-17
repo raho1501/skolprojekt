@@ -1,15 +1,11 @@
 package hamburgermenu.demo.fragments;
 
-import android.icu.text.SimpleDateFormat;
 import android.icu.util.Calendar;
 import android.icu.util.GregorianCalendar;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -19,13 +15,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.alamkanak.weekview.WeekView;
 import com.example.markus.hamburgermenu.R;
 
 
-import org.w3c.dom.Text;
-
-import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,14 +33,13 @@ public class Bokahandelse extends Fragment implements AdapterView.OnItemSelected
     Spinner monthSpinner;
     ArrayAdapter<String> monthAdapter;
     Button btn;
-    Event evn;
+    private RepairEvent evn;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.bokahandelse, container, false);
-
         return rootView;
     }
 
@@ -128,7 +119,7 @@ public class Bokahandelse extends Fragment implements AdapterView.OnItemSelected
         btn = (Button) getView().findViewById(R.id.button);
         btn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                evn = new Event();
+                evn = new RepairEvent();
                 //check the length of the selected item to make sure we have proper formatting
                 String s = monthSpinner.getSelectedItem().toString();
                 String pepe = dateSpinner.getSelectedItem().toString();
@@ -162,8 +153,8 @@ public class Bokahandelse extends Fragment implements AdapterView.OnItemSelected
                     }
                 }
 
-                TextView namn = (TextView) getView().findViewById(R.id.inputBoxName);
-                evn.setName(namn.getText().toString());
+                TextView namn = (TextView) getView().findViewById(R.id.inputBoxInfo);
+                evn.setTitle(namn.getText().toString());
                 System.out.println(startTidSpinner.getSelectedItem());
                 evn.setStartTime(
                          "1970-01-01T" + startTidSpinner.getSelectedItem().toString()
@@ -183,9 +174,9 @@ public class Bokahandelse extends Fragment implements AdapterView.OnItemSelected
                 );
                 Events.events.add(evn);
 
-                RetrofitWrapper rw = new RetrofitWrapper();
+                //RetrofitWrapper rw = new RetrofitWrapper();
 
-                rw.postEvent(evn);
+                //rw.postEvent(evn);
 
                 Toast.makeText(getActivity(), "Händelse tillagd!", Toast.LENGTH_SHORT).show();
             }

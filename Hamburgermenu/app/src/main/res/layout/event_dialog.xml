@@ -11,13 +11,13 @@
         android:textStyle="bold"
         android:layout_width="match_parent"
         android:layout_height="80dp" />
-    <TextView
+    <!--<TextView
         android:id="@+id/customerName"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:text="Customer Name"
         android:textSize="30dp"/>
-
+        -->
     <TextView
         android:id="@+id/eventTime"
         android:text="17/10 11:00 - 12:00"

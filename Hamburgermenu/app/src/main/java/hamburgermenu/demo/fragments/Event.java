@@ -13,63 +13,67 @@ import java.util.Date;
  * Created by linus on 2017-10-11.
  */
 
-public class Event
-{
-    private String name;
-    private String startTime;
-    private String stopTime;
-    private String date;
+public abstract class Event {
+    private String title;
     private String info;
-    private String email;
-    private String phoneNr;
     private long id;
+    private int color = Color.argb(255, 50, 100, 100);
+    private TimeReservation timeReservation = new TimeReservation();
 
-    long getId(){
+    long getId() {
         return id;
     }
 
-    void setId(long x){
+    void setId(long x) {
         id = x;
     }
-
-    public String getName() {
-        return name;
+    protected void setColor(int r, int g, int b, int a)
+    {
+        color = Color.argb(a, r, g, b);
+    }
+    private int getColor()
+    {
+        return color;
+    }
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getStartTime() {
-        return startTime;
+        return timeReservation.getStartTime();
     }
 
     public void setStartTime(String startTime) {
-        this.startTime = startTime;
+        timeReservation.setStartTime(startTime);
     }
 
     public String getStopTime() {
-        return stopTime;
+        return timeReservation.getStopTime();
     }
 
     public void setStopTime(String stopTime) {
-        this.stopTime = stopTime;
+        timeReservation.setStopTime(stopTime);
     }
 
     public String getDate() {
-        return date;
-    }
-
-    public int getMonth(){
-        return Integer.parseInt(date.substring(5,7));
+        return timeReservation.getReservationDate();
     }
 
     public void setDate(String date) {
-        this.date = date;
+        timeReservation.setReservationDate(date);
     }
 
-    public WeekViewEvent toWeekViewEvent()
-    {
+    public int getMonth() {
+        String tempDate = getDate().substring(5, 7);
+        return Integer.parseInt(tempDate);
+    }
+
+
+    public WeekViewEvent toWeekViewEvent() {
         WeekViewEvent weekViewEvent = new WeekViewEvent();
 
         Calendar now = Calendar.getInstance();
@@ -79,32 +83,23 @@ public class Event
 
         Calendar stop = (Calendar) now.clone();
         Calendar reservationDate = (Calendar) now.clone();
-        try
-        {
+        try {
             Date temp = parser.parse(getStartTime());
             start.setTime(temp);
-        }
-        catch(ParseException e)
-        {
+        } catch (ParseException e) {
             e.printStackTrace();
         }
 
-        try
-        {
+        try {
             Date temp = parser.parse(getStopTime());
             stop.setTime(temp);
-        }
-        catch(ParseException e)
-        {
+        } catch (ParseException e) {
             e.printStackTrace();
         }
-        try
-        {
+        try {
             Date temp = parser.parse(getDate());
             reservationDate.setTime(temp);
-        }
-        catch(ParseException e)
-        {
+        } catch (ParseException e) {
             e.printStackTrace();
         }
 
@@ -126,15 +121,21 @@ public class Event
         stopTime.set(Calendar.MINUTE, stop.get(Calendar.MINUTE));
         stopTime.set(Calendar.SECOND, stop.get(Calendar.SECOND));
 
-        weekViewEvent.setName(getName());
+        weekViewEvent.setName(getTitle());
         weekViewEvent.setStartTime(startTime);
         weekViewEvent.setEndTime(stopTime);
-        weekViewEvent.setColor(Color.argb(255, 50, 100, 100));
+        weekViewEvent.setColor(getColor());
         weekViewEvent.setId(getId());
 
         return weekViewEvent;
     }
+    public TimeReservation getTimeReservation() {
+        return timeReservation;
+    }
 
+    public void setTimeReservation(TimeReservation timeReservation) {
+        this.timeReservation = timeReservation;
+    }
     public String getInfo() {
         return info;
     }
@@ -143,19 +144,4 @@ public class Event
         this.info = info;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPhoneNr() {
-        return phoneNr;
-    }
-
-    public void setPhoneNr(String phoneNr) {
-        this.phoneNr = phoneNr;
-    }
 }

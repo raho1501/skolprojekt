@@ -3,17 +3,9 @@ package hamburgermenu.demo.fragments;
 import android.os.AsyncTask;
 
 import java.io.IOException;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
-
-import android.os.AsyncTask;
-import android.os.StrictMode;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Observable;
-import java.util.Observer;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -64,6 +56,31 @@ public class RetrofitWrapper
         };
         task.execute(0);
     }
+    public void getRepairEvents(final RetroCallback<List<Event>> func)
+    {
+        //Retur värdet samt parametervärdet har ingen betydelse.
+        AsyncTask<Integer, Integer, Integer> task = new AsyncTask<Integer, Integer, Integer>() {
+            @Override
+            protected Integer doInBackground(Integer... params) {
+                List<TimeReservation> timeReservations = new ArrayList<>();
+
+                Repairs repairs = getRepairs();
+                int size = repairs.size();
+                for (int i = 0; i < size; i++)
+                {
+                    Repair repair = repairs.getRepair(i);
+                    TimeReservation timeReservation= getTimeReservationsById(repair.getTimeReservationIdFk());
+
+                    timeReservations.add(timeReservation);
+                }
+
+                func.onResponse(generateEvents(repairs, timeReservations));
+                return 0;
+            }
+        };
+        task.execute(0);
+    }
+
     private Customers getCustomers()
     {
         Customers customers = new Customers();
@@ -231,42 +248,50 @@ public class RetrofitWrapper
         );
     }
 
-    public void postEvent(Event event){
-        Customer cust = new Customer();
-        TimeReservation timeRes = new TimeReservation();
-        Appointment appointment = new Appointment();
+    private void postInput(final Repair repair, TimeReservation timeReservation)
+    {
+        postTimeReservation(timeReservation,
+                new RetroCallback<TimeReservation>()
+                {
+                    @Override
+                    public void onResponse(TimeReservation entity)
+                    {
+                        int fk = entity.getTimeResarvationId();
+                        repair.setTimeReservationIdFk(fk);
+                        postRepair(repair,
+                                new RetroCallback<Repair>()
+                                {
+                                    @Override
+                                    public void onResponse(Repair entity) {
 
-        appointment.setInfo(event.getInfo());
+                                    }
+                                }
+                        );
+                    }
+                }
 
-        String lol = event.getDate();
-        timeRes.setReservationDate(lol);
-        timeRes.setStartTime(event.getStartTime());
-        timeRes.setStopTime(event.getStopTime());
-
-        cust.setEmail("asdf");
-        cust.setFirstName("asdfasdf");
-        cust.setLastName("asdsadfdsfdfsdfsfds");
-        cust.setPhoneNr("666");
-
-        postInput(cust, timeRes, appointment);
+        );
     }
 
-    public void getRepair(final RetroCallback<Repairs> func)
+    public void postRepairEvent(RepairEvent event)
     {
+        postInput(event.getRepair(), event.getTimeReservation());
+    }
+
+    public Repairs getRepairs()
+    {
+        Repairs repairs = new Repairs();
         Call<Repairs> call;
         call = client.getAllRepairs();
-        call.enqueue(new Callback<Repairs>() {
-            @Override
-            public void onResponse(Call<Repairs> call, Response<Repairs> response) {
-                func.onResponse(response.body());
-            }
-
-            @Override
-            public void onFailure(Call<Repairs> call, Throwable t)
-            {
-                t.printStackTrace();
-            }
-        });
+        try
+        {
+            repairs = call.execute().body();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+        return repairs;
     }
     public void postRepair(Repair repair, final RetroCallback<Repair> func)
     {
@@ -284,22 +309,20 @@ public class RetrofitWrapper
         });
     }
 
-    public void getLeave(final RetroCallback<Leaves> func)
+    public Leaves getLeaves()
     {
+        Leaves leaves = new Leaves();
         Call<Leaves> call;
         call = client.getAllLeaves();
-        call.enqueue(new Callback<Leaves>() {
-            @Override
-            public void onResponse(Call<Leaves> call, Response<Leaves> response) {
-                func.onResponse(response.body());
-            }
-
-            @Override
-            public void onFailure(Call<Leaves> call, Throwable t)
-            {
-                t.printStackTrace();
-            }
-        });
+        try
+        {
+            leaves = call.execute().body();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+        return leaves;
     }
     public void postLeave(Leave leave, final RetroCallback<Leave> func)
     {
@@ -326,14 +349,25 @@ public class RetrofitWrapper
             Customer customer = customers.getCustomer(i);
             Appointment appointment = appointments.get(i);
             TimeReservation timeReservation = timeReservations.get(i);
-            Event event = new Event();
-            event.setInfo(appointment.getInfo());
-            event.setPhoneNr(customer.getPhoneNr());
-            event.setEmail(customer.getEmail());
-            event.setName(customer.getFirstName());
-            event.setDate(timeReservation.getReservationDate());
-            event.setStartTime(timeReservation.getStartTime());
-            event.setStopTime(timeReservation.getStopTime());
+            AppointmentEvent event = new AppointmentEvent();
+            event.setAppointment(appointment);
+            event.setTimeReservation(timeReservation);
+            event.setCustomer(customer);
+            eventList.add(event);
+        }
+        return eventList;
+    }
+    private List<Event> generateEvents(Repairs repairs, List<TimeReservation> timeReservations)
+    {
+        List<Event> eventList = new ArrayList<>();
+        int size = repairs.size();
+        for(int i = 0; i < size; i++)
+        {
+            Repair repair = repairs.getRepair(i);
+            TimeReservation timeReservation = timeReservations.get(i);
+            RepairEvent event = new RepairEvent();
+            event.setRepair(repair);
+            event.setTimeReservation(timeReservation);
             eventList.add(event);
         }
         return eventList;
