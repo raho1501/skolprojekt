@@ -61,6 +61,11 @@
             </div>
         </footer>
         <div id="dialog" title="Bekräfta bokning" style="display:none">
+            <div id="Information" style ="float:left;">
+                <p>För att utföra bokningen behöver du fylla i detta formulär.
+                   Bilder behövs ej.
+                </p>
+            </div>
             <h:form id="dialog-form" enctype="multipart/form-data">
                 <label>Förnamn: </label>
                 <h:inputText id="test" value="#{calendarInputBean.firstName}"></h:inputText><br/>
@@ -76,7 +81,6 @@
                 <label>Bild: </label>
                 <h:inputFile value="#{calendarInputBean.imageFile}">
                 </h:inputFile>
-
                 
                 <h:inputHidden id="hidden-date" value="#{calendarInputBean.date}"></h:inputHidden>
                 <h:inputHidden id="hidden-start" value="#{calendarInputBean.startTime}"></h:inputHidden>
@@ -84,12 +88,7 @@
                 
                 <h:commandButton id="reserve-button" value="Boka" action="#{calendarInputBean.submit()}"></h:commandButton>
             </h:form>
-            <div id="Information" style ="float:right; position: absolute; right:1%;
-                 top: 3%; width:40%;">
-                <p>För att utföra bokningen behöver du fylla i detta formulär.
-                   Bilder behövs ej.
-                </p>
-            </div>
+            
         </div>
         
         <div id="error" title="Oj" style="display: none">
