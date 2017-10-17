@@ -1,7 +1,13 @@
 package se.guitar_project.miun.calendertest;
 
+import android.os.AsyncTask;
+import android.os.StrictMode;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -17,9 +23,6 @@ public class RetrofitWrapper
 {
     private Retrofit retrofit;
     private RestInterface client;
-    private Customers customers;
-    private Appointments appointments;
-    private TimeReservations timeReservations;
 
     public RetrofitWrapper()
     {
@@ -28,30 +31,61 @@ public class RetrofitWrapper
 
         client = retrofit.create(RestInterface.class);
     }
-    public List<Event> getEvents()
+    public void getEvents(final RetroCallback<List<Event>> func)
     {
-        List<Event> eventList = new ArrayList<Event>();
+        //Retur värdet samt parametervärdet har ingen betydelse.
+        AsyncTask<Integer, Integer, Integer> task = new AsyncTask<Integer, Integer, Integer>() {
+            @Override
+            protected Integer doInBackground(Integer... params) {
+                List<TimeReservation> timeReservations = new ArrayList<>();
+                List<Appointment> appointments = new ArrayList<>();
 
-        //TODO kod för att hämta event här.
+                Customers customers = getCustomers();
+                int size = customers.size();
+                for (int i = 0; i < size; i++)
+                {
+                    Customer customer = customers.getCustomer(i);
+                    Appointment appointment = getAppointmentById(customer.getAppointmentIdFk());
+                    TimeReservation timeReservation = getTimeReservationsById(appointment.getTimeReservationIdFk());
 
-        return eventList;
+                    appointments.add(appointment);
+                    timeReservations.add(timeReservation);
+                }
+
+                func.onResponse(generateEvents(customers, appointments, timeReservations));
+                return 0;
+            }
+        };
+        task.execute(0);
     }
-    public void getCustomers(final RetroCallback<Customers> func)
+    private Customers getCustomers()
     {
+        Customers customers = new Customers();
         Call<Customers> call;
         call = client.getAllCustomers();
-        call.enqueue(new Callback<Customers>() {
-            @Override
-            public void onResponse(Call<Customers> call, Response<Customers> response) {
-                func.onResponse(response.body());
-            }
-
-            @Override
-            public void onFailure(Call<Customers> call, Throwable t)
-            {
-                t.printStackTrace();
-            }
-        });
+        try
+        {
+            customers = call.execute().body();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+        return customers;
+    }
+    private Customer getCustomerById(int id)
+    {
+        Customer customer = new Customer();
+        Call<Customer> call = client.getCustomerById(id);
+        try
+        {
+            customer = call.execute().body();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+        return customer;
     }
     public void postCustomer(Customer customer, final RetroCallback<Customer> func)
     {
@@ -68,22 +102,34 @@ public class RetrofitWrapper
             }
         });
     }
-    public void getTimeReservations(final RetroCallback<TimeReservations> func)
+    private TimeReservations getTimeReservations()
     {
+        TimeReservations timeReservations = new TimeReservations();
         Call<TimeReservations> call;
         call = client.getAllTimeResarvations();
-        call.enqueue(new Callback<TimeReservations>() {
-            @Override
-            public void onResponse(Call<TimeReservations> call, Response<TimeReservations> response) {
-                func.onResponse(response.body());
-            }
-
-            @Override
-            public void onFailure(Call<TimeReservations> call, Throwable t)
-            {
-                t.printStackTrace();
-            }
-        });
+        try
+        {
+            timeReservations = call.execute().body();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+        return timeReservations;
+    }
+    private TimeReservation getTimeReservationsById(int id)
+    {
+        TimeReservation timeReservation = new TimeReservation();
+        Call<TimeReservation> call = client.getTimeReservationById(id);
+        try
+        {
+            timeReservation = call.execute().body();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+        return timeReservation;
     }
     public void postTimeReservation(TimeReservation timeReservation, final RetroCallback<TimeReservation> func)
     {
@@ -100,22 +146,34 @@ public class RetrofitWrapper
             }
         });
     }
-    public void getAppointments(final RetroCallback<Appointments> func)
+    private Appointments getAppointments()
     {
+        Appointments appointments = new Appointments();
         Call<Appointments> call;
         call = client.getAllAppointments();
-        call.enqueue(new Callback<Appointments>() {
-            @Override
-            public void onResponse(Call<Appointments> call, Response<Appointments> response) {
-                func.onResponse(response.body());
-            }
-
-            @Override
-            public void onFailure(Call<Appointments> call, Throwable t)
-            {
-                t.printStackTrace();
-            }
-        });
+        try
+        {
+            appointments = call.execute().body();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+        return appointments;
+    }
+    private Appointment getAppointmentById(int id)
+    {
+        Appointment appointment = new Appointment();
+        Call<Appointment> call = client.getAppointmentById(id);
+        try
+        {
+            appointment = call.execute().body();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+        return appointment;
     }
     public void postAppointment(Appointment appointment, final RetroCallback<Appointment> func)
     {
@@ -233,4 +291,25 @@ public class RetrofitWrapper
         });
     }
 
+    private List<Event> generateEvents(Customers customers, List<Appointment> appointments, List<TimeReservation> timeReservations)
+    {
+        List<Event> eventList = new ArrayList<>();
+        int size = customers.size();
+        for(int i = 0; i < size; i++)
+        {
+            Customer customer = customers.getCustomer(i);
+            Appointment appointment = appointments.get(i);
+            TimeReservation timeReservation = timeReservations.get(i);
+            Event event = new Event();
+            event.setInfo(appointment.getInfo());
+            event.setPhoneNr(customer.getPhoneNr());
+            event.setEmail(customer.getEmail());
+            event.setName(customer.getFirstName());
+            event.setDate(timeReservation.getReservationDate());
+            event.setStartTime(timeReservation.getStartTime());
+            event.setStopTime(timeReservation.getStopTime());
+            eventList.add(event);
+        }
+        return eventList;
+    }
 }
