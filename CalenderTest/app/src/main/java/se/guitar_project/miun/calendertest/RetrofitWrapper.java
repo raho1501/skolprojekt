@@ -3,12 +3,17 @@ package se.guitar_project.miun.calendertest;
 import android.os.AsyncTask;
 import android.os.StrictMode;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -30,6 +35,16 @@ public class RetrofitWrapper
         retrofit = builder.build();
 
         client = retrofit.create(RestInterface.class);
+    }
+    public void postImage(String filePath)
+    {
+        RestInterface fileUpload = retrofit.create();
+
+        File file = new File(filePath);
+        RequestBody requestBody = RequestBody.create(MediaType.parse("image/*"), file);
+        MultipartBody.Part body = MultipartBody.Part.createFormData("upload", file.getName(), requestBody);
+        RequestBody name = RequestBody.create(, "placeholder.png");
+
     }
     public void getEvents(final RetroCallback<List<Event>> func)
     {
