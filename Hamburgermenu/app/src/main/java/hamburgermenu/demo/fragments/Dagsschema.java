@@ -83,7 +83,7 @@ public class Dagsschema extends Fragment implements WeekView.EventClickListener,
         builder.setView(view);
 
         final TextView editTitle = (TextView) view.findViewById(R.id.eventTitle);
-        editTitle.setText(event.getName());
+        editTitle.setText(event.getTitle());
 
         final TextView editTime = (TextView)view.findViewById(R.id.eventTime);
         editTime.setText("Tid: " + event.getStartTime().substring(11,16) + "-" + event.getStopTime().substring(11,16));

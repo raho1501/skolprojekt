@@ -58,6 +58,7 @@ public class Veckoschema extends Fragment implements WeekView.EventClickListener
     public void onEventClick(WeekViewEvent event, RectF eventRect) {
         Toast.makeText(getActivity(), "Clicked " + event.getName(), Toast.LENGTH_SHORT).show();
 
+
         //TextView custName = (TextView)getView().findViewById(R.id.CustomerInfo);
         //custName.setText(event.getTitle());
 
