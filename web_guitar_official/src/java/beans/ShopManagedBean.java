@@ -14,6 +14,7 @@ import javax.annotation.Resource;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
@@ -56,17 +57,50 @@ public class ShopManagedBean {
             return outputList;
         }
 	
-	public void addAppointment(Appointment appointment)
+	public Shop getShop(Integer id)
 	{
-		presist(appointment);
+		TypedQuery<Shop> typedShop = entityManager.createNamedQuery("Shop.findByShopId", Shop.class).
+			setParameter("shopId", id);
+		List<Shop> resList = typedShop.getResultList();
+		if(resList.isEmpty())
+		{
+			return new Shop();
+		}
+		return resList.get(0);
 	}
 	
-	private void presist(Appointment appointment)
+	public void updateShop(Shop shop)
+	{
+		update(shop);
+	}
+	
+	public void addShop(Shop shop)
+	{
+		presist(shop);
+	}
+	
+	private void update(Shop shop)
 	{
 		try
 		{
 			userTransaction.begin();
-			entityManager.persist(appointment);
+			entityManager.merge(shop);
+			userTransaction.commit();
+		}
+		catch(Exception e)
+		{
+			Logger.getLogger(getClass().getName()).
+				log(Level.SEVERE, "exception caught", e);
+			throw new RuntimeException(e);
+		}
+	}
+	
+	private void presist(Shop shop)
+	{
+		try
+		{
+			userTransaction.begin();
+			entityManager.persist(shop);
 			userTransaction.commit();
 		}
 		catch(Exception e)
