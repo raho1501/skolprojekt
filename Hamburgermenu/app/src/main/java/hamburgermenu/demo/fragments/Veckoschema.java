@@ -4,6 +4,7 @@ import android.graphics.RectF;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,6 +55,22 @@ public class Veckoschema extends Fragment implements WeekView.EventClickListener
     @Override
     public void onEventClick(WeekViewEvent event, RectF eventRect) {
         Toast.makeText(getActivity(), "Clicked " + event.getName(), Toast.LENGTH_SHORT).show();
+
+        //TextView custName = (TextView)getView().findViewById(R.id.CustomerInfo);
+        //custName.setText(event.getName());
+
+        buildDialog(0, event.getName(), event.getName());
+
+    }
+
+    private void buildDialog(int animationSource, String type, String title){
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setMessage(type);
+        builder.setTitle(title);
+        builder.setNegativeButton("OK", null);
+        AlertDialog dialog = builder.create();
+        dialog.getWindow().getAttributes().windowAnimations = animationSource;
+        dialog.show();
     }
 
     @Override
