@@ -48,6 +48,16 @@ public class ShopInputBean {
 	 */
 	public ShopInputBean() {
 	}
+	
+	public void removeShop(Shop shop)
+	{
+		if(shop.getCustomerIdFk() != null)
+		{
+			Customer customer = customerManagedBean.getCustomer(shop.getCustomerIdFk());
+			customerManagedBean.removeCustomer(customer);
+		}
+		shopManagedBean.removeShop(shop);
+	}
 
 	/**
 	 * @param shopManagedBean the shopManagedBean to set

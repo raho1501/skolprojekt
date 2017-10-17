@@ -5,6 +5,9 @@
  */
 package beans;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -56,6 +59,11 @@ public class ShopManagedBean {
 		return resList.get(0);
 	}
 	
+	public void removeShop(Shop shop)
+	{
+		remove(shop);
+	}
+	
 	public void updateShop(Shop shop)
 	{
 		update(shop);
@@ -64,6 +72,36 @@ public class ShopManagedBean {
 	public void addShop(Shop shop)
 	{
 		presist(shop);
+	}
+	
+	private void remove(Shop shop)
+	{
+		if(shop.getImageUrl() != null)
+		{
+			try
+			{
+				Files.deleteIfExists(new File(Constants.uploadPath, shop.getImageUrl()).toPath());
+			}
+			catch (IOException ex)
+			{
+				Logger.getLogger(ShopManagedBean.class.getName()).log(Level.SEVERE, null, ex);
+				throw new RuntimeException(ex);
+			}
+		}
+		
+		try
+		{
+			userTransaction.begin();
+			entityManager.remove(
+				entityManager.merge(shop));
+			userTransaction.commit();
+		}
+		catch(Exception e)
+		{
+			Logger.getLogger(getClass().getName()).
+			    log(Level.SEVERE, "exception caught", e);
+			throw new RuntimeException(e);
+		}
 	}
 	
 	private void update(Shop shop)
