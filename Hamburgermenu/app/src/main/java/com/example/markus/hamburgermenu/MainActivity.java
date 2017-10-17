@@ -20,6 +20,7 @@ import android.view.MenuItem;
 import java.util.ArrayList;
 import java.util.List;
 
+import hamburgermenu.demo.fragments.AddGuitarr;
 import hamburgermenu.demo.fragments.Bokahandelse;
 import hamburgermenu.demo.fragments.Dagsschema;
 import hamburgermenu.demo.fragments.Ekonomi;
@@ -147,7 +148,7 @@ public class MainActivity extends AppCompatActivity
             fn.beginTransaction().replace(R.id.content_frame, new Bokahandelse()).commit();
         } else if (id == R.id.nav_ekonomi) {
             fn.beginTransaction().replace(R.id.content_frame, new Ekonomi()).commit();
-        } else {
+        } else if (id == R.id.nav_kamera){
             if (id == R.id.nav_kamera) {
                 Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
@@ -155,6 +156,8 @@ public class MainActivity extends AppCompatActivity
                 }
               //  fn.beginTransaction().replace(R.id.content_frame, new Kamera()).commit();
             }
+        } else if (id == R.id.nav_addguitarr) {
+            fn.beginTransaction().replace(R.id.content_frame, new AddGuitarr()).commit();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
