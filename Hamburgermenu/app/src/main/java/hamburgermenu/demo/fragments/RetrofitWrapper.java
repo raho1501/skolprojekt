@@ -231,6 +231,26 @@ public class RetrofitWrapper
         );
     }
 
+    public void postEvent(Event event){
+        Customer cust = new Customer();
+        TimeReservation timeRes = new TimeReservation();
+        Appointment appointment = new Appointment();
+
+        appointment.setInfo(event.getInfo());
+
+        String lol = event.getDate();
+        timeRes.setReservationDate(lol);
+        timeRes.setStartTime(event.getStartTime());
+        timeRes.setStopTime(event.getStopTime());
+
+        cust.setEmail("");
+        cust.setFirstName("");
+        cust.setLastName("");
+        cust.setPhoneNr("");
+
+        postInput(cust, timeRes, appointment);
+    }
+
     public void getRepair(final RetroCallback<Repairs> func)
     {
         Call<Repairs> call;

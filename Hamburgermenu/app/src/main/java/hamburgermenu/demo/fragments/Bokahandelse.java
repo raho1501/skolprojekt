@@ -131,25 +131,47 @@ public class Bokahandelse extends Fragment implements AdapterView.OnItemSelected
                 evn = new Event();
                 //check the length of the selected item to make sure we have proper formatting
                 String s = monthSpinner.getSelectedItem().toString();
-                if (s.length() == 1){
+                String pepe = dateSpinner.getSelectedItem().toString();
+                if (s.length() < 2){
                     s = "0" + s;
-                    evn.setDate(s + "/" + dateSpinner.getSelectedItem().toString() + "/"
-                    + Integer.toString(c.get(Calendar.YEAR)));
+                    if(pepe.length() < 2){
+                        pepe = "0" + pepe;
+                        evn.setDate(Integer.toString(c.get(Calendar.YEAR)) + "-"
+                        + s + "-" + pepe
+                        + "T00:00:00+02:00");
+                    }
+                    else{
+                        evn.setDate(Integer.toString(c.get(Calendar.YEAR)) + "-" +
+                                s + "-" + dateSpinner.getSelectedItem().toString()
+                                + "T00:00:00+02:00");
+                    }
                 }
                 else{
-                    evn.setDate(monthSpinner.getSelectedItem().toString() + "/" +
-                            dateSpinner.getSelectedItem().toString() + "/" +
-                            Integer.toString(c.get(Calendar.YEAR)));
+                    if(pepe.length() < 2){
+                        pepe = "0" + pepe;
+                        evn.setDate(Integer.toString(c.get(Calendar.YEAR)) + "-"
+                                + s + "-" + pepe
+                                + "T00:00:00+02:00");
+                    }
+                    else{
+                        evn.setDate(Integer.toString(c.get(Calendar.YEAR)) + "-" +
+                                monthSpinner.getSelectedItem().toString() + "-" +
+                                dateSpinner.getSelectedItem().toString()
+                                + "T00:00:00+02:00");
+    
+                    }
                 }
 
                 TextView namn = (TextView) getView().findViewById(R.id.inputBoxName);
                 evn.setName(namn.getText().toString());
                 System.out.println(startTidSpinner.getSelectedItem());
                 evn.setStartTime(
-                        startTidSpinner.getSelectedItem().toString()
+                         "1970-01-01T" + startTidSpinner.getSelectedItem().toString()
+                        + ":00+01:00"
                 );
                 evn.setStopTime(
-                        stopTidSpinner.getSelectedItem().toString()
+                        "1970-01-01T" + stopTidSpinner.getSelectedItem().toString()
+                        + ":00+01:00"
                 );
                 TextView decr = (TextView) getView().findViewById(R.id.inputBoxDescription);
                 evn.setInfo(
@@ -160,6 +182,11 @@ public class Bokahandelse extends Fragment implements AdapterView.OnItemSelected
                         evn.getInfo() + subj.getText().toString()
                 );
                 Events.events.add(evn);
+
+                RetrofitWrapper rw = new RetrofitWrapper();
+
+                rw.postEvent(evn);
+
                 Toast.makeText(getActivity(), "Händelse tillagd!", Toast.LENGTH_SHORT).show();
             }
         });
