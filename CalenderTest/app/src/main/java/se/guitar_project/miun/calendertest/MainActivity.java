@@ -10,12 +10,6 @@ import com.alamkanak.weekview.MonthLoader;
 import com.alamkanak.weekview.WeekView;
 import com.alamkanak.weekview.WeekViewEvent;
 
-<<<<<<< HEAD
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.LinkedList;
-import java.util.List;
-=======
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -27,19 +21,16 @@ import java.util.Vector;
 
 public class MainActivity extends AppCompatActivity implements WeekView.EventClickListener, MonthLoader.MonthChangeListener, WeekView.EventLongPressListener{
 
-<<<<<<< HEAD
-    public List<WeekViewEvent> eventList = new ArrayList<WeekViewEvent>();
-=======
+
     public List<Event> eventList = new ArrayList<Event>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         // Get a reference for the week view in the layout.
-<<<<<<< HEAD
-        WeekView weekView = (WeekView) findViewById(R.id.weekView);
-=======
+
         final WeekView weekView = (WeekView) findViewById(R.id.weekView);
 
 
@@ -55,16 +46,6 @@ public class MainActivity extends AppCompatActivity implements WeekView.EventCli
 
         //Set the number of visible days.
         weekView.setNumberOfVisibleDays(5);
-
-<<<<<<< HEAD
-        Event event = new Event();
-        event.setName("Event");
-        event.setDate("10/12/2017");
-        event.setStartTime("15:00");
-        event.setStopTime("16:00");
-        addEvent(event);
-
-=======
 
         RetrofitWrapper retro = new RetrofitWrapper();
         retro.getEvents(
@@ -91,12 +72,6 @@ public class MainActivity extends AppCompatActivity implements WeekView.EventCli
     @Override
     public List<WeekViewEvent> onMonthChange(int newYear, int newMonth){
         // Populate the week view with some events.
-<<<<<<< HEAD
-        List<WeekViewEvent> matchList = new ArrayList<WeekViewEvent>();
-        for (WeekViewEvent weekEvent : eventList) {
-            //TODO hitta ett sätt att bara adda events som är i vyn just nu.
-            matchList.add(weekEvent);
-=======
         List<WeekViewEvent> matchList = new ArrayList<>();
             //TODO hitta ett sätt att bara adda events som är i vyn just nu.
         for (Event event : eventList)
@@ -112,9 +87,6 @@ public class MainActivity extends AppCompatActivity implements WeekView.EventCli
     }
     public void addEvent(Event event)
     {
-<<<<<<< HEAD
-        eventList.add(event.toWeekViewEvent());
-=======
         eventList.add(event);
     }
     public void setList(List<Event> events)

@@ -60,10 +60,6 @@ public class Event
         WeekViewEvent weekViewEvent = new WeekViewEvent();
 
         Calendar now = Calendar.getInstance();
-<<<<<<< HEAD
-        SimpleDateFormat hourMinutes = new SimpleDateFormat("HH:mm");
-        SimpleDateFormat years = new SimpleDateFormat("MM/dd/yyyy");
-=======
         SimpleDateFormat parser = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
 
         Calendar start = (Calendar) now.clone();
@@ -72,9 +68,6 @@ public class Event
         Calendar reservationDate = (Calendar) now.clone();
         try
         {
-<<<<<<< HEAD
-            Date temp = hourMinutes.parse(getStartTime()); // TODO Någonting med parsingen går fel.
-=======
             Date temp = parser.parse(getStartTime());
             start.setTime(temp);
         }
@@ -85,9 +78,6 @@ public class Event
 
         try
         {
-<<<<<<< HEAD
-            stop.setTime(hourMinutes.parse(getStopTime()));
-=======
             Date temp = parser.parse(getStopTime());
             stop.setTime(temp);
         }
@@ -97,9 +87,6 @@ public class Event
         }
         try
         {
-<<<<<<< HEAD
-            reservationDate.setTime(years.parse(getDate()));
-=======
             Date temp = parser.parse(getDate());
             reservationDate.setTime(temp);
         }
@@ -112,10 +99,6 @@ public class Event
 
         Calendar startTime = (Calendar) now.clone();
         startTime.set(Calendar.YEAR, reservationDate.get(Calendar.YEAR));
-<<<<<<< HEAD
-        startTime.set(Calendar.DATE, reservationDate.get(Calendar.DATE));
-        startTime.set(Calendar.HOUR, start.get(Calendar.HOUR));
-=======
         startTime.set(Calendar.MONTH, reservationDate.get(Calendar.MONTH));
         startTime.set(Calendar.DAY_OF_MONTH, reservationDate.get(Calendar.DAY_OF_MONTH));
         startTime.set(Calendar.HOUR_OF_DAY, start.get(Calendar.HOUR_OF_DAY));
@@ -124,10 +107,6 @@ public class Event
 
         Calendar stopTime = (Calendar) now.clone();
         stopTime.set(Calendar.YEAR, reservationDate.get(Calendar.YEAR));
-<<<<<<< HEAD
-        stopTime.set(Calendar.DATE, reservationDate.get(Calendar.DATE));
-        stopTime.set(Calendar.HOUR, stop.get(Calendar.HOUR));
-=======
         stopTime.set(Calendar.MONTH, reservationDate.get(Calendar.MONTH));
         stopTime.set(Calendar.DAY_OF_MONTH, reservationDate.get(Calendar.DAY_OF_MONTH));
         stopTime.set(Calendar.HOUR_OF_DAY, stop.get(Calendar.HOUR_OF_DAY));
