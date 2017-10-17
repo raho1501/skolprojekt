@@ -11,7 +11,6 @@ import java.util.logging.Logger;
 import javax.annotation.Resource;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
-import javax.faces.bean.ManagedBean;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
@@ -21,44 +20,47 @@ import javax.transaction.UserTransaction;
  *
  * @author markus
  */
-@Named(value = "customerManagedBean")
+@Named(value = "timeReservationManagedBean")
 @RequestScoped
-public class CustomerManagedBean
-{
+public class TimeReservationManagedBean {
+
 	@PersistenceContext(unitName="web_guitar_officialPU")
 	private EntityManager entityManager;
 	
 	@Resource
 	private UserTransaction userTransaction;
-	
-	public CustomerManagedBean()
-	{
+	/**
+	 * Creates a new instance of TimeReservationManagedBean
+	 */
+	public TimeReservationManagedBean() {
 	}
 	
-	public List<Customer> getCustomers()
+	public List<TimeReservation> getTimeReservations()
 	{
-		TypedQuery<Customer> typedQuery =
+		TypedQuery<TimeReservation> query = 
 			entityManager.createNamedQuery(
-			"Customer.findAll", Customer.class);
-		return typedQuery.getResultList();
+			"TimeReservation.findAll", TimeReservation.class);
+		return query.getResultList();
 	}
 	
-	public void removeCustomer(Customer customer)
+	public TimeReservation getReservation(Integer id)
+        {
+            TypedQuery<TimeReservation>  appointmentQuery = 
+                entityManager.createNamedQuery("TimeReservation.findByTimeReservationId", TimeReservation.class).setParameter("timeReservationId", id);
+            return appointmentQuery.getResultList().get(0);  // TODO Kanske borde se till att vi inte krashar här.
+	}
+	
+	public void removeTimeReservation(TimeReservation timeReservation)
 	{
-		remove(customer);
+		remove(timeReservation);
 	}
 	
-	public void addCustomer(Customer customer)
-	{
-		persist(customer);
-	}
-	
-	private void remove(Customer customer)
+	private void remove(TimeReservation timeReservation)
 	{
 		try
 		{
 			userTransaction.begin();
-			entityManager.remove(entityManager.merge(customer));
+			entityManager.remove(entityManager.merge(timeReservation));
 			userTransaction.commit();
 		}
 		catch(Exception e)
@@ -68,13 +70,18 @@ public class CustomerManagedBean
 			throw new RuntimeException(e);
 		}
 	}
-
-	private void persist(Customer customer)
+	
+	public void addTimeReservation(TimeReservation timeReservation)
+	{
+		persist(timeReservation);
+	}
+	
+	private void persist(TimeReservation timeReservation)
 	{
 		try
 		{
 			userTransaction.begin();
-			entityManager.persist(customer);
+			entityManager.persist(timeReservation);
 			userTransaction.commit();
 		}
 		catch(Exception e)

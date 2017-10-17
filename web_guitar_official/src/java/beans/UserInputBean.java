@@ -5,10 +5,12 @@
  */
 package beans;
 
+import static java.nio.charset.StandardCharsets.ISO_8859_1;
+import static java.nio.charset.StandardCharsets.UTF_8;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -17,10 +19,10 @@ import javax.inject.Inject;
  *
  * @author markus
  */
-@Named(value = "appointmentCustomerInput")
+@Named(value = "userInputBean")
 @RequestScoped
-public class AppointmentCustomerInput
-{
+public class UserInputBean {
+
 	private String firstName;
 	private String lastName;
 	private String email;
@@ -41,9 +43,30 @@ public class AppointmentCustomerInput
 	private CustomerManagedBean customerManagedBean;
 	@Inject
 	private AppointmentManagedBean appointmentManagedBean;
+	@Inject
+	private TimeReservationManagedBean timeReservationManagedBean;
 
-	public AppointmentCustomerInput()
+	public UserInputBean()
 	{
+	}
+	
+	public void removeCustomer(Customer customer)
+	{
+		Appointment appointment =
+			appointmentManagedBean.getAppointment(customer.getAppointmentIdFk());
+	
+		TimeReservation timeReservation =
+			timeReservationManagedBean.getReservation(appointment.getTimeReservationIdFk());
+		
+		customerManagedBean.removeCustomer(customer);
+		appointmentManagedBean.removeAppointment(appointment);
+		timeReservationManagedBean.removeTimeReservation(timeReservation);
+	}
+	
+	private String toUTF_8(String s)
+	{
+		byte[] ptext = s.getBytes(ISO_8859_1);
+		return new String(ptext, UTF_8);
 	}
 	
 	public void setCustomerManagedBean(
@@ -57,7 +80,13 @@ public class AppointmentCustomerInput
 	{
 		this.appointmentManagedBean = appointmentManagedBean;
 	}
-
+	
+	public void setTimeReservationManagedBean(
+		TimeReservationManagedBean timeReservationManagedBean)
+	{
+		this.timeReservationManagedBean = timeReservationManagedBean;
+	}
+        
 	/**
 	 * @return the firstName
 	 */
@@ -69,7 +98,7 @@ public class AppointmentCustomerInput
 	 * @param firstName the firstName to set
 	 */
 	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+		this.firstName = toUTF_8(firstName);
 	}
 
 	/**
@@ -83,7 +112,7 @@ public class AppointmentCustomerInput
 	 * @param lastName the lastName to set
 	 */
 	public void setLastName(String lastName) {
-		this.lastName = lastName;
+		this.lastName = toUTF_8(lastName);
 	}
 
 	/**
@@ -97,7 +126,7 @@ public class AppointmentCustomerInput
 	 * @param email the email to set
 	 */
 	public void setEmail(String email) {
-		this.email = email;
+		this.email = toUTF_8(email);
 	}
 
 	/**
@@ -125,7 +154,7 @@ public class AppointmentCustomerInput
 	 * @param info the info to set
 	 */
 	public void setInfo(String info) {
-		this.info = info;
+		this.info = toUTF_8(info);
 	}
 	
 	/**
@@ -174,56 +203,46 @@ public class AppointmentCustomerInput
 	{
 		Customer cust = new Customer();
 		Appointment appoint = new Appointment();
+		TimeReservation reservation = new TimeReservation();
 		
+		DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+		DateFormat timeFormat = new SimpleDateFormat("HH:mm");
+		
+		Date parsedDate;
+		Date parsedStartTime;
+		Date parsedEndTime;
+		
+		try
+		{
+			parsedDate = dateFormat.parse(date);
+			parsedStartTime = timeFormat.parse(startTime);
+			parsedEndTime = timeFormat.parse(endTime);
+			
+			reservation.setStartTime(parsedStartTime);
+			reservation.setStopTime(parsedEndTime);
+			reservation.setReservationDate(parsedDate);
+		}
+		catch(ParseException e)
+		{
+			throw new RuntimeException(e);
+		}
+		
+		timeReservationManagedBean.addTimeReservation(reservation);
+		
+		appoint.setTimeReservationIdFk(reservation.getTimeReservationId());
+		appoint.setInfo(info);
+		
+		appointmentManagedBean.addAppointment(appoint);
+		
+		cust.setAppointmentIdFk(appoint.getAppointmentId());
 		cust.setFirstName(firstName);
 		cust.setLastName(lastName);
 		cust.setEmail(email);
 		cust.setPhoneNr(phoneNumber);
 		
-		try
-		{
-			// NOTE(markus): Detta är bara test kod.
-			// Det finns en bugg som uppstår om denna kod inte körs.
-			Date test = new Date();
-			appoint.setDate(test);
-			appoint.setInfo(info);
-			appoint.setStartTime(test);
-			appoint.setStopTime(test);
-		}
-		catch(Exception e)
-		{
-			System.out.println(e);
-		}
-		
-		int custID = 0;
-		List<Customer> customers = customerManagedBean.getCustomers();
-		
-		if(!customers.isEmpty())
-		{
-			custID = customers.get(
-				customers.size() - 1).getCustomerId() + 1;
-		}
-		
-		cust.setCustomerId(custID);
-		appoint.setCustomerIdFk(cust);
-		
-		int appointID = 0;
-		List<Appointment> appointments =
-			appointmentManagedBean.getAppointments();
-		
-		if(!appointments.isEmpty())
-		{
-			appointID = appointments.get(
-				appointments.size() - 1).
-				getAppointmentId() + 1;
-		}
-		
-		appoint.setAppointmentId(appointID);
-		
 		customerManagedBean.addCustomer(cust);
-		appointmentManagedBean.addAppointment(appoint);
 		
 		return "index";
 	}
-
+	
 }
