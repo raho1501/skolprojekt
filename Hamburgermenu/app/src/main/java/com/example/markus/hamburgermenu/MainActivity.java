@@ -1,8 +1,15 @@
 package com.example.markus.hamburgermenu;
 
 import android.Manifest;
+import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+<<<<<<< Updated upstream
+=======
+import android.provider.MediaStore;
+import android.support.design.widget.FloatingActionButton;
+>>>>>>> Stashed changes
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
@@ -146,12 +153,20 @@ public class MainActivity extends AppCompatActivity
             fn.beginTransaction().replace(R.id.content_frame, new Bokahandelse()).commit();
         } else if (id == R.id.nav_ekonomi) {
             fn.beginTransaction().replace(R.id.content_frame, new Ekonomi()).commit();
-        } else if (id == R.id.nav_kamera) {
-            fn.beginTransaction().replace(R.id.content_frame, new Kamera()).commit();
+        } else {
+            if (id == R.id.nav_kamera) {
+                Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+                    startActivityForResult(takePictureIntent, CAM_REQUEST);
+                }
+              //  fn.beginTransaction().replace(R.id.content_frame, new Kamera()).commit();
+            }
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+
 }

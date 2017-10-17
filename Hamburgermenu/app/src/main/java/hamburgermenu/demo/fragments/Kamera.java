@@ -42,8 +42,15 @@ public class Kamera extends Fragment{
         button = (Button)rootView.findViewById(R.id.button);
         imageView = (ImageView)rootView.findViewById(R.id.image_view);
 
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePictureIntent.resolveActivity(getActivity().getPackageManager())!=null){
+            startActivityForResult(takePictureIntent,CAM_REQUEST);
+        }
+
+/*
         button.setOnClickListener(new View.OnClickListener(){
             @Override
+
 
 
             public void onClick(View v){
@@ -58,6 +65,7 @@ public class Kamera extends Fragment{
             }
         });
 
+*/
 
         return rootView;
     }
