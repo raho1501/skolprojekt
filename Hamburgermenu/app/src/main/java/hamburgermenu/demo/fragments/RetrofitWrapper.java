@@ -243,10 +243,10 @@ public class RetrofitWrapper
         timeRes.setStartTime(event.getStartTime());
         timeRes.setStopTime(event.getStopTime());
 
-        cust.setEmail("");
-        cust.setFirstName("");
-        cust.setLastName("");
-        cust.setPhoneNr("");
+        cust.setEmail("asdf");
+        cust.setFirstName("asdfasdf");
+        cust.setLastName("asdsadfdsfdfsdfsfds");
+        cust.setPhoneNr("666");
 
         postInput(cust, timeRes, appointment);
     }

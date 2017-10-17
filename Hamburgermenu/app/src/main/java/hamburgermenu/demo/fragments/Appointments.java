@@ -12,7 +12,7 @@ import java.util.List;
 @Root(name = "Appointments")
 public class Appointments {
 
-    @ElementList(name = "appointments", inline=true)
+    @ElementList(name = "appointments", inline=true, required = false)
     private List<Appointment> AppointmentList;
     public int size(){
         return AppointmentList.size();

@@ -1,15 +1,10 @@
 package com.example.markus.hamburgermenu;
 
 import android.Manifest;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-<<<<<<< Updated upstream
-=======
 import android.provider.MediaStore;
-import android.support.design.widget.FloatingActionButton;
->>>>>>> Stashed changes
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
@@ -30,7 +25,6 @@ import hamburgermenu.demo.fragments.Dagsschema;
 import hamburgermenu.demo.fragments.Ekonomi;
 import hamburgermenu.demo.fragments.Event;
 import hamburgermenu.demo.fragments.Events;
-import hamburgermenu.demo.fragments.Kamera;
 import hamburgermenu.demo.fragments.RetroCallback;
 import hamburgermenu.demo.fragments.RetrofitWrapper;
 import hamburgermenu.demo.fragments.Veckoschema;

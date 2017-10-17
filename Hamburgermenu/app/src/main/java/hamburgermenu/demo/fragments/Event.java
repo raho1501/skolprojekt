@@ -59,6 +59,7 @@ public class Event
     public void setDate(String date) {
         this.date = date;
     }
+
     public WeekViewEvent toWeekViewEvent()
     {
         WeekViewEvent weekViewEvent = new WeekViewEvent();
@@ -121,7 +122,6 @@ public class Event
         weekViewEvent.setStartTime(startTime);
         weekViewEvent.setEndTime(stopTime);
         weekViewEvent.setColor(Color.argb(255, 50, 100, 100));
-
 
         return weekViewEvent;
     }

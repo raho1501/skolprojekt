@@ -9,7 +9,7 @@ import java.util.List;
  */
 
 public class Repairs {
-    @ElementList(name = "repairs", inline=true)
+    @ElementList(name = "repairs", inline=true, required = false)
     private List<Repair> repairList;
     public int size(){ return repairList.size(); }
     public Repair getRepair(int index)

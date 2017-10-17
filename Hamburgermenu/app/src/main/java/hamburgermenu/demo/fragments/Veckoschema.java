@@ -59,7 +59,7 @@ public class Veckoschema extends Fragment implements WeekView.EventClickListener
         //TextView custName = (TextView)getView().findViewById(R.id.CustomerInfo);
         //custName.setText(event.getName());
 
-        buildDialog(0, event.getName(), event.getName());
+        buildDialog(0, Long.toString(event.getId()), event.getName());
 
     }
 
@@ -81,16 +81,21 @@ public class Veckoschema extends Fragment implements WeekView.EventClickListener
     public List<WeekViewEvent> onMonthChange(int newYear, int newMonth){
         // Populate the week view with some events.
         List<WeekViewEvent> matchList = new ArrayList<WeekViewEvent>();
+        long count = 0;
 
         for (Event weekEvent : Events.events) {
             //TODO hitta ett sätt att bara adda events som är i vyn just nu.
             if(weekEvent.getMonth() == newMonth){
-                matchList.add(weekEvent.toWeekViewEvent());
+                WeekViewEvent wv = weekEvent.toWeekViewEvent();
+                wv.setId(count);
+                matchList.add(wv);
             }
+            ++count;
         }
-
         return matchList;
     }
+
+
 
 
 }

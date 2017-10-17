@@ -11,7 +11,7 @@ import java.util.List;
  */
 @Root(name = "customers")
 public class Customers {
-    @ElementList(name = "customer", inline=true)
+    @ElementList(name = "customer", inline=true, required = false)
     private List<Customer> CustomerList = new ArrayList<>();
     public int size(){
         return CustomerList.size();

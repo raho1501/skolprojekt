@@ -9,7 +9,7 @@ import java.util.List;
  */
 
 public class Leaves {
-    @ElementList(name = "leaves", inline=true)
+    @ElementList(name = "leaves", inline=true, required = false)
     private List<Leave> leaveList;
     public int size(){ return leaveList.size(); }
     public Leave getLeave(int index) { return leaveList.get(index); }

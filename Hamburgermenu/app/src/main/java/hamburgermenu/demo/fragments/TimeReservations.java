@@ -10,7 +10,7 @@ import java.util.List;
  */
 @Root (name = "timeResarvations")
 public class TimeReservations {
-    @ElementList(name = "timeReservation", inline=true)
+    @ElementList(name = "timeReservation", inline=true, required = false)
     private List<TimeReservation> timeReservationList;
 
     public TimeReservation getTimeReservation(int index)
