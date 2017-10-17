@@ -8,12 +8,16 @@ import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alamkanak.weekview.MonthLoader;
 import com.alamkanak.weekview.WeekView;
 import com.alamkanak.weekview.WeekViewEvent;
 import com.example.markus.hamburgermenu.R;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,7 +63,7 @@ public class Veckoschema extends Fragment implements WeekView.EventClickListener
         //TextView custName = (TextView)getView().findViewById(R.id.CustomerInfo);
         //custName.setText(event.getName());
 
-        Event tmpEvent;
+        Event tmpEvent = Events.events.get(0);
 
         for(Event weekEvent : Events.events){
             if(weekEvent.getId() == event.getId() && weekEvent.getName() == event.getName()){
@@ -74,11 +78,29 @@ public class Veckoschema extends Fragment implements WeekView.EventClickListener
 
     //Dialog ruta när man klickar på ett event i schemat.
     private void buildDialog(Event event){
+
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
 
-        builder.setView(R.layout.event_dialog);
+        LayoutInflater inflater = LayoutInflater.from(getContext());
+
+        View view =  inflater.inflate(R.layout.event_dialog, null);
+
+        builder.setView(view);
+
+        final TextView editTitle = (TextView) view.findViewById(R.id.eventTitle);
+        editTitle.setText(event.getName());
+
+        final TextView editTime = (TextView)view.findViewById(R.id.eventTime);
+        editTime.setText(event.getStartTime().substring(11,16) + "-" + event.getStopTime().substring(11,16));
+
+        final TextView editInfo = (TextView)view.findViewById(R.id.eventDescription);
+        editInfo.setText(event.getInfo());
+
         builder.setNegativeButton("OK", null);
         AlertDialog dialog = builder.create();
+
+
+
         //dialog.getWindow().getAttributes().windowAnimations = animationSource;
         dialog.show();
     }
