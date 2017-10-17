@@ -224,11 +224,23 @@ public class CalendarInputBean {
 	
 	public String saveImage() throws MessagingException
 	{
-		//TODO(markus f): Skapa sökväg som alla kan använda för att ladda upp bilder.
-		//TODO(markus f): fixa så att bara bild filer kan laddas upp detta borde kanske också göras i boka.xhtml
-		
 		String filename = imageFile.getSubmittedFileName();
-		String extension = filename.substring(filename.indexOf("."), filename.length());
+		
+		int indexOfExtension = filename.indexOf(".");
+		if(indexOfExtension <= 0)
+		{
+			throw new RuntimeException("Filename or file type is not supported.");
+		}
+		
+		String extension = filename.substring(indexOfExtension, filename.length());
+		
+		if(!".png".equals(extension) &&
+			!".jpg".equals(extension) &&
+			!".jpeg".equals(extension) &&
+			!".gif".equals(extension))
+		{
+			throw new RuntimeException("Filename or file type is not supported.");
+		}
 		
 		String randFileName = UUID.randomUUID().toString();
 		
@@ -322,6 +334,6 @@ public class CalendarInputBean {
 		
 		customerManagedBean.addCustomer(cust);
 		
-		return "redirect";
+		return "redirect_calendar";
 	}
 }

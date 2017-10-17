@@ -9,11 +9,13 @@
     <meta name="description" content="" />
     <meta name="keywords" content="" />
 
-    <script src="resources/js/jquery.min.js"></script>
+    <script src="resources/js/jquery-3.2.1.min.js"></script>
     <script src="resources/js/skel.min.js"></script>
     <script src="resources/js/skel-layers.min.js"></script>
     <script src="resources/js/init.js"></script>
     <link rel="stylesheet" href="resources/css/style.css" />
+    <link rel='stylesheet' href='resources/jquery-ui/jquery-ui.css' />
+    <script src="resources/jquery-ui/jquery-ui.js"></script>
 </h:head>
 <h:body id="top">
     <!-- Header -->
@@ -36,7 +38,7 @@
     <section class="container">
         <ui:repeat var="item" value="#{shopManagedBean.shops}" varStatus="status">
             <div class="shopItem row">
-                <img class="3u" src="#{item.imageUrl}" alt="Tom Bild"/>
+                <img class="3u" src="resources/uploaded_img/#{item.imageUrl}" alt="Tom Bild"/>
                 <div class="6u">
                     <h3>
                         #{item.title}
@@ -49,13 +51,24 @@
                     </p>
                 </div>
                 <div class="3u">
-                    <input type="button" value="Reservera" />
+                    <input type="button" value="Reservera" onclick="openDialog(#{item.shopId})"/>
                 </div>
-            </div>            
+            </div>
         </ui:repeat>
         <h:panelGroup rendered="#{empty shopManagedBean.shops }">
             Det finns inga gitarrer här just nu!
         </h:panelGroup>
+        
+        <div id="dialog" title="Bekräfta reservation" style="display:none;">
+            <h:form id="dialog-form">
+                Förnamn: <h:inputText value="#{shopInputBean.firstName}"/><br/>
+                Efternamn: <h:inputText value="#{shopInputBean.lastName}"/><br/>
+                Email: <h:inputText value="#{shopInputBean.email}"/><br/>
+                Telefon: <h:inputText value="#{shopInputBean.phoneNumber}"/><br/>
+                <h:inputHidden id="hidden-shop-id" value="#{shopInputBean.shopId}"/>
+                <h:commandButton value="Reservera" action="#{shopInputBean.submitCustomer()}"/>
+            </h:form>
+        </div>
     </section>
     <footer id="footer">
         <div class="container">
@@ -72,5 +85,23 @@
             </div>
         </div>
     </footer>
+    
+    <script>
+        //<![CDATA[
+        
+        function openDialog(id)
+        {
+            document.getElementById("dialog-form:hidden-shop-id").value = id;
+            $(function() {
+                $("#dialog").dialog({
+                    width: "auto",
+                    resizable: false,
+                    modal: true
+                });
+            });
+        }
+        
+        //]]>
+    </script>
 </h:body>
 </html>
