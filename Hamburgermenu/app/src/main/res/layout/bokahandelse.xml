@@ -14,16 +14,16 @@
         android:layout_height="50dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.978"
-        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.854" />
+        app:layout_constraintLeft_toRightOf="@+id/StopTidText"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintHorizontal_bias="0.963"
+        android:layout_marginTop="20dp"
+        app:layout_constraintTop_toBottomOf="@+id/startTidSpinner"
+        app:layout_constraintVertical_bias="0.04000002" />
 
     <Spinner
         android:id="@+id/startTidSpinner"
@@ -31,16 +31,16 @@
         android:layout_height="50dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.978"
-        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.752" />
+        app:layout_constraintLeft_toRightOf="@+id/startTidText"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintHorizontal_bias="0.963"
+        android:layout_marginTop="20dp"
+        app:layout_constraintTop_toBottomOf="@+id/monthSpinner"
+        app:layout_constraintVertical_bias="0.04000002" />
 
     <Spinner
         android:id="@+id/monthSpinner"
@@ -48,16 +48,16 @@
         android:layout_height="50dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.978"
-        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.655" />
+        app:layout_constraintLeft_toRightOf="@+id/monthTextView"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintHorizontal_bias="0.963"
+        android:layout_marginTop="20dp"
+        app:layout_constraintTop_toBottomOf="@+id/datumSpinner"
+        app:layout_constraintVertical_bias="0.04000002" />
 
     <Spinner
         android:id="@+id/datumSpinner"
@@ -67,59 +67,68 @@
         android:layout_marginStart="8dp"
         android:layout_marginRight="8dp"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginBottom="8dp"
+        app:layout_constraintLeft_toRightOf="@+id/datumTextView"
         android:layout_marginLeft="8dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintHorizontal_bias="0.978"
-        app:layout_constraintVertical_bias="0.569" />
+        app:layout_constraintHorizontal_bias="0.97"
+        android:layout_marginTop="20dp"
+        app:layout_constraintTop_toBottomOf="@+id/textView5"
+        app:layout_constraintVertical_bias="0.044" />
 
     <TextView
         android:id="@+id/StopTidText"
         android:layout_width="150dp"
-        android:layout_height="50dp"
+        android:layout_height="55dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="27dp"
+        android:layout_marginTop="35dp"
         android:text="Sluttid"
         android:textAppearance="@style/TextAppearance.AppCompat.Title"
         android:textSize="40dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/startTidText" />
+        app:layout_constraintTop_toBottomOf="@+id/startTidText"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/startTidText"
         android:layout_width="150dp"
-        android:layout_height="50dp"
+        android:layout_height="55dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="35dp"
         android:text="Starttid"
         android:textAppearance="@style/TextAppearance.AppCompat.Title"
         android:textSize="40dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/monthTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/monthTextView"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/datumTextView"
         android:layout_width="100dp"
-        android:layout_height="50dp"
+        android:layout_height="55dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="35dp"
         android:text="Dag"
         android:textAppearance="@style/TextAppearance.AppCompat.Title"
         android:textSize="40dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+        app:layout_constraintTop_toBottomOf="@+id/textView5"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/button"
         android:layout_width="150dp"
         android:layout_height="85dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="16dp"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
@@ -160,7 +169,7 @@
         android:ems="10"
         android:hint="Beskrivning"
         android:inputType="textPersonName"
-        android:textSize="40dp"
+        android:textSize="40sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/inputBoxName" />
@@ -224,14 +233,17 @@
     <TextView
         android:id="@+id/monthTextView"
         android:layout_width="150dp"
-        android:layout_height="50dp"
+        android:layout_height="55dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
         android:text="Månad"
         android:textAppearance="@style/TextAppearance.AppCompat.Title"
         android:textSize="40dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/datumTextView" />
+        android:layout_marginTop="35dp"
+        app:layout_constraintTop_toBottomOf="@+id/datumTextView"
+        app:layout_constraintVertical_bias="0.0" />
 
 </android.support.constraint.ConstraintLayout>
