@@ -35,7 +35,7 @@ public class Veckoschema extends Fragment implements WeekView.EventClickListener
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState){
         // Get a reference for the week view in the layout.
-        WeekView weekView = (WeekView)view.findViewById(R.id.weekView);
+        final WeekView weekView = (WeekView)view.findViewById(R.id.weekView);
 
         // Set an action when any event is clicked.
         weekView.setOnEventClickListener(this);

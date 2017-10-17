@@ -152,12 +152,12 @@ public class Bokahandelse extends Fragment implements AdapterView.OnItemSelected
                         stopTidSpinner.getSelectedItem().toString()
                 );
                 TextView decr = (TextView) getView().findViewById(R.id.inputBoxDescription);
-                evn.setDecription(
+                evn.setInfo(
                         decr.getText().toString()
                 );
                 TextView subj = (TextView) getView().findViewById(R.id.inputBoxSubject);
-                evn.setSubject(
-                        subj.getText().toString()
+                evn.setInfo(
+                        evn.getInfo() + subj.getText().toString()
                 );
                 Events.events.add(evn);
                 Toast.makeText(getActivity(), "Händelse tillagd!", Toast.LENGTH_SHORT).show();
