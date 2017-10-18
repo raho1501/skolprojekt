@@ -29,7 +29,7 @@ public class RetrofitWrapper
 
         client = retrofit.create(RestInterface.class);
     }
-    public void getEvents(final RetroCallback<List<Event>> func)
+    public void getAppointmentEvents(final RetroCallback<List<Event>> func)
     {
         //Retur värdet samt parametervärdet har ingen betydelse.
         AsyncTask<Integer, Integer, List<Event>> task = new AsyncTask<Integer, Integer, List<Event>>() {
@@ -87,6 +87,26 @@ public class RetrofitWrapper
         };
         task.execute(0);
     }
+    public void getLeaveEvents(final RetroCallback<List<Event>> func) {
+        AsyncTask<Void, Void, Void> task = new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... params) {
+                List<TimeReservation> timeReservations = new ArrayList<>();
+
+                Leaves leaves = getLeaves();
+                int size = leaves.size();
+                for (int i = 0; i < size; i++)
+                {
+                    Leave leave = leaves.getLeave(i);
+                    TimeReservation timeReservation = getTimeReservationsById(leave.getTimeReservationIdFk());
+                    timeReservations.add(timeReservation);
+                }
+                func.onResponse(generateEvents(leaves, timeReservations));
+                return null;
+            }
+        };
+        task.execute();
+    }
 
     private Customers getCustomers()
     {
@@ -102,20 +122,6 @@ public class RetrofitWrapper
             e.printStackTrace();
         }
         return customers;
-    }
-    private Customer getCustomerById(int id)
-    {
-        Customer customer = new Customer();
-        Call<Customer> call = client.getCustomerById(id);
-        try
-        {
-            customer = call.execute().body();
-        }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-        }
-        return customer;
     }
     public void postCustomer(Customer customer, final RetroCallback<Customer> func)
     {
@@ -364,8 +370,7 @@ public class RetrofitWrapper
         }
         return eventList;
     }
-    private List<Event> generateEvents(Repairs repairs, List<TimeReservation> timeReservations)
-    {
+    private List<Event> generateEvents(Repairs repairs, List<TimeReservation> timeReservations) {
         List<Event> eventList = new ArrayList<>();
         int size = repairs.size();
         for(int i = 0; i < size; i++)
@@ -379,4 +384,144 @@ public class RetrofitWrapper
         }
         return eventList;
     }
+    private List<Event> generateEvents(Leaves leaves, List<TimeReservation> timeReservations) {
+        List<Event> eventList = new ArrayList<>();
+        int size = leaves.size();
+        for(int i = 0; i < size; i++)
+        {
+            TimeReservation timeReservation = timeReservations.get(i);
+            Event event = new LeaveEvent();
+            event.setDate(timeReservation.getReservationDate());
+            event.setStartTime(timeReservation.getStartTime());
+            event.setStopTime(timeReservation.getStopTime());
+            eventList.add(event);
+        }
+        return eventList;
+    }
+
+
+    //DELETE REPAIR
+    private Repair getRepairById(int id) {
+        Repair repair = new Repair();
+        Call<Repair> call = client.getRepairById(id);
+        try {
+            repair = call.execute().body();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return repair;
+    }
+    private Repair deleteRepair(int repairId) {
+        Call<Repair> call = client.deleteRepair(repairId);
+        Repair repair = new Repair();
+        try {
+            repair = call.execute().body();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return repair;
+    }
+    private TimeReservation deleteTimeReservation(final int timeReservationId) {
+        TimeReservation tr = new TimeReservation();
+        Call<TimeReservation> call = client.deleteTimeReservation(timeReservationId);
+        try
+        {
+            tr = call.execute().body();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+        return tr;
+    }
+    public void deleteRepairEvent(final RepairEvent repairEvent){
+        AsyncTask<Integer, Integer, Integer> task = new AsyncTask<Integer, Integer, Integer>() {
+            @Override
+            protected Integer doInBackground(Integer... integers) {
+                deleteRepair(repairEvent.getRepair().getRepairId());
+                deleteTimeReservation(repairEvent.getTimeReservation().getTimeResarvationId());
+                return 0;
+            }
+        };
+        task.execute(0);
+    }
+
+    //DELETE LEAVE
+    private Leave getLeaveById(int id) {
+        Call<Leave> call = client.getLeaveById(id);
+        Leave leave = new Leave();
+        try {
+            leave = call.execute().body();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return leave;
+    }
+    private Leave deleteLeave(int leaveId) {
+        Call<Leave> call = client.deleteLeave(leaveId);
+        Leave leave = new Leave();
+        try {
+            leave = call.execute().body();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return leave;
+    }
+    public void deleteLeaveEvent(final LeaveEvent leaveEvent){
+        AsyncTask<Integer, Integer, Integer> task = new AsyncTask<Integer, Integer, Integer>() {
+            @Override
+            protected Integer doInBackground(Integer... integers) {
+                deleteLeave(leaveEvent.getLeave().getLeaveId());
+                deleteTimeReservation(leaveEvent.getTimeReservation().getTimeResarvationId());
+                return 0;
+            }
+        };
+        task.execute(0);
+    }
+
+    //DELETE CUSTOMER
+    private Customer getCustomerById(int id) {
+        Customer customer = new Customer();
+        Call<Customer> call = client.getCustomerById(id);
+        try {
+            customer = call.execute().body();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return customer;
+    }
+    private Customer deleteCustomer(int customerId) {
+        Call<Customer> call = client.deleteCustomer(customerId);
+        Customer customer = new Customer();
+        try {
+            customer = call.execute().body();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return customer;
+    }
+    private Appointment deleteAppointment(int appointmentId) {
+        Call<Appointment> call = client.deleteAppointment(appointmentId);
+        Appointment appointment = new Appointment();
+        try {
+            appointment = call.execute().body();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+        return appointment;
+    }
+    public void deleteAppointmentEvent(final AppointmentEvent appointmentEvent){
+        AsyncTask<Integer, Integer, Integer> task = new AsyncTask<Integer, Integer, Integer>() {
+            @Override
+            protected Integer doInBackground(Integer... integers) {
+                deleteCustomer(appointmentEvent.getCustomer().getCustomerId());
+                deleteAppointment(appointmentEvent.getAppointment().getAppointmentId());
+                deleteTimeReservation(appointmentEvent.getAppointment().getTimeReservationIdFk());
+                return 0;
+            }
+        };
+        task.execute(0);
+    }
+
 }

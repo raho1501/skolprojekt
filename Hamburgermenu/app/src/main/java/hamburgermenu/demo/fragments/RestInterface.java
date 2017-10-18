@@ -2,6 +2,7 @@ package hamburgermenu.demo.fragments;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
@@ -20,6 +21,9 @@ public interface RestInterface {
     @POST("beans.timereservation/test")
     Call<TimeReservation> postTimeReservation(@Body TimeReservation timeReservation);
 
+    @DELETE("beans.timereservation/{id}")
+    Call<TimeReservation> deleteTimeReservation(@Path("id") int id);
+
     @GET("beans.customer")
     Call<Customers> getAllCustomers();
 
@@ -28,6 +32,9 @@ public interface RestInterface {
 
     @POST("beans.customer/test")
     Call<Customer> postCustomer(@Body Customer customer);
+
+    @DELETE("beans.customer/{id}")
+    Call<Customer> deleteCustomer(@Path("id") int id);
 
     @GET("beans.appointment")
     Call<Appointments> getAllAppointments();
@@ -38,16 +45,31 @@ public interface RestInterface {
     @POST("beans.appointment/test")
     Call<Appointment> postAppointment(@Body Appointment appointment);
 
+    @DELETE("beans.appointment/{id}")
+    Call<Appointment> deleteAppointment(@Path("id") int id);
+
     @GET("beans.leave")
     Call<Leaves> getAllLeaves();
+
+    @GET("beans.leave/{id}")
+    Call<Leave> getLeaveById(@Path("id") int id);
 
     @POST("beans.leave")
     Call<Leave> postLeave(@Body Leave leave);
 
+    @DELETE("beans.leave/{id}")
+    Call<Leave> deleteLeave(@Path("id") int id);
+
     @GET("beans.repair")
     Call<Repairs> getAllRepairs();
 
+    @GET("beans.repair/{id}")
+    Call <Repair> getRepairById(@Path("id") int id);
+
     @POST("beans.repair")
     Call<Repair> postRepair(@Body Repair repair);
+
+    @DELETE("beans.repair/{id}")
+    Call<Repair> deleteRepair(@Path("id") int id);
 
 }
