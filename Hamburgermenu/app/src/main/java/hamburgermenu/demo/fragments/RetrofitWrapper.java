@@ -32,9 +32,9 @@ public class RetrofitWrapper
     public void getEvents(final RetroCallback<List<Event>> func)
     {
         //Retur värdet samt parametervärdet har ingen betydelse.
-        AsyncTask<Integer, Integer, Integer> task = new AsyncTask<Integer, Integer, Integer>() {
+        AsyncTask<Integer, Integer, List<Event>> task = new AsyncTask<Integer, Integer, List<Event>>() {
             @Override
-            protected Integer doInBackground(Integer... params) {
+            protected List<Event> doInBackground(Integer... params) {
                 List<TimeReservation> timeReservations = new ArrayList<>();
                 List<Appointment> appointments = new ArrayList<>();
 
@@ -50,8 +50,12 @@ public class RetrofitWrapper
                     timeReservations.add(timeReservation);
                 }
 
-                func.onResponse(generateEvents(customers, appointments, timeReservations));
-                return 0;
+                return generateEvents(customers, appointments, timeReservations);
+            }
+            @Override
+            protected void onPostExecute(List<Event> arg){
+                func.onResponse(arg);
+
             }
         };
         task.execute(0);
@@ -59,9 +63,9 @@ public class RetrofitWrapper
     public void getRepairEvents(final RetroCallback<List<Event>> func)
     {
         //Retur värdet samt parametervärdet har ingen betydelse.
-        AsyncTask<Integer, Integer, Integer> task = new AsyncTask<Integer, Integer, Integer>() {
+        AsyncTask<Integer, Integer, List<Event>> task = new AsyncTask<Integer, Integer, List<Event>>() {
             @Override
-            protected Integer doInBackground(Integer... params) {
+            protected List<Event> doInBackground(Integer... params) {
                 List<TimeReservation> timeReservations = new ArrayList<>();
 
                 Repairs repairs = getRepairs();
@@ -74,8 +78,11 @@ public class RetrofitWrapper
                     timeReservations.add(timeReservation);
                 }
 
-                func.onResponse(generateEvents(repairs, timeReservations));
-                return 0;
+                return generateEvents(repairs, timeReservations);
+            }
+            @Override
+            protected void onPostExecute(List<Event> arg){
+                func.onResponse(arg);
             }
         };
         task.execute(0);
