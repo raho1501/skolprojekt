@@ -71,8 +71,6 @@ public class Veckoschema extends Fragment implements WeekView.EventClickListener
         }
 
         buildDialog(tmpEvent);
-
-
     }
 
     //Dialog ruta när man klickar på ett event i schemat.
@@ -110,24 +108,11 @@ public class Veckoschema extends Fragment implements WeekView.EventClickListener
     public List<WeekViewEvent> onMonthChange(int newYear, int newMonth){
         // Populate the week view with some events.
         List<WeekViewEvent> matchList = new ArrayList<WeekViewEvent>();
-        test();
         long count = 0;
         for (Event weekEvent : Events.events) {
             if(weekEvent.getMonth() == newMonth){
                 weekEvent.setId(count);
                 matchList.add(weekEvent.toWeekViewEvent());
-
-                //Test för att ta reda på vilken typ det är.
-                if(weekEvent instanceof AppointmentEvent)
-                {
-                    AppointmentEvent test = (AppointmentEvent) weekEvent;
-                    System.out.println(test.getPhoneNr());
-                    System.out.println("Appointment");
-                }
-                if(weekEvent instanceof RepairEvent)
-                {
-                    System.out.println("Repair");
-                }
             }
             ++count;
         }
@@ -176,14 +161,5 @@ public class Veckoschema extends Fragment implements WeekView.EventClickListener
                 }
         );
 
-    }
-    public void test()
-    {
-        LeaveEvent e = new LeaveEvent();
-        e.setStopTime("2017-10-13T12:00:00+02:00");
-        e.setStartTime("2017-10-13T11:00:00+02:00");
-        e.setDate("2017-10-17T11:00:00+02:00");
-       // e.setInfo("Trasig hals!");
-        Events.events.add(e);
     }
 }
