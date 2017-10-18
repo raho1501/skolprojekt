@@ -8,7 +8,7 @@ import org.simpleframework.xml.Element;
 
 public class Leave {
 
-    @Element(name = "leaveId")
+    @Element(name = "leaveId", required = false)
     private int leaveId;
     @Element(name = "timeReservationIdFk")
     private int timeReservationIdFk;

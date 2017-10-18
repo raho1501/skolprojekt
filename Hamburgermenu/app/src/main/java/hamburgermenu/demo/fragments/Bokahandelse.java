@@ -33,7 +33,7 @@ public class Bokahandelse extends Fragment implements AdapterView.OnItemSelected
     Spinner monthSpinner;
     ArrayAdapter<String> monthAdapter;
     Button btn;
-    private RepairEvent evn;
+    private Event evn;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
@@ -51,6 +51,7 @@ public class Bokahandelse extends Fragment implements AdapterView.OnItemSelected
         final Spinner dateSpinner = (Spinner) getView().findViewById(R.id.datumSpinner);
         final Spinner startTidSpinner = (Spinner) getView().findViewById(R.id.startTidSpinner);
         final Spinner stopTidSpinner = (Spinner) getView().findViewById(R.id.stopTidSpinner);
+        final Spinner typeOfEventSpinner = (Spinner) getView().findViewById(R.id.typeOfEvent);
 
 
         List<String> list;
@@ -106,6 +107,15 @@ public class Bokahandelse extends Fragment implements AdapterView.OnItemSelected
         stopTidSpinner.setAdapter(stopTidAdapter);
 
 
+        List<String> typeOfEventList = new ArrayList<String>();
+        typeOfEventList.add("Ledighet");
+        typeOfEventList.add("Reperation");
+        ArrayAdapter<String> typeOfEventAdapter = new ArrayAdapter<String>(this.getContext(),
+                android.R.layout.simple_spinner_item, typeOfEventList);
+        typeOfEventSpinner.setAdapter(typeOfEventAdapter);
+
+
+
         View view = getView();
         if (view != null) {
             view.findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
@@ -119,7 +129,13 @@ public class Bokahandelse extends Fragment implements AdapterView.OnItemSelected
         btn = (Button) getView().findViewById(R.id.button);
         btn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                evn = new RepairEvent();
+                if(typeOfEventSpinner.getSelectedItem().toString().equals("Reperation")){
+                    evn = new RepairEvent();
+                }
+                else{
+                    evn = new LeaveEvent();
+                }
+
                 //check the length of the selected item to make sure we have proper formatting
                 String s = monthSpinner.getSelectedItem().toString();
                 String pepe = dateSpinner.getSelectedItem().toString();
@@ -152,10 +168,6 @@ public class Bokahandelse extends Fragment implements AdapterView.OnItemSelected
     
                     }
                 }
-
-                TextView namn = (TextView) getView().findViewById(R.id.inputBoxInfo);
-                evn.setTitle(namn.getText().toString());
-                System.out.println(startTidSpinner.getSelectedItem());
                 evn.setStartTime(
                          "1970-01-01T" + startTidSpinner.getSelectedItem().toString()
                         + ":00+01:00"
@@ -165,18 +177,20 @@ public class Bokahandelse extends Fragment implements AdapterView.OnItemSelected
                         + ":00+01:00"
                 );
                 TextView decr = (TextView) getView().findViewById(R.id.inputBoxDescription);
+                TextView name = (TextView)getView().findViewById(R.id.inputBoxName);
                 evn.setInfo(
-                        decr.getText().toString()
+                        name.getText().toString() + "\n" + decr.getText().toString()
                 );
-                TextView subj = (TextView) getView().findViewById(R.id.inputBoxSubject);
-                evn.setInfo(
-                        evn.getInfo() + subj.getText().toString()
-                );
-                Events.events.add(evn);
 
-                //RetrofitWrapper rw = new RetrofitWrapper();
 
-                //rw.postEvent(evn);
+                RetrofitWrapper rw = new RetrofitWrapper();
+
+                if(evn instanceof RepairEvent){
+                    rw.postRepairEvent((RepairEvent) evn);
+                }
+                else{
+                    rw.postLeaveEvent((LeaveEvent) evn);
+                }
 
                 Toast.makeText(getActivity(), "Händelse tillagd!", Toast.LENGTH_SHORT).show();
             }

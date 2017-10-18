@@ -79,7 +79,7 @@ public class Dagsschema extends Fragment implements WeekView.EventClickListener,
 
         LayoutInflater inflater = LayoutInflater.from(getContext());
 
-        View view =  inflater.inflate(R.layout.event_dialog, null);
+        View view = inflater.inflate(R.layout.event_dialog, null);
 
         builder.setView(view);
 
@@ -90,7 +90,8 @@ public class Dagsschema extends Fragment implements WeekView.EventClickListener,
         editTime.setText("Tid: " + event.getStartTime().substring(11,16) + "-" + event.getStopTime().substring(11,16));
 
         final TextView editInfo = (TextView)view.findViewById(R.id.eventDescription);
-        editInfo.setText(event.getInfo());
+        String info = event.getInfo();
+        editInfo.setText(info);
 
         builder.setNegativeButton("OK", null);
         AlertDialog dialog = builder.create();
@@ -168,12 +169,40 @@ public class Dagsschema extends Fragment implements WeekView.EventClickListener,
     public void fetchEvents()
     {
         RetrofitWrapper retro = new RetrofitWrapper();
-        retro.getEvents(
+        retro.getAppointmentEvents(
                 new RetroCallback<List<Event>>()
                 {
                     @Override
                     public void onResponse(List<Event> entity) {
                         Events.events = entity;
+                        weekView.getMonthChangeListener().onMonthChange(2017, 10);
+                        weekView.notifyDatasetChanged();
+                    }
+                }
+        );
+        retro.getRepairEvents(
+                new RetroCallback<List<Event>>()
+                {
+                    @Override
+                    public void onResponse(List<Event> entity) {
+                        for(Event events : entity)
+                        {
+                            Events.events.add(events);
+                        }
+                        weekView.getMonthChangeListener().onMonthChange(2017, 10);
+                        weekView.notifyDatasetChanged();
+                    }
+                }
+        );
+        retro.getLeaveEvents(
+                new RetroCallback<List<Event>>()
+                {
+                    @Override
+                    public void onResponse(List<Event> entity) {
+                        for(Event events : entity)
+                        {
+                            Events.events.add(events);
+                        }
                         weekView.getMonthChangeListener().onMonthChange(2017, 10);
                         weekView.notifyDatasetChanged();
                     }

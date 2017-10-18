@@ -133,7 +133,7 @@ public class MainActivity extends AppCompatActivity
             fn.beginTransaction().replace(R.id.content_frame, new Veckoschema()).commit();
 
         } else if (id == R.id.nav_bokahandelse) {
-            fn.beginTransaction().replace(R.id.content_frame, new BokaReparation()).commit();
+            fn.beginTransaction().replace(R.id.content_frame, new Bokahandelse()).commit();
         } else if (id == R.id.nav_ekonomi) {
             fn.beginTransaction().replace(R.id.content_frame, new Ekonomi()).commit();
         } else if (id == R.id.nav_kamera){

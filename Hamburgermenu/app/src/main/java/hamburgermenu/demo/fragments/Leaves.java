@@ -2,6 +2,7 @@ package hamburgermenu.demo.fragments;
 
 import org.simpleframework.xml.ElementList;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -10,7 +11,7 @@ import java.util.List;
 
 public class Leaves {
     @ElementList(name = "leaves", inline=true, required = false)
-    private List<Leave> leaveList;
+    private List<Leave> leaveList = new ArrayList<>();
     public int size(){ return leaveList.size(); }
     public Leave getLeave(int index) { return leaveList.get(index); }
 }

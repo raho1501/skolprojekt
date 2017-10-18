@@ -7,7 +7,7 @@ import org.simpleframework.xml.Element;
  */
 
 public class Repair {
-    @Element(name = "repairId")
+    @Element(name = "repairId", required = false)
     private int repairId;
     @Element(name = "timeReservationIdFk")
     private int timeReservationIdFk;
