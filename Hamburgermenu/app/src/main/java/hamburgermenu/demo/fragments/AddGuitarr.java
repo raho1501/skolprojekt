@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -16,10 +17,14 @@ import android.widget.TextView;
 
 import com.example.markus.hamburgermenu.R;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 
 import static android.app.Activity.RESULT_OK;
+import static hamburgermenu.demo.fragments.Kamera.CAM_REQUEST;
 
 /**
  * Created by Markus on 2017-10-11.
@@ -27,6 +32,8 @@ import static android.app.Activity.RESULT_OK;
 
 public class AddGuitarr extends Fragment {
     public Button btn;
+    public Button btn2;
+    public Button submitBtn;
     public Button byteBtn;
     public Button bytePicBtn;
     public TextView resTV;
@@ -46,6 +53,7 @@ public class AddGuitarr extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
 
+
         btn = (Button)getView().findViewById(R.id.btn);
 
 
@@ -60,6 +68,53 @@ public class AddGuitarr extends Fragment {
                 startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
             }
         });
+
+
+        ////////////////////////////////////////////////////////////////////////////////////////
+        btn2 = (Button)getView().findViewById(R.id.btn2);
+
+        btn2.setOnClickListener(new View.OnClickListener(){
+            @Override
+
+            public void onClick(View v){
+
+                Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                if (takePictureIntent.resolveActivity(getActivity().getPackageManager())!=null){
+                    startActivityForResult(takePictureIntent,CAM_REQUEST);
+                }
+            }
+        });
+
+        submitBtn = (Button)getView().findViewById(R.id.submitBtn);
+        submitBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                TextView title = (TextView)getView().findViewById(R.id.guitarTitle);
+                TextView price = (TextView)getView().findViewById(R.id.guitarPrice);
+                TextView info = (TextView)getView().findViewById(R.id.guitarDescription);
+
+                byte[] bytePic = getBytesFromBitmap(previewedPicture);
+
+                String stringTitle = title.getText().toString();
+                String stringPrice = price.getText().toString();
+                String stringInfo = info.getText().toString();
+
+                InputStream inputPic = new ByteArrayInputStream(bytePic);
+
+                ShopItem shopData = new ShopItem();
+
+                shopData.setTitle(stringTitle);
+                shopData.setPrice(stringPrice);
+                shopData.setInfo(stringInfo);
+
+
+            }
+        });
+
+
+
+
+
 
         //bitmap to byteArray button not used for now
         /*
@@ -96,6 +151,22 @@ public class AddGuitarr extends Fragment {
         */
 
     }
+
+    private File getFile(){
+
+        File folder = new File("sdcard/camera_app");
+
+        if(!folder.exists())
+        {
+            folder.mkdir();
+        }
+
+        File image_file = new File(folder,"cam_image.jpg");
+        return image_file;
+    }
+
+
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -115,6 +186,21 @@ public class AddGuitarr extends Fragment {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }
+        else if (requestCode == CAM_REQUEST && resultCode == RESULT_OK) {
+            ImageView imageView = (ImageView) getView().findViewById(R.id.imageView);
+            Bundle extras = data.getExtras();
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
+            imageView.setImageBitmap(imageBitmap);
+            File picImage = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "CameraFile");
+
+            if(!picImage.exists())
+            {
+                picImage.mkdir();
+            }
+
+            File image_file = new File(picImage,"cam_image.jpg");
+            //File image = new File();
         }
     }
     public byte[] getBytesFromBitmap(Bitmap bitmap) {
