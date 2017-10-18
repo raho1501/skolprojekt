@@ -384,7 +384,7 @@ public class RetrofitWrapper {
         List<Event> eventList = new ArrayList<>();
         int size = leaves.size();
         for (int i = 0; i < size; i++) {
-            
+
             Leave leave = leaves.getLeave(i);
             TimeReservation timeReservation = timeReservations.get(i);
             LeaveEvent event = new LeaveEvent();
