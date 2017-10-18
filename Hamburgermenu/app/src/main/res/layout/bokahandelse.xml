@@ -135,11 +135,14 @@
         android:layout_marginStart="8dp"
         android:text="Boka tid"
         android:textAlignment="center"
-        android:textSize="25dp"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:layout_constraintRight_toRightOf="parent"
+        android:background="@drawable/buttonstyle"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        />
 
     <TextView
         android:id="@+id/textView2"
