@@ -5,38 +5,47 @@
  */
 package beans;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import static java.nio.charset.StandardCharsets.ISO_8859_1;
 import static java.nio.charset.StandardCharsets.UTF_8;
+import java.nio.file.Files;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.UUID;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
+import javax.mail.MessagingException;
+import javax.servlet.http.Part;
 
 /**
  *
  * @author markus
  */
-@Named(value = "userInputBean")
+@Named(value = "calendarInputBean")
 @RequestScoped
-public class UserInputBean {
+public class CalendarInputBean {
 
 	private String firstName;
 	private String lastName;
 	private String email;
 	private String phoneNumber;
 	
-	// TODO(markus): Kanske ska byta typen på startTime och endTime
-	// till något annat.
+	
 	private String startTime;
 	private String endTime;
 	
-	// TODO(markus): Kanske byta typen på date till något annat.
 	private String date;
 	
 	private String info;
+	
+	private Part imageFile;
 	
 	
 	@Inject
@@ -46,7 +55,7 @@ public class UserInputBean {
 	@Inject
 	private TimeReservationManagedBean timeReservationManagedBean;
 
-	public UserInputBean()
+	public CalendarInputBean()
 	{
 	}
 	
@@ -199,8 +208,90 @@ public class UserInputBean {
 		this.date = date;
 	}
 	
+	/**
+	 * @return the imageFile
+	 */
+	public Part getImageFile() {
+		return imageFile;
+	}
+
+	/**
+	 * @param imageFile the imageFile to set
+	 */
+	public void setImageFile(Part imageFile) {
+		this.imageFile = imageFile;
+	}
+	
+	public String saveImage() throws MessagingException
+	{
+		String filename = imageFile.getSubmittedFileName();
+		
+		int indexOfExtension = filename.indexOf(".");
+		if(indexOfExtension <= 0)
+		{
+			throw new RuntimeException("Filename or file type is not supported.");
+		}
+		
+		String extension = filename.substring(indexOfExtension, filename.length());
+		
+		if(!".png".equals(extension) &&
+			!".jpg".equals(extension) &&
+			!".jpeg".equals(extension) &&
+			!".gif".equals(extension))
+		{
+			throw new RuntimeException("Filename or file type is not supported.");
+		}
+		
+		String randFileName = UUID.randomUUID().toString();
+		
+		filename = randFileName + extension;
+		// /home/markus/NetBeansProjects/skolprojekt/web_guitar_official/web/resources/uploaded_img
+		// /var/web_guitar_official/images
+		File savedFile = new File(Constants.uploadPath, filename);
+
+		try(InputStream input = imageFile.getInputStream())
+		{
+			Files.copy(input, savedFile.toPath());
+		}
+		catch(IOException e)
+		{
+			Logger.getLogger(getClass().getName()).
+				log(Level.SEVERE, "exception caught", e);
+			throw new RuntimeException(e);
+		}
+		
+		return filename;
+	}
+	
 	public String submit()
 	{
+		if(firstName.isEmpty()) return "redirect";
+		if(lastName.isEmpty()) return "redirect";
+		if(email.isEmpty()) return "redirect";
+		if(phoneNumber.isEmpty()) return "redirect";
+
+		if(startTime.isEmpty()) return "redirect";
+		if(endTime.isEmpty()) return "redirect";
+		if(date.isEmpty()) return "redirect";
+
+		if(info.isEmpty()) return "redirect";
+		
+		String filename = null;
+		
+		if(imageFile != null)
+		{
+			try
+			{
+				filename = saveImage();
+			}
+			catch(MessagingException e)
+			{
+				Logger.getLogger(getClass().getName()).
+					log(Level.SEVERE, "exception caught", e);
+				throw new RuntimeException(e);
+			}
+		}
+		
 		Customer cust = new Customer();
 		Appointment appoint = new Appointment();
 		TimeReservation reservation = new TimeReservation();
@@ -231,6 +322,7 @@ public class UserInputBean {
 		
 		appoint.setTimeReservationIdFk(reservation.getTimeReservationId());
 		appoint.setInfo(info);
+		appoint.setImageUrl(filename);
 		
 		appointmentManagedBean.addAppointment(appoint);
 		
@@ -242,7 +334,6 @@ public class UserInputBean {
 		
 		customerManagedBean.addCustomer(cust);
 		
-		return "index";
+		return "redirect_calendar";
 	}
-	
 }

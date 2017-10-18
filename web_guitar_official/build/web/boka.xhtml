@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
         <title>Boka tid</title>
@@ -32,7 +33,7 @@
                 <ul>
                     <li><a href="index.xhtml">START</a></li>
                     <li><a href="shop.xhtml">SHOP</a></li>
-                    <li><a href="boka.xhtml">BOKA TID</a></li>
+                    <li><a href="#">BOKA TID</a></li>
                     <li><a href="kontakt.xhtml">KONTAKT</a></li>
                 </ul>
             </nav>
@@ -51,7 +52,7 @@
                         <div class="row collapse-at-2">
                             <div class="6u">
                                 <h5>Öppettider</h5>
-                                <h6>Måndag - fredag 9-18 </h6>
+                                <h6>Måndag - fredag 10-18 </h6>
                                 <h6>Lördag - söndag STÄNGT </h6>
                             </div>
                         </div>
@@ -60,26 +61,34 @@
             </div>
         </footer>
         <div id="dialog" title="Bekräfta bokning" style="display:none">
-            <h:form id="dialog-form">
+            <div id="Information" style ="float:left;">
+                <p>För att utföra bokningen behöver du fylla i detta formulär.
+                   Bilder behövs ej.
+                </p>
+            </div>
+            <h:form id="dialog-form" enctype="multipart/form-data">
                 <label>Förnamn: </label>
-                <h:inputText id="test" value="#{userInputBean.firstName}"></h:inputText><br/>
+                <h:inputText id="test" value="#{calendarInputBean.firstName}"></h:inputText><br/>
                 <label>Efternamn: </label>
-                <h:inputText value="#{userInputBean.lastName}"></h:inputText><br/>
+                <h:inputText value="#{calendarInputBean.lastName}"></h:inputText><br/>
                 <label>Email: </label>
-                <h:inputText value="#{userInputBean.email}"></h:inputText><br/>
+                <h:inputText value="#{calendarInputBean.email}"></h:inputText><br/>
                 <label>Tel: </label>
-                <h:inputText value="#{userInputBean.phoneNumber}"></h:inputText><br/>
-                <label>Beskrivning: </label>
-                <h:inputTextarea value="#{userInputBean.info}"></h:inputTextarea><br/>
-                <label>Bilder: </label>
-
+                <h:inputText value="#{calendarInputBean.phoneNumber}"></h:inputText><br/>
+                <label style="vertical-align: top;">Kort beskrivning: </label>
+                <h:inputTextarea value="#{calendarInputBean.info}"></h:inputTextarea><br/>
                 
-                <h:inputHidden id="hidden-date" value="#{userInputBean.date}"></h:inputHidden>
-                <h:inputHidden id="hidden-start" value="#{userInputBean.startTime}"></h:inputHidden>
-                <h:inputHidden id="hidden-end" value="#{userInputBean.endTime}" ></h:inputHidden>
+                <label>Bild: </label>
+                <h:inputFile value="#{calendarInputBean.imageFile}">
+                </h:inputFile>
                 
-                <h:commandButton id="reserve-button" value="Boka" action="#{userInputBean.submit()}"></h:commandButton>
+                <h:inputHidden id="hidden-date" value="#{calendarInputBean.date}"></h:inputHidden>
+                <h:inputHidden id="hidden-start" value="#{calendarInputBean.startTime}"></h:inputHidden>
+                <h:inputHidden id="hidden-end" value="#{calendarInputBean.endTime}" ></h:inputHidden>
+                
+                <h:commandButton id="reserve-button" value="Boka" action="#{calendarInputBean.submit()}"></h:commandButton>
             </h:form>
+            
         </div>
         
         <div id="error" title="Oj" style="display: none">
@@ -94,8 +103,12 @@
             //<![CDATA[
         var events = [];
         var currentEvent;
+        var weekDays =  ['', 'Måndag', 'Tisdag', 'Onsdag', 'Torsdag','Fredag'];
+        var months = ['', 'Januari', 'Februari', 'Mars', 'April', 'Maj', 'Juni',
+        'Juli', 'Augusti', 'September', 'Oktober', 'November', 'December'];
+        
 
-        function insertEvent(name, date, startTime, endTime)
+        function insertEvent(color, name, date, startTime, endTime)
         {
             date = date.slice(0, date.indexOf("C")) + date.slice(date.length - 4, date.length);
             startTime = startTime.slice(0, startTime.indexOf("C")) + startTime.slice(startTime.length - 4, startTime.length);
@@ -109,6 +122,12 @@
                                     "MM/DD/YYYY HH:mm");
             var endValue = moment(dateTime.format("MM/DD/YYYY") + " " + endDateTime.format("HH:mm"),
                                     "MM/DD/YYYY HH:mm");
+            startValue.minutes(0);
+            if(endValue.minutes() > 0)
+            {
+                endValue.hours(endValue.hours() + 1);
+                endValue.minutes(0);
+            }
 
             var newid = 0;
             if(events.length > 0)
@@ -122,7 +141,7 @@
                 end: endValue,
                 allDay: false,
                 editable: false,
-                color: 'red'};
+                color: color};
             events.push(event);
         }
         
@@ -147,6 +166,7 @@
 
             $('#calendar').fullCalendar({
                     // put your options and callbacks here
+                    
                 eventClick: function(calEvent, jsEvent, view) {
                     if(currentEvent == undefined)
                     {
@@ -154,18 +174,29 @@
                     }
                     if(calEvent.id == currentEvent.id)
                     {
+                        var bokningsTidStart = currentEvent.start.hours();
+                        var bokningsTidEnd = currentEvent.end.hours();
+                        var bokningsTidDate = currentEvent.start.date();
+                        var bokningsTidDay = currentEvent.start.day();
+                        var bokningsTidMonth = currentEvent.start.month();
+                        
+                     
                         $(function() {
                             $("#dialog").dialog({
                                 width: "auto",
                                 resizable: false,
-                                modal: false
+                                modal: true,
+                                title: "Bekräfta bokningen " + weekDays[bokningsTidDay] + " den " +
+                                bokningsTidDate + " " + months[bokningsTidMonth +1] + " kl: " + bokningsTidStart 
+                                + " - " + bokningsTidEnd
                             });
                         });
+                        
                         // change the border color just for fun
                         $(this).css('border-color', 'red');
                     }
                 },
-                dayNamesShort: ['', 'Måndag', 'Tisdag', 'Onsdag', 'Torsdag','Fredag'],
+                dayNamesShort: weekDays,
                 dayOfMonthFormat:'ddd DD',
                 defaultView: 'agendaWeek',
                 weekNumbers: true,
@@ -227,13 +258,12 @@
                     }
                     currentEvent = {
                         id: newid,
-                        title: 'Ny konsultation',
+                        title: 'Klicka här igen för att boka',
                         start: start,
                         end: end,
                         allDay: false,
                         editable: false
-                    };
-                    
+                    };                   
                     document.getElementById("dialog-form:hidden-date").value = currentEvent.start.format("MM/DD/YYYY");
                     document.getElementById("dialog-form:hidden-start").value = currentEvent.start.format("HH:mm");
                     document.getElementById("dialog-form:hidden-end").value = currentEvent.end.format("HH:mm");
@@ -253,10 +283,22 @@
             //]]>
         </script>
         
+        <c:forEach var="leave" items="#{leaveManagedBean.leaves}">
+            <script>
+                addAllEvents.push(function(){
+                    insertEvent("green",
+                                "Ledig",
+                                "#{timeReservationManagedBean.getReservation(leave.timeReservationIdFk).reservationDate}",
+                                "#{timeReservationManagedBean.getReservation(leave.timeReservationIdFk).startTime}",
+                                "#{timeReservationManagedBean.getReservation(leave.timeReservationIdFk).stopTime}");
+                });
+            </script>
+        </c:forEach>
         <c:forEach var="customer" items="#{customerManagedBean.customers}">
             <script>
                 addAllEvents.push(function(){
-                    insertEvent("#{customer.firstName}",
+                    insertEvent("red",
+                                "#{customer.firstName}",
                                 "#{timeReservationManagedBean.getReservation(appointmentManagedBean.getAppointment(customer.appointmentIdFk).timeReservationIdFk).reservationDate}",
                                 "#{timeReservationManagedBean.getReservation(appointmentManagedBean.getAppointment(customer.appointmentIdFk).timeReservationIdFk).startTime}",
                                 "#{timeReservationManagedBean.getReservation(appointmentManagedBean.getAppointment(customer.appointmentIdFk).timeReservationIdFk).stopTime}");

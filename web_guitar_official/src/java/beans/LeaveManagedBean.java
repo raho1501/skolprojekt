@@ -11,67 +11,51 @@ import java.util.logging.Logger;
 import javax.annotation.Resource;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
-import javax.faces.bean.ManagedBean;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
-import javax.transaction.UserTransaction;
 
 /**
  *
  * @author markus
  */
-@Named(value = "customerManagedBean")
+@Named(value = "leaveManagedBean")
 @RequestScoped
-public class CustomerManagedBean
-{
+public class LeaveManagedBean {
+
 	@PersistenceContext(unitName="web_guitar_officialPU")
 	private EntityManager entityManager;
-	
+
 	@Resource
-	private UserTransaction userTransaction;
-	
-	public CustomerManagedBean()
+	private javax.transaction.UserTransaction userTransaction;
+	/**
+	 * Creates a new instance of LeaveManagedBean
+	 */
+	public LeaveManagedBean() {
+	}
+
+	public List<Leave> getLeaves()
 	{
+		TypedQuery<Leave> typedLeave = entityManager.createNamedQuery("Leave.findAll", Leave.class);
+		return typedLeave.getResultList();
 	}
 	
-	public List<Customer> getCustomers()
+	public void removeLeave(Leave leave)
 	{
-		TypedQuery<Customer> typedQuery =
-			entityManager.createNamedQuery(
-			"Customer.findAll", Customer.class);
-		return typedQuery.getResultList();
+		remove(leave);
 	}
 	
-	public Customer getCustomer(Integer id)
+	public void addLeave(Leave leave)
 	{
-		TypedQuery<Customer> typedQuery =
-			entityManager.createNamedQuery(
-			"Customer.findByCustomerId", Customer.class).setParameter("customerId", id);
-		List<Customer> resList = typedQuery.getResultList();
-		if(resList.isEmpty())
-		{
-			return new Customer();
-		}
-		return resList.get(0);
+		persist(leave);
 	}
 	
-	public void removeCustomer(Customer customer)
-	{
-		remove(customer);
-	}
-	
-	public void addCustomer(Customer customer)
-	{
-		persist(customer);
-	}
-	
-	private void remove(Customer customer)
+	private void remove(Leave leave)
 	{
 		try
 		{
 			userTransaction.begin();
-			entityManager.remove(entityManager.merge(customer));
+			entityManager.remove(entityManager.merge(leave));
 			userTransaction.commit();
 		}
 		catch(Exception e)
@@ -82,12 +66,12 @@ public class CustomerManagedBean
 		}
 	}
 
-	private void persist(Customer customer)
+	private void persist(Leave leave)
 	{
 		try
 		{
 			userTransaction.begin();
-			entityManager.persist(customer);
+			entityManager.persist(leave);
 			userTransaction.commit();
 		}
 		catch(Exception e)
