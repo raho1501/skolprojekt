@@ -142,7 +142,7 @@ public class Veckoschema extends Fragment implements WeekView.EventClickListener
                 else if (finalTmpEvent instanceof RepairEvent){
                     retro.deleteRepairEvent((RepairEvent) finalTmpEvent);
                 }
-                else if (finalTmpEvent instanceof LeaveEvent){
+                else if(finalTmpEvent instanceof LeaveEvent){
                     retro.deleteLeaveEvent((LeaveEvent) finalTmpEvent);
                 }
                 fetchEvents();

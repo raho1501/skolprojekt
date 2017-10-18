@@ -87,7 +87,6 @@ public class RetrofitWrapper {
     }
 
     public void getLeaveEvents(final RetroCallback<List<Event>> func) {
-        AsyncTask<Void, Void, Void> task = new AsyncTask<Void, Void, Void>() {
         //Retur värdet samt parametervärdet har ingen betydelse.
         AsyncTask<Integer, Integer, List<Event>> task = new AsyncTask<Integer, Integer, List<Event>>() {
             @Override
@@ -96,6 +95,7 @@ public class RetrofitWrapper {
 
                 Leaves leaves = getLeaves();
                 int size = leaves.size();
+                for (int i = 0; i < size; i++)
                 {
                     Leave leave = leaves.getLeave(i);
                     TimeReservation timeReservation = getTimeReservationsById(leave.getTimeReservationIdFk());
@@ -384,18 +384,12 @@ public class RetrofitWrapper {
         List<Event> eventList = new ArrayList<>();
         int size = leaves.size();
         for (int i = 0; i < size; i++) {
-
-            TimeReservation timeReservation = timeReservations.get(i);
-            Event event = new LeaveEvent();
-            event.setDate(timeReservation.getReservationDate());
-            event.setStartTime(timeReservation.getStartTime());
-            event.setStopTime(timeReservation.getStopTime());
-
-           /* Leave leave = leaves.getLeave(i);
+            
+            Leave leave = leaves.getLeave(i);
             TimeReservation timeReservation = timeReservations.get(i);
             LeaveEvent event = new LeaveEvent();
             event.setLeave(leave);
-            event.setTimeReservation(timeReservation);*/
+            event.setTimeReservation(timeReservation);
 
             eventList.add(event);
         }
@@ -465,7 +459,7 @@ public class RetrofitWrapper {
         Call<Leave> call = client.deleteLeave(leaveId);
         Leave leave = new Leave();
         try {
-            leave = call.execute().body();
+            call.execute();
         } catch (IOException e) {
             e.printStackTrace();
         }
