@@ -88,6 +88,34 @@ public class RetrofitWrapper
         task.execute(0);
     }
 
+    public void getLeaveEvents(final RetroCallback<List<Event>> func)
+    {
+        //Retur värdet samt parametervärdet har ingen betydelse.
+        AsyncTask<Integer, Integer, List<Event>> task = new AsyncTask<Integer, Integer, List<Event>>() {
+            @Override
+            protected List<Event> doInBackground(Integer... params) {
+                List<TimeReservation> timeReservations = new ArrayList<>();
+
+                Leaves leaves= getLeaves();
+                int size = leaves.size();
+                for (int i = 0; i < size; i++)
+                {
+                    Leave leave = leaves.getLeave(i);
+                    TimeReservation timeReservation= getTimeReservationsById(leave.getTimeReservationIdFk());
+
+                    timeReservations.add(timeReservation);
+                }
+
+                return generateEvents(leaves, timeReservations);
+            }
+            @Override
+            protected void onPostExecute(List<Event> arg){
+                func.onResponse(arg);
+            }
+        };
+        task.execute(0);
+    }
+
     private Customers getCustomers()
     {
         Customers customers = new Customers();
@@ -279,10 +307,37 @@ public class RetrofitWrapper
 
         );
     }
+    private void postInput(final Leave leave, TimeReservation timeReservation)
+    {
+        postTimeReservation(timeReservation,
+                new RetroCallback<TimeReservation>()
+                {
+                    @Override
+                    public void onResponse(TimeReservation entity)
+                    {
+                        int fk = entity.getTimeResarvationId();
+                        leave.setTimeReservationIdFk(fk);
+                        postLeave(leave,
+                                new RetroCallback<Leave>()
+                                {
+                                    @Override
+                                    public void onResponse(Leave entity) {
 
+                                    }
+                                }
+                        );
+                    }
+                }
+
+        );
+    }
     public void postRepairEvent(RepairEvent event)
     {
         postInput(event.getRepair(), event.getTimeReservation());
+    }
+    public void postLeaveEvent(LeaveEvent event)
+    {
+        postInput(event.getLeave(), event.getTimeReservation());
     }
 
     public Repairs getRepairs()
@@ -374,6 +429,21 @@ public class RetrofitWrapper
             TimeReservation timeReservation = timeReservations.get(i);
             RepairEvent event = new RepairEvent();
             event.setRepair(repair);
+            event.setTimeReservation(timeReservation);
+            eventList.add(event);
+        }
+        return eventList;
+    }
+    private List<Event> generateEvents(Leaves leaves, List<TimeReservation> timeReservations)
+    {
+        List<Event> eventList = new ArrayList<>();
+        int size = leaves.size();
+        for(int i = 0; i < size; i++)
+        {
+            Leave leave = leaves.getLeave(i);
+            TimeReservation timeReservation = timeReservations.get(i);
+            LeaveEvent event = new LeaveEvent();
+            event.setLeave(leave);
             event.setTimeReservation(timeReservation);
             eventList.add(event);
         }

@@ -7,7 +7,7 @@ import org.simpleframework.xml.Element;
  */
 
 public class Appointment {
-    @Element(name = "appointmentId")
+    @Element(name = "appointmentId", required = false)
     private int appointmentId;
     @Element(name = "info")
     private String info;

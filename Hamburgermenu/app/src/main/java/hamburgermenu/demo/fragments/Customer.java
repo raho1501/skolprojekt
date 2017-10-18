@@ -10,15 +10,15 @@ import org.simpleframework.xml.Root;
 class Customer {
     @Element(name = "appointmentIdFk", required = false)
     private int appointmentIdFk;
-    @Element(name = "customerId")
+    @Element(name = "customerId", required = false)
     private int customerId;
-    @Element(name = "email")
+    @Element(name = "email", required = false)
     private String email;
-    @Element(name = "firstName")
+    @Element(name = "firstName", required = false)
     private String firstName;
-    @Element (name = "lastName")
+    @Element (name = "lastName", required = false)
     private String lastName;
-    @Element(name = "phoneNr")
+    @Element(name = "phoneNr", required = false)
     private String phoneNr;
 
 

@@ -9,5 +9,5 @@ import java.util.List;
  */
 
 public class Events {
-    public static List<Event> events = new ArrayList<Event>();
+    public static List<Event> events = new ArrayList<>();
 }

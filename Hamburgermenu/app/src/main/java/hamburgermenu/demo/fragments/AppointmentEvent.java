@@ -10,6 +10,10 @@ public class AppointmentEvent extends Event {
     private Customer customer = new Customer();
     private Appointment appointment = new Appointment();
 
+    public AppointmentEvent()
+    {
+        super.setColor(100,80,3,255);
+    }
     public Customer getCustomer() {
         return customer;
     }
@@ -64,7 +68,9 @@ public class AppointmentEvent extends Event {
                 " " +
                 customer.getLastName() +
                 "\n" +
-                appointment.getInfo();
+                appointment.getInfo() +
+                " " +
+                customer.getEmail();
     }
     @Override
     public void setInfo(String info)
@@ -74,7 +80,7 @@ public class AppointmentEvent extends Event {
     @Override
     public String getTitle()
     {
-        return getFirstName();
+        return "Konsultation";
     }
 
 }

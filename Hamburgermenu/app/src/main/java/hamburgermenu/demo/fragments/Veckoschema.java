@@ -161,15 +161,29 @@ public class Veckoschema extends Fragment implements WeekView.EventClickListener
                     }
                 }
         );
+        retro.getLeaveEvents(
+                new RetroCallback<List<Event>>()
+                {
+                    @Override
+                    public void onResponse(List<Event> entity) {
+                        for(Event events : entity)
+                        {
+                            Events.events.add(events);
+                        }
+                        weekView.getMonthChangeListener().onMonthChange(2017, 10);
+                        weekView.notifyDatasetChanged();
+                    }
+                }
+        );
 
     }
     public void test()
     {
-        RepairEvent e = new RepairEvent();
+        LeaveEvent e = new LeaveEvent();
         e.setStopTime("2017-10-13T12:00:00+02:00");
         e.setStartTime("2017-10-13T11:00:00+02:00");
         e.setDate("2017-10-17T11:00:00+02:00");
-        e.setInfo("Trasig hals!");
+       // e.setInfo("Trasig hals!");
         Events.events.add(e);
     }
 }
