@@ -13,6 +13,8 @@ public class Appointment {
     private String info;
     @Element(name = "timeReservationIdFk", required = false)
     private int timeReservationIdFk;
+    @Element (name="imageUrl", required = false)
+    private String imageUrl;
 
     public int getAppointmentId() {
         return appointmentId;
@@ -31,5 +33,13 @@ public class Appointment {
     }
     public void setTimeReservationIdFk(int timeReservationIdFk) {
         this.timeReservationIdFk = timeReservationIdFk;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }

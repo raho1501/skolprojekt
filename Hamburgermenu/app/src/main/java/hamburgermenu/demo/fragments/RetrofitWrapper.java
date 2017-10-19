@@ -1,17 +1,24 @@
 package hamburgermenu.demo.fragments;
 
+import android.content.Context;
+import android.net.Uri;
 import android.os.AsyncTask;
 
+import java.io.File;
 import java.io.IOException;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.simplexml.SimpleXmlConverterFactory;
+import retrofit2.http.Multipart;
 
 /**
  * Created by linus on 2017-10-12.
@@ -21,7 +28,7 @@ public class RetrofitWrapper {
     private Retrofit retrofit;
     private RestInterface client;
 
-    public RetrofitWrapper() {
+    public RetrofitWrapper() {                                              //10.250.113.149
         Retrofit.Builder builder = new Retrofit.Builder().baseUrl("http://10.0.2.2:8080/web_guitar_official/webresources/").addConverterFactory(SimpleXmlConverterFactory.create());
         retrofit = builder.build();
 
@@ -87,7 +94,6 @@ public class RetrofitWrapper {
     }
 
     public void getLeaveEvents(final RetroCallback<List<Event>> func) {
-        AsyncTask<Void, Void, Void> task = new AsyncTask<Void, Void, Void>() {
         //Retur värdet samt parametervärdet har ingen betydelse.
         AsyncTask<Integer, Integer, List<Event>> task = new AsyncTask<Integer, Integer, List<Event>>() {
             @Override
@@ -96,7 +102,7 @@ public class RetrofitWrapper {
 
                 Leaves leaves = getLeaves();
                 int size = leaves.size();
-                {
+                for (int i = 0; i < size; i++) {
                     Leave leave = leaves.getLeave(i);
                     TimeReservation timeReservation = getTimeReservationsById(leave.getTimeReservationIdFk());
                     timeReservations.add(timeReservation);
@@ -384,18 +390,11 @@ public class RetrofitWrapper {
         List<Event> eventList = new ArrayList<>();
         int size = leaves.size();
         for (int i = 0; i < size; i++) {
-
-            TimeReservation timeReservation = timeReservations.get(i);
-            Event event = new LeaveEvent();
-            event.setDate(timeReservation.getReservationDate());
-            event.setStartTime(timeReservation.getStartTime());
-            event.setStopTime(timeReservation.getStopTime());
-
-           /* Leave leave = leaves.getLeave(i);
+            Leave leave = leaves.getLeave(i);
             TimeReservation timeReservation = timeReservations.get(i);
             LeaveEvent event = new LeaveEvent();
             event.setLeave(leave);
-            event.setTimeReservation(timeReservation);*/
+            event.setTimeReservation(timeReservation);
 
             eventList.add(event);
         }
@@ -530,4 +529,38 @@ public class RetrofitWrapper {
         };
         task.execute(0);
     }
+
+    public void postShop(Shop shop, final RetroCallback<Shop> func){
+        Call<Shop> call = client.postGuitar(shop);
+        call.enqueue(new Callback<Shop>() {
+            @Override
+            public void onResponse(Call<Shop> call, Response<Shop> response) {
+                func.onResponse(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<Shop> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
+    }
+    public void postShopTest(final Shop shop){
+        Shop s = shop;
+        postShop(shop, new RetroCallback<Shop>() {
+            @Override
+            public void onResponse(Shop entity) {
+                //Shop tmp = entity;
+                int id = entity.getId();
+
+                //System.out.println(id);
+
+            }
+        });
+    }
+
+
+
+
+
+
 }

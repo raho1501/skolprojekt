@@ -2,13 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/C:/Users/Albert/Documents/GitHub/skolprojektv2/skolprojekt/web_guitar_official/src/java/service/CustomerFacadeREST.java</file>
-            <file>file:/C:/Users/Albert/Documents/GitHub/skolprojektv2/skolprojekt/web_guitar_official/src/java/service/AppointmentFacadeREST.java</file>
-            <file>file:/C:/Users/Albert/Documents/GitHub/skolprojektv2/skolprojekt/web_guitar_official/src/java/beans/Repair.java</file>
-            <file>file:/C:/Users/Albert/Documents/GitHub/skolprojektv2/skolprojekt/web_guitar_official/src/java/service/TimeReservationFacadeREST.java</file>
-            <file>file:/C:/Users/Albert/Documents/GitHub/skolprojektv2/skolprojekt/web_guitar_official/src/java/beans/TimeReservation.java</file>
-            <file>file:/C:/Users/Albert/Documents/GitHub/skolprojektv2/skolprojekt/web_guitar_official/src/java/service/RepairFacadeREST.java</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>

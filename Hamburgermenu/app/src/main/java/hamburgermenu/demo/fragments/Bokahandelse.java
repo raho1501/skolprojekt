@@ -116,6 +116,7 @@ public class Bokahandelse extends Fragment implements AdapterView.OnItemSelected
 
 
 
+
         View view = getView();
         if (view != null) {
             view.findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
@@ -139,6 +140,9 @@ public class Bokahandelse extends Fragment implements AdapterView.OnItemSelected
                 //check the length of the selected item to make sure we have proper formatting
                 String s = monthSpinner.getSelectedItem().toString();
                 String pepe = dateSpinner.getSelectedItem().toString();
+
+                System.out.println(s);
+                System.out.println(pepe);
                 if (s.length() < 2){
                     s = "0" + s;
                     if(pepe.length() < 2){
