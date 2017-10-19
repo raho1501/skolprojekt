@@ -295,15 +295,17 @@
             </script>
         </c:forEach>
         <c:forEach var="customer" items="#{customerManagedBean.customers}">
-            <script>
-                addAllEvents.push(function(){
-                    insertEvent("red",
-                                "#{customer.firstName}",
-                                "#{timeReservationManagedBean.getReservation(appointmentManagedBean.getAppointment(customer.appointmentIdFk).timeReservationIdFk).reservationDate}",
-                                "#{timeReservationManagedBean.getReservation(appointmentManagedBean.getAppointment(customer.appointmentIdFk).timeReservationIdFk).startTime}",
-                                "#{timeReservationManagedBean.getReservation(appointmentManagedBean.getAppointment(customer.appointmentIdFk).timeReservationIdFk).stopTime}");
-                });
-            </script>
+            <h:outputFormat rendered="#{not empty calendarInputBean.getTimeReservation(customer)}">
+                <script>
+                    addAllEvents.push(function(){
+                        insertEvent("red",
+                                    "#{customer.firstName}",
+                                    "#{timeReservationManagedBean.getReservation(appointmentManagedBean.getAppointment(customer.appointmentIdFk).timeReservationIdFk).reservationDate}",
+                                    "#{timeReservationManagedBean.getReservation(appointmentManagedBean.getAppointment(customer.appointmentIdFk).timeReservationIdFk).startTime}",
+                                    "#{timeReservationManagedBean.getReservation(appointmentManagedBean.getAppointment(customer.appointmentIdFk).timeReservationIdFk).stopTime}");
+                    });
+                </script>
+            </h:outputFormat>
         </c:forEach>
     </h:body>
 </html>

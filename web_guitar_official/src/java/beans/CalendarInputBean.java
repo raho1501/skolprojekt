@@ -14,6 +14,7 @@ import java.nio.file.Files;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.UUID;
 import java.util.logging.Level;
@@ -70,6 +71,29 @@ public class CalendarInputBean {
 		customerManagedBean.removeCustomer(customer);
 		appointmentManagedBean.removeAppointment(appointment);
 		timeReservationManagedBean.removeTimeReservation(timeReservation);
+	}
+	
+	public TimeReservation getTimeReservation(Customer customer)
+	{
+		Appointment appointment = appointmentManagedBean.getAppointment(customer.getAppointmentIdFk());
+		TimeReservation timeReservation = timeReservationManagedBean.getReservation(appointment.getTimeReservationIdFk());
+		
+		Calendar currendDate = Calendar.getInstance();
+		
+		Calendar timeReservationDate = Calendar.getInstance();
+		timeReservationDate.setTime(timeReservation.getReservationDate());
+		Calendar timeReservationEndTime = Calendar.getInstance();
+		timeReservationEndTime.setTime(timeReservation.getStopTime());
+		
+		timeReservationDate.set(Calendar.HOUR_OF_DAY, timeReservationEndTime.get(Calendar.HOUR_OF_DAY));
+		timeReservationDate.set(Calendar.MINUTE, timeReservationEndTime.get(Calendar.MINUTE));
+		
+		if(currendDate.compareTo(timeReservationDate) > 0)
+		{
+			removeCustomer(customer);
+			return null;
+		}
+		return timeReservation;
 	}
 	
 	private String toUTF_8(String s)
