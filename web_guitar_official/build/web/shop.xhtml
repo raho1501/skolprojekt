@@ -38,7 +38,7 @@
     </section>
     <section class="container">
         <ui:repeat var="item" value="#{shopManagedBean.shops}" varStatus="status">
-            <div class="shopItem row">
+            <div class="shopItem row" id="#{item.shopId}">
                 <img class="3u" src="resources/uploaded_img/#{item.imageUrl}" alt="Tom Bild"/>
                 <div class="6u">
                     <h3>

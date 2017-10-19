@@ -37,32 +37,34 @@
         </section>
         
         <section class="container">
-            <div class="row">
-                <a class="card 3u -1u" href="shop.xhtml">
-                    SHOP
+            <div class="row button-box">
+                <a class="3u -1u" href="shop.xhtml">
+                    <input class="button-box-button" type="button" value="SHOP"></input>
                 </a>
-                <a class="card 3u -1u" href="boka.xhtml">
-                    BOKA
+                <a class="3u -1u" href="boka.xhtml">
+                    <input class="button-box-button" type="button" value="BOKA"></input>
                 </a>
                 
-                <a class="card 3u -1u" href="kontakt.xhtml">
-                    KONTAKT
+                <a class="3u -1u" href="kontakt.xhtml">
+                    <input class="button-box-button" type="button" value="KONTAKT"></input>
                 </a>
             </div>
             <h3>Några erbjudanden</h3>
-            <ui:repeat var="item" value="#{shopManagedBean.getRandomShops(2)}" varStatus="status">
-                <div class="row">
-                    <div class="3u">
-                        #{item.title}
-                    </div>
-                    <div class="6u">
-                        #{item.info}
-                    </div>
-                    <div class="3u">
-                        #{item.price} kronor
-                    </div>
-                </div>
-            </ui:repeat>
+            <div class="row">
+                <ui:repeat var="item" value="#{shopManagedBean.getRandomShops(5)}" varStatus="status">
+                    <a href="shop.xhtml##{item.shopId}" class="row 6u index-item">
+                        <img class="4u" src="resources/uploaded_img/#{item.imageUrl}" alt="Tom Bild"/>
+                        <div class="row 6u">
+                            <h3 class="8u">
+                                #{item.title}
+                            </h3>
+                            <p class="4u">
+                                #{item.price} kronor
+                            </p>
+                        </div>
+                    </a>
+                </ui:repeat>
+            </div>
         </section>
         
         
