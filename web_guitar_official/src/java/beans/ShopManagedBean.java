@@ -53,9 +53,9 @@ public class ShopManagedBean {
             TypedQuery<Shop> typedShop = entityManager.createNamedQuery("Shop.findAll", Shop.class);
             List<Shop> resultList = typedShop.getResultList();
             List<Shop> outputList = new ArrayList<Shop>();
-            Random rnd = new Random();
+            Random randomIndex = new Random();
             for (int i = 0; i < amnt && 0 < resultList.size(); i++) {
-                outputList.add(resultList.remove(rnd.nextInt(resultList.size())));
+                outputList.add(resultList.remove(randomIndex.nextInt(resultList.size())));
             }
             return outputList;
         }
