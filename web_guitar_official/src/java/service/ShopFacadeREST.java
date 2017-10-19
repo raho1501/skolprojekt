@@ -7,6 +7,7 @@ package service;
 
 import beans.Constants;
 import beans.Shop;
+import beans.TimeReservation;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -27,6 +28,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 /**
  *
@@ -49,6 +51,16 @@ public class ShopFacadeREST extends AbstractFacade<Shop> {
 	public void create(Shop entity) {
 		super.create(entity);
 	}
+        
+        @POST
+        @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+        @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+        @Path("test")
+        public Response create2(Shop entity)
+        {
+            super.create(entity);
+            return Response.status(201).entity(entity).build();
+        }
 
 	@PUT
         @Path("{id}")
