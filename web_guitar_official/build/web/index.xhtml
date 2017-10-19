@@ -1,7 +1,8 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
         <title>ANDERS GITARRVERKSTAD</title>
         <meta http-equiv="content-type" content="text/html; charset=utf-8" />
@@ -21,42 +22,64 @@
             <h1><a href="#">ANDERS GITARRVERKSTAD</a></h1>
             <nav id="nav">
                 <ul>
-                    <li><a href="faces/index.xhtml">START</a></li>
-                    <li><a href="faces/shop.xhtml">SHOP</a></li>
-                    <li><a href="faces/boka.xhtml">BOKA TID</a></li>
-                    <li><a href="faces/kontakt.xhtml">KONTAKT</a></li>
+                    <li><a href="#">START</a></li>
+                    <li><a href="shop.xhtml">SHOP</a></li>
+                    <li><a href="boka.xhtml">BOKA TID</a></li>
+                    <li><a href="kontakt.xhtml">KONTAKT</a></li>
                 </ul>
             </nav>
         </header>
 
-        <section>
-            <img src="resources/images/gitarr.jpg" alt="gitarr bild" style ="width:1685px;"/>
-            <div id ="lankar" style ="height: 500px;">
-                <img src="resources/images/skiss.jpg" alt ="skiss bild"/>
-                <a href ="left-sidebar.html">
-            <div id="link1" style ="width: 350px; 
-                        height:270px; left:220px; position:absolute; bottom:480px;"></div></a>
-                <a href ="right-sidebar.html">
-            <div id="link2" style ="width: 350px; 
-                        height:270px; left:643px; position:absolute; bottom:480px;"></div></a>
-                <a href ="no-sidebar.html">
-            <div id="link3" style ="width: 350px; 
-                        height:270px; left:1065px; position:absolute; bottom:480px;"></div></a>
+        <section class="wrapper">
+            <header class="major" style="margin: 0;">
+                <img src="resources/images/gitarr.jpg" class="12u"/>
+            </header>
+        </section>
+        
+        <section class="container">
+            <div class="row button-box">
+                <a class="3u -1u" href="shop.xhtml">
+                    <input class="button-box-button" type="button" value="SHOP"></input>
+                </a>
+                <a class="3u -1u" href="boka.xhtml">
+                    <input class="button-box-button" type="button" value="BOKA"></input>
+                </a>
+                
+                <a class="3u -1u" href="kontakt.xhtml">
+                    <input class="button-box-button" type="button" value="KONTAKT"></input>
+                </a>
+            </div>
+            <h3>Några erbjudanden</h3>
+            <div class="row">
+                <ui:repeat var="item" value="#{shopManagedBean.getRandomShops(5)}" varStatus="status">
+                    <a href="shop.xhtml##{item.shopId}" class="row 6u index-item">
+                        <img class="4u" src="resources/uploaded_img/#{item.imageUrl}" alt="Tom Bild"/>
+                        <div class="row 6u">
+                            <h3 class="8u">
+                                #{item.title}
+                            </h3>
+                            <p class="4u">
+                                #{item.price} kronor
+                            </p>
+                        </div>
+                    </a>
+                </ui:repeat>
             </div>
         </section>
         
         
-        <!-- Footer -->
         <footer id="footer">
             <div class="container">
                 <div class="row double">
-                    <ul class="icons">
-                        <li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
-                        <li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
-                        <li><a href="#" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
-                        <li><a href="#" class="icon fa-linkedin"><span class="label">LinkedIn</span></a></li>
-                        <li><a href="#" class="icon fa-pinterest"><span class="label">Pinterest</span></a></li>
-                    </ul>
+                    <div class="6u">
+                        <div class="row collapse-at-2">
+                            <div class="6u">
+                                <h5>Öppettider</h5>
+                                <h6>Måndag - fredag 10-18 </h6>
+                                <h6>Lördag - söndag STÄNGT </h6>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </footer>

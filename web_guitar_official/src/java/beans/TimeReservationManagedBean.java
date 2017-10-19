@@ -45,9 +45,14 @@ public class TimeReservationManagedBean {
 	
 	public TimeReservation getReservation(Integer id)
         {
-            TypedQuery<TimeReservation>  appointmentQuery = 
+            TypedQuery<TimeReservation>  reservationQuery = 
                 entityManager.createNamedQuery("TimeReservation.findByTimeReservationId", TimeReservation.class).setParameter("timeReservationId", id);
-            return appointmentQuery.getResultList().get(0);  // TODO Kanske borde se till att vi inte krashar här.
+	    List<TimeReservation> resList = reservationQuery.getResultList();
+	    if(resList.isEmpty())
+	    {
+		    return new TimeReservation();
+	    }
+            return resList.get(0);
 	}
 	
 	public void removeTimeReservation(TimeReservation timeReservation)

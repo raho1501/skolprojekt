@@ -2,6 +2,7 @@ package hamburgermenu.demo.fragments;
 
 import android.content.DialogInterface;
 import android.graphics.RectF;
+import android.icu.util.Calendar;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -182,7 +183,8 @@ public class Veckoschema extends Fragment implements WeekView.EventClickListener
                     @Override
                     public void onResponse(List<Event> entity) {
                         Events.events = entity;
-                        weekView.getMonthChangeListener().onMonthChange(2017, 10);
+                        Calendar c = Calendar.getInstance();
+                        weekView.getMonthChangeListener().onMonthChange(c.YEAR, c.MONTH);
                         weekView.notifyDatasetChanged();
                     }
                 }
@@ -195,6 +197,8 @@ public class Veckoschema extends Fragment implements WeekView.EventClickListener
                     {
                         Events.events.add(events);
                     }
+                    Calendar c = Calendar.getInstance();
+                    weekView.getMonthChangeListener().onMonthChange(c.YEAR, c.MONTH);
                     weekView.getMonthChangeListener().onMonthChange(2017, 10);
                     weekView.notifyDatasetChanged();
                 }
@@ -208,6 +212,8 @@ public class Veckoschema extends Fragment implements WeekView.EventClickListener
                 for (Event events : entity){
                     Events.events.add(events);
                 }
+                Calendar c = Calendar.getInstance();
+                weekView.getMonthChangeListener().onMonthChange(c.YEAR, c.MONTH);
                 weekView.getMonthChangeListener().onMonthChange(2017,10);
                 weekView.notifyDatasetChanged();
             }

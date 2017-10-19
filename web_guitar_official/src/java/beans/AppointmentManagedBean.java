@@ -5,6 +5,9 @@
  */
 package beans;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.List;
 import java.util.logging.Level;
 import javax.inject.Named;
@@ -43,8 +46,14 @@ public class AppointmentManagedBean
     public Appointment getAppointment(Integer id)
     {
         TypedQuery<Appointment>  appointmentQuery = 
-		entityManager.createNamedQuery("Appointment.findByAppointmentId", Appointment.class).setParameter("appointmentId", id);
-	return appointmentQuery.getResultList().get(0);  // TODO Kanske borde se till att vi inte krashar här.
+		entityManager.createNamedQuery("Appointment.findByAppointmentId", Appointment.class).
+			setParameter("appointmentId", id);
+	List<Appointment> resList = appointmentQuery.getResultList();
+	if(resList.isEmpty())
+	{
+		return new Appointment();
+	}
+	return resList.get(0);
     }
     
     public void addAppointment(Appointment appointment)
@@ -57,36 +66,49 @@ public class AppointmentManagedBean
 	remove(appointment);
     }
     
-    private void remove(Appointment appointment)
-    {
-        try
-        {
-            userTransaction.begin();
-            entityManager.remove(
-		    entityManager.merge(appointment));
-            userTransaction.commit();
-        }
-        catch(Exception e)
-        {
-            Logger.getLogger(getClass().getName()).
-                log(Level.SEVERE, "exception caught", e);
-            throw new RuntimeException(e);
-        }
-    }
+	private void remove(Appointment appointment)
+	{
+		if(appointment.getImageUrl() != null)
+		{
+			try
+			{
+				Files.deleteIfExists(new File(Constants.uploadPath, appointment.getImageUrl()).toPath());
+			}
+			catch (IOException ex)
+			{
+				Logger.getLogger(AppointmentManagedBean.class.getName()).log(Level.SEVERE, null, ex);
+				throw new RuntimeException(ex);
+			}
+		}
+
+		try
+		{
+			userTransaction.begin();
+			entityManager.remove(
+				entityManager.merge(appointment));
+			userTransaction.commit();
+		}
+		catch(Exception e)
+		{
+			Logger.getLogger(getClass().getName()).
+			    log(Level.SEVERE, "exception caught", e);
+			throw new RuntimeException(e);
+		}
+	}
     
-    private void presist(Appointment appointment)
-    {
-        try
-        {
-            userTransaction.begin();
-            entityManager.persist(appointment);
-            userTransaction.commit();
-        }
-        catch(Exception e)
-        {
-            Logger.getLogger(getClass().getName()).
-                log(Level.SEVERE, "exception caught", e);
-            throw new RuntimeException(e);
-        }
-    }
+	private void presist(Appointment appointment)
+	{
+		try
+		{
+			userTransaction.begin();
+			entityManager.persist(appointment);
+			userTransaction.commit();
+		}
+		catch(Exception e)
+		{
+			Logger.getLogger(getClass().getName()).
+				log(Level.SEVERE, "exception caught", e);
+			throw new RuntimeException(e);
+		}
+	}
 }
