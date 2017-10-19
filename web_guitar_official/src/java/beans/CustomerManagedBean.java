@@ -43,6 +43,19 @@ public class CustomerManagedBean
 		return typedQuery.getResultList();
 	}
 	
+	public Customer getCustomer(Integer id)
+	{
+		TypedQuery<Customer> typedQuery =
+			entityManager.createNamedQuery(
+			"Customer.findByCustomerId", Customer.class).setParameter("customerId", id);
+		List<Customer> resList = typedQuery.getResultList();
+		if(resList.isEmpty())
+		{
+			return new Customer();
+		}
+		return resList.get(0);
+	}
+	
 	public void removeCustomer(Customer customer)
 	{
 		remove(customer);
