@@ -35,7 +35,7 @@
                 <li><a href="index.xhtml">START</a></li>
                 <li><a href="shop.xhtml">SHOP</a></li>
                 <li><a href="boka.xhtml">BOKA TID</a></li>
-                <li><a href="kontakt.xhtml">KONTAKT</a></li>
+                <li><a href="#">KONTAKT</a></li>
             </ul>
           </nav>
     </header>
@@ -58,12 +58,12 @@
                 </div>
             <div class="4u">
 	<section>
-	<h3>Kontaktuppgifter</h3>
+	<h2>Kontaktuppgifter</h2>
 
 	<p>Information om Anders och hans verksamhet. 
-            Information om Anders och hans verksamhet. 
-            Information om Anders och hans verksamhet. 
-            Information om Anders och hans verksamhet.</p>
+           Information om Anders och hans verksamhet. 
+           Information om Anders och hans verksamhet. 
+           Information om Anders och hans verksamhet.</p>
         
 	<h6>Telefon: 060-123456</h6>
         <h6>E-post: andersgitarrverkstad@gmail.com</h6>
@@ -77,38 +77,33 @@
 	</div>
 	</section>
          
-<footer id="footer">
-    <div class="container">
-        <div class="row double">
-            <div class="6u">
-                <div class="row collapse-at-2">
+        <footer id="footer">
+            <div class="container">
+                <div class="row double">
                     <div class="6u">
-                        <h5>Öppettider</h5>
-                        <h6>Måndag - fredag 9-18 </h6>
-                        <h6>Lördag - söndag STÄNGT </h6>
+                        <div class="row collapse-at-2">
+                            <div class="6u">
+                                <h5>Öppettider</h5>
+                                <h6>Måndag - fredag 10-18 </h6>
+                                <h6>Lördag - söndag STÄNGT </h6>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-</footer>
- 
-<script>
-    
-    //<![CDATA[ 
-  var map = L.map('mapid').setView([62.5, 17], 13);
+        </footer>
+        <script>
+        //<![CDATA[ 
+        var map = L.map('mapid').setView([62.3946271, 17.284216199999946], 17);
 
-L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-}).addTo(map);
-
-
-let marker = L.marker([62.3946271, 17.284216199999946]).addTo(map)
-    .bindPopup('Anders Gitarrverkstad')
-    .openPopup();
-    
-//]]>
-</script>
+        L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+        let marker = L.marker([62.3946271, 17.284216199999946]).addTo(map)
+            .bindPopup('Anders Gitarrverkstad')
+            .openPopup();
+        //]]>
+        </script>
  
 </h:body>
 </html>

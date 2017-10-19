@@ -3,6 +3,7 @@ package hamburgermenu.demo.fragments;
 import android.content.Context;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import java.io.File;
 import java.io.IOException;
@@ -10,6 +11,7 @@ import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
@@ -558,9 +560,68 @@ public class RetrofitWrapper {
         });
     }
 
+    public void uploadImage(String filePath)
+    {
+        File file = new File(filePath);
+        RequestBody requestFile =
+                RequestBody.create(
+                        MediaType.parse("image/jpg"),
+                        file
+                );
+        ///storage/emulated/0/DCIM/Camera/IMG_20171018_220321.jpg
+        MultipartBody.Part body =
+                MultipartBody.Part.createFormData("picture", file.getName(), requestFile);
 
+        String descriptionString = file.getName();
+        RequestBody description =
+                RequestBody.create(
+                        okhttp3.MultipartBody.FORM, descriptionString);
 
+        Call<ResponseBody> call = client.upload(description, body);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call,
+                                   Response<ResponseBody> response) {
+                Log.v("Upload", "success");
+            }
 
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Log.e("Upload error:", t.getMessage());
+            }
+        });
 
+    }
+    public void uploadImage(File filePath)
+    {
+        File file = filePath;
+        RequestBody requestFile =
+                RequestBody.create(
+                        MediaType.parse("image/jpg"),
+                        file
+                );
+        ///storage/emulated/0/DCIM/Camera/IMG_20171018_220321.jpg
+        MultipartBody.Part body =
+                MultipartBody.Part.createFormData("picture", file.getName(), requestFile);
 
+        String descriptionString = file.getName();
+        RequestBody description =
+                RequestBody.create(
+                        okhttp3.MultipartBody.FORM, descriptionString);
+
+        Call<ResponseBody> call = client.upload(description, body);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call,
+                                   Response<ResponseBody> response) {
+                Log.v("Upload", "success");
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Log.e("Upload error:", t.getMessage());
+            }
+        });
+
+    }
 }

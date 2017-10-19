@@ -39,6 +39,7 @@ public class AddGuitarr extends Fragment {
     public Button bytePicBtn;
     public TextView resTV;
     private int PICK_IMAGE_REQUEST = 1;
+    File image_file;
     private String byteData;
     private byte[] Data;
     private Bitmap previewedPicture;
@@ -91,54 +92,40 @@ public class AddGuitarr extends Fragment {
         submitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TextView title = (TextView)getView().findViewById(R.id.guitarTitle);
-                TextView price = (TextView)getView().findViewById(R.id.guitarPrice);
-                TextView info = (TextView)getView().findViewById(R.id.guitarDescription);
+                if(image_file != null)
+                {
+                    TextView title = (TextView) getView().findViewById(R.id.guitarTitle);
+                    TextView price = (TextView) getView().findViewById(R.id.guitarPrice);
+                    TextView info = (TextView) getView().findViewById(R.id.guitarDescription);
 
-                //byte[] bytePic = getBytesFromBitmap(previewedPicture);
+                    //byte[] bytePic = getBytesFromBitmap(previewedPicture);
 
-                String stringTitle = title.getText().toString();
-                String stringPrice = price.getText().toString();
-                String stringInfo = info.getText().toString();
+                    String stringTitle = title.getText().toString();
+                    String stringPrice = price.getText().toString();
+                    String stringInfo = info.getText().toString();
 
-                //InputStream inputPic = new ByteArrayInputStream(bytePic);
+                    //InputStream inputPic = new ByteArrayInputStream(bytePic);
 
-                Shop shopData = new Shop();
+                    Shop shopData = new Shop();
 
 
-                RetrofitWrapper rw = new RetrofitWrapper();
+                    RetrofitWrapper rw = new RetrofitWrapper();
 
-                //Uri uri = getBitMapUri(previewedPicture);
-                System.out.println(uri.toString());
-                String fileName = new String();
-                if (uri.getScheme().equals("file")) {
-                    fileName = uri.getLastPathSegment();
-                } else {
-                    Cursor cursor = null;
-                    try {
-                        cursor = getActivity().getContentResolver().query(uri, new String[]{
-                                MediaStore.Images.ImageColumns.DISPLAY_NAME
-                        }, null, null, null);
 
-                        if (cursor != null && cursor.moveToFirst()) {
-                            fileName = cursor.getString(cursor.getColumnIndex(MediaStore.Images.ImageColumns.DISPLAY_NAME));
+                    System.out.println(image_file.getName());
 
-                        }
-                    } finally {
+                    shopData.setTitle(stringTitle);
+                    shopData.setPrice((Integer.parseInt(stringPrice)));
+                    shopData.setInfo(stringInfo);
+                    shopData.setImageURL(image_file.getName());
 
-                        if (cursor != null) {
-                            cursor.close();
-                        }
-                    }
+                    //rw.postShopTest(shopData);
+                    rw.uploadImage(image_file);
                 }
-                System.out.println(fileName);
-
-                shopData.setTitle(stringTitle);
-                shopData.setPrice((Integer.parseInt(stringPrice)));
-                shopData.setInfo(stringInfo);
-                shopData.setImageURL(fileName);
-
-                rw.postShopTest(shopData);
+                else
+                {
+                    //TODO gör något här om användaren inte har lagt in en bild.
+                }
             }
         });
 
@@ -216,10 +203,13 @@ public class AddGuitarr extends Fragment {
             try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), uri);
                 previewedPicture = bitmap;
+
                 // Log.d(TAG, String.valueOf(bitmap));
 
                 ImageView imageView = (ImageView) getView().findViewById(R.id.imageView);
                 imageView.setImageBitmap(bitmap);
+                loadFileFromUri(uri);
+                image_file = new File(uri.toString());
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -236,8 +226,33 @@ public class AddGuitarr extends Fragment {
                 picImage.mkdir();
             }
 
-            File image_file = new File(picImage,"cam_image.jpg");
+            image_file = new File(picImage,"cam_image.jpg");
             //File image = new File();
+        }
+    }
+    public void loadFileFromUri(Uri uri)
+    {
+        System.out.println(uri.toString());
+        String fileName = new String();
+        if (uri.getScheme().equals("file")) {
+            fileName = uri.getLastPathSegment();
+        } else {
+            Cursor cursor = null;
+            try {
+                cursor = getActivity().getContentResolver().query(uri, new String[]{
+                        MediaStore.Images.ImageColumns.DISPLAY_NAME
+                }, null, null, null);
+
+                if (cursor != null && cursor.moveToFirst()) {
+                    fileName = cursor.getString(cursor.getColumnIndex(MediaStore.Images.ImageColumns.DISPLAY_NAME));
+
+                }
+            } finally {
+
+                if (cursor != null) {
+                    cursor.close();
+                }
+            }
         }
     }
     public byte[] getBytesFromBitmap(Bitmap bitmap) {
