@@ -111,7 +111,7 @@ public class Bokahandelse extends Fragment implements AdapterView.OnItemSelected
         typeOfEventList.add("Ledighet");
         typeOfEventList.add("Reperation");
         ArrayAdapter<String> typeOfEventAdapter = new ArrayAdapter<String>(this.getContext(),
-                android.R.layout.simple_spinner_item, typeOfEventList);
+                R.layout.spinner_item, typeOfEventList);
         typeOfEventSpinner.setAdapter(typeOfEventAdapter);
 
 
