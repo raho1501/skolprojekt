@@ -29,7 +29,7 @@ public class RetrofitWrapper {
     private RestInterface client;
 
     public RetrofitWrapper() {
-        Retrofit.Builder builder = new Retrofit.Builder().baseUrl("http://10.250.113.155:8080/web_guitar_official/webresources/").addConverterFactory(SimpleXmlConverterFactory.create());
+        Retrofit.Builder builder = new Retrofit.Builder().baseUrl("http://10.0.2.2:8080/web_guitar_official/webresources/").addConverterFactory(SimpleXmlConverterFactory.create());
         retrofit = builder.build();
 
         client = retrofit.create(RestInterface.class);

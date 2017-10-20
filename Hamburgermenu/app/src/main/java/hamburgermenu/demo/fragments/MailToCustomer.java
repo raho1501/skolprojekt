@@ -23,6 +23,8 @@ import android.widget.Toast;
 import com.example.markus.hamburgermenu.R;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -38,7 +40,7 @@ public class MailToCustomer extends Fragment {
     private int PICK_IMAGE_REQUEST = 1;
     private Bitmap previewedPicture;
     private ArrayList<String> arguments;
-    private Uri uri;
+    private Uri imageUri;
     private File image_file;
 
     @Nullable
@@ -82,7 +84,7 @@ public class MailToCustomer extends Fragment {
             @Override
             public void onClick(View view) {
 
-                sendEmail(getRealPathFromURI_API19(getContext(), uri));
+                sendEmail(imageUri);
 
                 Toast.makeText(getContext(), "Skickat!", Toast.LENGTH_SHORT).show();
                 FragmentManager fm = getFragmentManager();
@@ -97,7 +99,7 @@ public class MailToCustomer extends Fragment {
 
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
 
-            uri = data.getData();
+            Uri uri = data.getData();
             System.out.println("\n \n \n"+uri);
 
             try {
@@ -106,35 +108,54 @@ public class MailToCustomer extends Fragment {
 
                 // Log.d(TAG, String.valueOf(bitmap));
 
-                ImageView imageView = (ImageView) getView().findViewById(R.id.imageView);
+                ImageView imageView = (ImageView) getView().findViewById(R.id.emailImageView);
                 imageView.setImageBitmap(bitmap);
-                //image_file = new File(uri.getPath());
+                image_file = new File(uri.getPath());
 
-                image_file = new File(getRealPathFromURI_API19(getContext(), uri));
+                image_file = new File(getRealPathFromURI_API19(uri));
+                imageUri = uri;
+                File tmp = new File(Environment.getExternalStorageDirectory()
+                        .getAbsolutePath() + File.separator + "DCIM/Camera/" + image_file.getName());
+                image_file = tmp;
 
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
         else if (requestCode == CAM_REQUEST && resultCode == RESULT_OK) {
-            uri = data.getData();
-            ImageView imageView = (ImageView) getView().findViewById(R.id.imageView);
+            ImageView imageView = (ImageView) getView().findViewById(R.id.emailImageView);
             Bundle extras = data.getExtras();
             Bitmap imageBitmap = (Bitmap) extras.get("data");
+
+            File picImage = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "CameraFile.jpg");
+            FileOutputStream stream = null;
+            try {
+                stream = new FileOutputStream(picImage);
+                imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+
+            try {
+                stream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
             imageView.setImageBitmap(imageBitmap);
-            File picImage = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "CameraFile");
 
             if(!picImage.exists())
             {
                 picImage.mkdir();
             }
-
-            File image_file = new File(picImage,"cam_image.jpg");
-            //File image = new File();
+            //String fileName = getRealPathFromURI_API19());
+            image_file = picImage;
+            System.out.println(image_file.getPath());
+            imageUri = Uri.fromFile(image_file);
         }
     }
 
-    private void sendEmail(String filePath){
+    private void sendEmail(Uri uri){
 
         TextView subject = (TextView)getView().findViewById(R.id.subject);
         TextView body = (TextView)getView().findViewById(R.id.mainBody);
@@ -149,7 +170,7 @@ public class MailToCustomer extends Fragment {
         emailIntent.putExtra(Intent.EXTRA_CC, CC);
         emailIntent.putExtra(Intent.EXTRA_SUBJECT, subject.getText().toString());
         emailIntent.putExtra(Intent.EXTRA_TEXT,  "Hej " + arguments.get(0) + " " + arguments.get(1) + ",\n" + body.getText().toString());
-        emailIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse(filePath));
+        emailIntent.putExtra(Intent.EXTRA_STREAM, uri);
 
         try {
             startActivity(Intent.createChooser(emailIntent, "Send mail..."));
@@ -158,7 +179,7 @@ public class MailToCustomer extends Fragment {
         }
     }
 
-    public static String getRealPathFromURI_API19(Context context, Uri uri){
+    public String getRealPathFromURI_API19(Uri uri){
         String filePath = "";
         String wholeID = DocumentsContract.getDocumentId(uri);
 
@@ -170,7 +191,7 @@ public class MailToCustomer extends Fragment {
         // where id is equal to
         String sel = MediaStore.Images.Media._ID + "=?";
 
-        Cursor cursor = context.getContentResolver().query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+        Cursor cursor = getActivity().getContentResolver().query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
                 column, sel, new String[]{ id }, null);
 
         int columnIndex = cursor.getColumnIndex(column[0]);
