@@ -31,7 +31,7 @@ public class RetrofitWrapper {
     private RestInterface client;
 
     public RetrofitWrapper() {                                              //10.250.113.149
-        Retrofit.Builder builder = new Retrofit.Builder().baseUrl("http://10.250.113.155:8080/web_guitar_official/webresources/").addConverterFactory(SimpleXmlConverterFactory.create());
+        Retrofit.Builder builder = new Retrofit.Builder().baseUrl("http://10.0.2.2:8080/web_guitar_official/webresources/").addConverterFactory(SimpleXmlConverterFactory.create());
         retrofit = builder.build();
 
         client = retrofit.create(RestInterface.class);
@@ -50,7 +50,15 @@ public class RetrofitWrapper {
                 for (int i = 0; i < size; i++) {
                     Customer customer = customers.getCustomer(i);
                     Appointment appointment = getAppointmentById(customer.getAppointmentIdFk());
+                    if(appointment == null)
+                    {
+                        return new ArrayList<Event>();
+                    }
                     TimeReservation timeReservation = getTimeReservationsById(appointment.getTimeReservationIdFk());
+                    if(timeReservation == null)
+                    {
+                        return new ArrayList<Event>();
+                    }
 
                     appointments.add(appointment);
                     timeReservations.add(timeReservation);
@@ -61,8 +69,10 @@ public class RetrofitWrapper {
 
             @Override
             protected void onPostExecute(List<Event> arg) {
-                func.onResponse(arg);
-
+                if(arg != null)
+                {
+                    func.onResponse(arg);
+                }
             }
         };
         task.execute(0);

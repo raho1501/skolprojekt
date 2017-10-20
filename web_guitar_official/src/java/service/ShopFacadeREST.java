@@ -5,17 +5,8 @@
  */
 package service;
 
-import beans.Constants;
 import beans.Shop;
-import beans.TimeReservation;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Files;
 import java.util.List;
-import java.util.UUID;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -51,16 +42,16 @@ public class ShopFacadeREST extends AbstractFacade<Shop> {
 	public void create(Shop entity) {
 		super.create(entity);
 	}
-        
-        @POST
-        @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-        @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-        @Path("test")
-        public Response create2(Shop entity)
-        {
-            super.create(entity);
-            return Response.status(201).entity(entity).build();
-        }
+	
+	@POST
+	@Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+	@Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+	@Path("test")
+	public Response create2(Shop entity)
+	{
+		super.create(entity);
+		return Response.status(201).entity(entity).build(); //TODO dela upp raden.
+	}
 
 	@PUT
         @Path("{id}")

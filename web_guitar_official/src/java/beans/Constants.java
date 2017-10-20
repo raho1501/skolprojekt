@@ -11,5 +11,5 @@ package beans;
  */
 public class Constants {
 	public static final String uploadPath =
-		"/home/markus/NetBeansProjects/skolprojekt/web_guitar_official/web/resources/uploaded_img";
+		"C:/Users/linus/Documents/GitHub/skolprojekt/web_guitar_official/web/resources/uploaded_img/";
 }

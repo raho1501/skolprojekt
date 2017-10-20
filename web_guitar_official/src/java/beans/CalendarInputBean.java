@@ -75,7 +75,12 @@ public class CalendarInputBean {
 	
 	public TimeReservation getTimeReservation(Customer customer)
 	{
+		if(null == customer.getAppointmentIdFk())
+		{
+			return null;
+		}
 		Appointment appointment = appointmentManagedBean.getAppointment(customer.getAppointmentIdFk());
+		
 		TimeReservation timeReservation = timeReservationManagedBean.getReservation(appointment.getTimeReservationIdFk());
 		
 		Calendar currendDate = Calendar.getInstance();
