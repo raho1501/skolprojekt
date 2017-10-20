@@ -12,6 +12,7 @@ import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -57,11 +58,34 @@ public class ImageUpload extends HttpServlet {
 		
 		String fileName = filePart.getSubmittedFileName();
 		
+		int indexOfExtension = fileName.indexOf(".");
+		if(indexOfExtension <= 0)
+		{
+			throw new RuntimeException("Filename or file type is not supported.");
+		}
+		
+		String extension = fileName.substring(indexOfExtension, fileName.length());
+		
+		if(!".png".equals(extension) &&
+			!".jpg".equals(extension) &&
+			!".jpeg".equals(extension) &&
+			!".gif".equals(extension))
+		{
+			throw new RuntimeException("Filename or file type is not supported.");
+		}
+		
+		String randFileName = UUID.randomUUID().toString();
+		
+		fileName = randFileName + extension;
+		
 		File newFile = new File(Constants.uploadPath, fileName);
 		
 		InputStream input = filePart.getInputStream();
 		
 		Files.copy(input, newFile.toPath());
+		
+		response.getWriter().print(fileName);
+		response.getWriter().close();
 	}
 	
 	

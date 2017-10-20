@@ -49,22 +49,24 @@
                     <input class="button-box-button" type="button" value="KONTAKT"></input>
                 </a>
             </div>
-            <h3>Några erbjudanden</h3>
-            <div class="row">
-                <ui:repeat var="item" value="#{shopManagedBean.getRandomShops(5)}" varStatus="status">
-                    <a href="shop.xhtml##{item.shopId}" class="row 6u index-item">
-                        <img class="4u" src="resources/uploaded_img/#{item.imageUrl}" alt="Tom Bild"/>
-                        <div class="row 6u">
-                            <h3 class="8u">
-                                #{item.title}
-                            </h3>
-                            <p class="4u">
-                                #{item.price} kronor
-                            </p>
-                        </div>
-                    </a>
-                </ui:repeat>
-            </div>
+            <h:outputFormat rendered="#{not empty shopManagedBean.shops}">
+                <h3>Några erbjudanden</h3>
+                <div class="row">
+                    <ui:repeat var="item" value="#{shopManagedBean.getRandomShops(4)}" varStatus="status">
+                        <a href="shop.xhtml##{item.shopId}" class="row 6u index-item">
+                            <img class="4u" src="resources/uploaded_img/#{item.imageUrl}" alt="Tom Bild"/>
+                            <div class="row 6u">
+                                <h3 class="8u">
+                                    #{item.title}
+                                </h3>
+                                <p class="4u">
+                                    #{item.price} kronor
+                                </p>
+                            </div>
+                        </a>
+                    </ui:repeat>
+                </div>
+            </h:outputFormat>
         </section>
         
         

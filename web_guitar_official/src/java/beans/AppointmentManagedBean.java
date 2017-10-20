@@ -25,46 +25,40 @@ import java.util.logging.Logger;
 @RequestScoped
 public class AppointmentManagedBean
 {
-    @PersistenceContext(unitName="web_guitar_officialPU")
-    private EntityManager entityManager;
-    
-    @Resource
-    private javax.transaction.UserTransaction userTransaction;
-    
-    public AppointmentManagedBean()
-    {
-        
-    }
-    
-    public List<Appointment> getAppointments()
-    {
-        TypedQuery<Appointment>  appointmentQuery = 
-            entityManager.createNamedQuery("Appointment.findAll", Appointment.class);
-        return appointmentQuery.getResultList();
-    }
-    
-    public Appointment getAppointment(Integer id)
-    {
-        TypedQuery<Appointment>  appointmentQuery = 
-		entityManager.createNamedQuery("Appointment.findByAppointmentId", Appointment.class).
-			setParameter("appointmentId", id);
-	List<Appointment> resList = appointmentQuery.getResultList();
-	if(resList.isEmpty())
-	{
-		return new Appointment();
+	@PersistenceContext(unitName = "web_guitar_officialPU")
+	private EntityManager entityManager;
+
+	@Resource
+	private javax.transaction.UserTransaction userTransaction;
+
+	public AppointmentManagedBean() {
+
 	}
-	return resList.get(0);
-    }
-    
-    public void addAppointment(Appointment appointment)
-    {
-        presist(appointment);
-    }
-    
-    public void removeAppointment(Appointment appointment)
-    {
-	remove(appointment);
-    }
+
+	public List<Appointment> getAppointments() {
+		TypedQuery<Appointment> appointmentQuery
+			= entityManager.createNamedQuery("Appointment.findAll", Appointment.class);
+		return appointmentQuery.getResultList();
+	}
+
+	public Appointment getAppointment(Integer id) {
+		TypedQuery<Appointment> appointmentQuery
+			= entityManager.createNamedQuery("Appointment.findByAppointmentId", Appointment.class).
+				setParameter("appointmentId", id);
+		List<Appointment> resList = appointmentQuery.getResultList();
+		if (resList.isEmpty()) {
+			return new Appointment();
+		}
+		return resList.get(0);
+	}
+
+	public void addAppointment(Appointment appointment) {
+		presist(appointment);
+	}
+
+	public void removeAppointment(Appointment appointment) {
+		remove(appointment);
+	}
     
 	private void remove(Appointment appointment)
 	{
