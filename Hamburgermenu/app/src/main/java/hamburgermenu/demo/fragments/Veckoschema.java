@@ -6,6 +6,7 @@ import android.icu.util.Calendar;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -72,7 +73,33 @@ public class Veckoschema extends Fragment implements WeekView.EventClickListener
             }
         }
 
-        buildDialog(tmpEvent);
+        if(tmpEvent instanceof AppointmentEvent){
+            //use a bundle and a ArrayList<String> to send arguments to the email
+            //sender fragment thingymabober
+            Bundle bundle = new Bundle();
+            ArrayList<String> arguments = new ArrayList<String>();
+
+            //add the arguments to the ArrayList<String>
+            arguments.add(((AppointmentEvent) tmpEvent).getFirstName());
+            arguments.add(((AppointmentEvent) tmpEvent).getLastName());
+            arguments.add(((AppointmentEvent) tmpEvent).getEmail());
+
+            //add them to the bundle
+            bundle.putStringArrayList("key", arguments);
+
+            MailToCustomer mail = new MailToCustomer();
+
+            //add the bundle as an argument that goes to the fragment
+            mail.setArguments(bundle);
+
+            //replace the current view to that fragment
+            FragmentManager fm = getFragmentManager();
+            fm.beginTransaction().replace(R.id.content_frame, mail).commit();
+        }
+        else{
+            buildDialog(tmpEvent);
+        }
+
     }
 
     //Dialog ruta när man klickar på ett event i schemat.

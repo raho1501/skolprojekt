@@ -80,7 +80,7 @@ public class AppointmentEvent extends Event {
     @Override
     public String getTitle()
     {
-        return "Konsultation";
+        return "Konsultation:\n" + getFirstName() + "\n" + getLastName();
     }
 
 }
