@@ -28,8 +28,8 @@ public class Shop {
     @Element(name = "price")
     private int price;
 
-    @Element(name = "customerIdFk")
-    private int customerIdFk;
+    @Element(name = "customerIdFk", required = false)
+    private Integer customerIdFk = null;
 
 
     public String getTitle() {

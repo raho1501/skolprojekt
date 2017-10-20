@@ -31,7 +31,7 @@ public class RetrofitWrapper {
     private RestInterface client;
 
     public RetrofitWrapper() {                                              //10.250.113.149
-        Retrofit.Builder builder = new Retrofit.Builder().baseUrl("http://10.0.2.2:8080/web_guitar_official/webresources/").addConverterFactory(SimpleXmlConverterFactory.create());
+        Retrofit.Builder builder = new Retrofit.Builder().baseUrl("http://10.250.113.155:8080/web_guitar_official/webresources/").addConverterFactory(SimpleXmlConverterFactory.create());
         retrofit = builder.build();
 
         client = retrofit.create(RestInterface.class);
@@ -592,7 +592,7 @@ public class RetrofitWrapper {
         });
 
     }
-    public void uploadImage(File filePath)
+    public void uploadImage(File filePath, final RetroCallback<String> func)
     {
         File file = filePath;
         RequestBody requestFile =
@@ -615,6 +615,13 @@ public class RetrofitWrapper {
             public void onResponse(Call<ResponseBody> call,
                                    Response<ResponseBody> response) {
                 Log.v("Upload", "success");
+                String s = "";
+                try {
+                    s = response.body().string();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                func.onResponse(s);
             }
 
             @Override

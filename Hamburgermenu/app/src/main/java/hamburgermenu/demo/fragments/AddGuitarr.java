@@ -6,9 +6,11 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.CursorLoader;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,8 +23,11 @@ import com.example.markus.hamburgermenu.R;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 
 import static android.app.Activity.RESULT_OK;
 import static hamburgermenu.demo.fragments.Kamera.CAM_REQUEST;
@@ -100,27 +105,32 @@ public class AddGuitarr extends Fragment {
 
                     //byte[] bytePic = getBytesFromBitmap(previewedPicture);
 
-                    String stringTitle = title.getText().toString();
-                    String stringPrice = price.getText().toString();
-                    String stringInfo = info.getText().toString();
+                    final String stringTitle = title.getText().toString();
+                    final String stringPrice = price.getText().toString();
+                    final String stringInfo = info.getText().toString();
 
                     //InputStream inputPic = new ByteArrayInputStream(bytePic);
 
-                    Shop shopData = new Shop();
+                    final Shop shopData = new Shop();
 
 
-                    RetrofitWrapper rw = new RetrofitWrapper();
+                    final RetrofitWrapper rw = new RetrofitWrapper();
 
 
                     System.out.println(image_file.getName());
 
-                    shopData.setTitle(stringTitle);
-                    shopData.setPrice((Integer.parseInt(stringPrice)));
-                    shopData.setInfo(stringInfo);
-                    shopData.setImageURL(image_file.getName());
+                    rw.uploadImage(image_file, new RetroCallback<String>() {
+                        @Override
+                        public void onResponse(String entity) {
+                            shopData.setTitle(stringTitle);
+                            shopData.setPrice((Integer.parseInt(stringPrice)));
+                            shopData.setInfo(stringInfo);
+                            shopData.setImageURL(entity);
+                            rw.postShopTest(shopData);
+                        }
+                    });
 
-                    //rw.postShopTest(shopData);
-                    rw.uploadImage(image_file);
+
                 }
                 else
                 {
@@ -208,8 +218,10 @@ public class AddGuitarr extends Fragment {
 
                 ImageView imageView = (ImageView) getView().findViewById(R.id.imageView);
                 imageView.setImageBitmap(bitmap);
-                loadFileFromUri(uri);
-                image_file = new File(uri.toString());
+                image_file = new File(uri.getPath());
+
+                image_file = new File(getRealPathFromURI_API19(uri));
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -218,46 +230,60 @@ public class AddGuitarr extends Fragment {
             ImageView imageView = (ImageView) getView().findViewById(R.id.imageView);
             Bundle extras = data.getExtras();
             Bitmap imageBitmap = (Bitmap) extras.get("data");
+
+            File picImage = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "CameraFile.jpg");
+            FileOutputStream stream = null;
+            try {
+                stream = new FileOutputStream(picImage);
+                imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+
+            try {
+                stream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
             imageView.setImageBitmap(imageBitmap);
-            File picImage = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "CameraFile");
 
             if(!picImage.exists())
             {
                 picImage.mkdir();
             }
 
-            image_file = new File(picImage,"cam_image.jpg");
-            //File image = new File();
-        }
-    }
-    public void loadFileFromUri(Uri uri)
-    {
-        System.out.println(uri.toString());
-        String fileName = new String();
-        if (uri.getScheme().equals("file")) {
-            fileName = uri.getLastPathSegment();
-        } else {
-            Cursor cursor = null;
-            try {
-                cursor = getActivity().getContentResolver().query(uri, new String[]{
-                        MediaStore.Images.ImageColumns.DISPLAY_NAME
-                }, null, null, null);
-
-                if (cursor != null && cursor.moveToFirst()) {
-                    fileName = cursor.getString(cursor.getColumnIndex(MediaStore.Images.ImageColumns.DISPLAY_NAME));
-
-                }
-            } finally {
-
-                if (cursor != null) {
-                    cursor.close();
-                }
-            }
+            //String fileName = getRealPathFromURI_API19());
+            image_file = picImage;
+            System.out.println(image_file.getPath());
         }
     }
     public byte[] getBytesFromBitmap(Bitmap bitmap) {
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 50, stream);
         return stream.toByteArray();
+    }
+    public String getRealPathFromURI_API19(Uri uri){
+        String filePath = "";
+        String wholeID = DocumentsContract.getDocumentId(uri);
+
+        // Split at colon, use second item in the array
+        String id = wholeID.split(":")[1];
+
+        String[] column = { MediaStore.Images.Media.DATA };
+
+        // where id is equal to
+        String sel = MediaStore.Images.Media._ID + "=?";
+
+        Cursor cursor = getActivity().getContentResolver().query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                column, sel, new String[]{ id }, null);
+
+        int columnIndex = cursor.getColumnIndex(column[0]);
+
+        if (cursor.moveToFirst()) {
+            filePath = cursor.getString(columnIndex);
+        }
+        cursor.close();
+        return filePath;
     }
 }
