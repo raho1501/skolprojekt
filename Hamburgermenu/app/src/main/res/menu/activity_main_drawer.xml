@@ -13,19 +13,23 @@
         <item
             android:id="@+id/nav_bokahandelse"
             android:icon="@drawable/ic_menu_manage"
-            android:title="Boka händelse" />
+            android:title="Boka tid i schema" />
+
         <item
-            android:id="@+id/nav_ekonomi"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Ekonomi" />
+            android:id="@+id/nav_addguitarr"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Gitarrshoppen" />
+
         <item
             android:id="@+id/nav_kamera"
             android:icon="@drawable/ic_menu_camera"
             android:title="Kamera" />
+
         <item
-            android:id="@+id/nav_addguitarr"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Lägg till gitarr" />
+            android:id="@+id/nav_ekonomi"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Ekonomi" />
+
     </group>
 
 </menu>
