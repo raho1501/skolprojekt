@@ -28,7 +28,7 @@
     <h:body id="top">
         <!-- Header -->
         <header id="header" class="skel-layers-fixed">
-            <h1><a href="#">ANDERS GITARRVERKSTAD</a></h1>
+            <h1><a href="index.xhtml">ANDERS GITARRVERKSTAD</a></h1>
             <nav id="nav">
                 <ul>
                     <li><a href="index.xhtml">START</a></li>
@@ -68,15 +68,15 @@
             </div>
             <h:form id="dialog-form" enctype="multipart/form-data">
                 <label>Förnamn: </label>
-                <h:inputText id="test" value="#{calendarInputBean.firstName}"></h:inputText><br/>
+                <h:inputText id="test" required="true" value="#{calendarInputBean.firstName}"></h:inputText><br/>
                 <label>Efternamn: </label>
-                <h:inputText value="#{calendarInputBean.lastName}"></h:inputText><br/>
+                <h:inputText required="true" value="#{calendarInputBean.lastName}"></h:inputText><br/>
                 <label>Email: </label>
-                <h:inputText value="#{calendarInputBean.email}"></h:inputText><br/>
+                <h:inputText required="true" value="#{calendarInputBean.email}"></h:inputText><br/>
                 <label>Tel: </label>
-                <h:inputText value="#{calendarInputBean.phoneNumber}"></h:inputText><br/>
+                <h:inputText required="true" value="#{calendarInputBean.phoneNumber}"></h:inputText><br/>
                 <label style="vertical-align: top;">Kort beskrivning: </label>
-                <h:inputTextarea value="#{calendarInputBean.info}"></h:inputTextarea><br/>
+                <h:inputTextarea required="true" value="#{calendarInputBean.info}"></h:inputTextarea><br/>
                 
                 <label>Bild: </label>
                 <h:inputFile value="#{calendarInputBean.imageFile}">
@@ -295,15 +295,17 @@
             </script>
         </c:forEach>
         <c:forEach var="customer" items="#{customerManagedBean.customers}">
-            <script>
-                addAllEvents.push(function(){
-                    insertEvent("red",
-                                "#{customer.firstName}",
-                                "#{timeReservationManagedBean.getReservation(appointmentManagedBean.getAppointment(customer.appointmentIdFk).timeReservationIdFk).reservationDate}",
-                                "#{timeReservationManagedBean.getReservation(appointmentManagedBean.getAppointment(customer.appointmentIdFk).timeReservationIdFk).startTime}",
-                                "#{timeReservationManagedBean.getReservation(appointmentManagedBean.getAppointment(customer.appointmentIdFk).timeReservationIdFk).stopTime}");
-                });
-            </script>
+            <h:outputFormat rendered="#{not empty calendarInputBean.getTimeReservation(customer)}">
+                <script>
+                    addAllEvents.push(function(){
+                        insertEvent("red",
+                                    "#{customer.firstName}",
+                                    "#{timeReservationManagedBean.getReservation(appointmentManagedBean.getAppointment(customer.appointmentIdFk).timeReservationIdFk).reservationDate}",
+                                    "#{timeReservationManagedBean.getReservation(appointmentManagedBean.getAppointment(customer.appointmentIdFk).timeReservationIdFk).startTime}",
+                                    "#{timeReservationManagedBean.getReservation(appointmentManagedBean.getAppointment(customer.appointmentIdFk).timeReservationIdFk).stopTime}");
+                    });
+                </script>
+            </h:outputFormat>
         </c:forEach>
     </h:body>
 </html>

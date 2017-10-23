@@ -232,12 +232,13 @@
 
     <Spinner
         android:id="@+id/typeOfEvent"
-        android:layout_width="205dp"
-        android:layout_height="67dp"
+        android:layout_width="588dp"
+        android:layout_height="64dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
         app:layout_constraintHorizontal_bias="0.0"
+        android:textSize="40sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />

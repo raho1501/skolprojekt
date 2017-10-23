@@ -21,14 +21,14 @@
             android:title="Gitarrshoppen" />
 
         <item
-            android:id="@+id/nav_kamera"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="Kamera" />
-
-        <item
             android:id="@+id/nav_ekonomi"
             android:icon="@drawable/ic_menu_slideshow"
             android:title="Ekonomi" />
+        <item
+            android:id="@+id/nav_visa_ekonomi"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Visa ekonomi"
+            />
 
     </group>
 

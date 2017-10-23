@@ -3,9 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/linus/Documents/GitHub/skolprojekt/web_guitar_official/src/java/beans/Constants.java</file>
-            <file>file:/C:/Users/linus/Documents/GitHub/skolprojekt/web_guitar_official/src/java/service/TimeReservationFacadeREST.java</file>
-            <file>file:/C:/Users/linus/Documents/GitHub/skolprojekt/web_guitar_official/src/java/service/ShopFacadeREST.java</file>
+            <file>file:/home/markus/NetBeansProjects/skolprojekt/web_guitar_official/src/java/ImageUpload.java</file>
+            <file>file:/home/markus/NetBeansProjects/skolprojekt/web_guitar_official/src/java/beans/CalendarInputBean.java</file>
+            <file>file:/home/markus/NetBeansProjects/skolprojekt/web_guitar_official/src/java/beans/AppointmentManagedBean.java</file>
+            <file>file:/home/markus/NetBeansProjects/skolprojekt/web_guitar_official/src/java/beans/CustomerManagedBean.java</file>
+            <file>file:/home/markus/NetBeansProjects/skolprojekt/web_guitar_official/src/java/beans/Constants.java</file>
+            <file>file:/home/markus/NetBeansProjects/skolprojekt/web_guitar_official/src/java/beans/TimeReservationManagedBean.java</file>
+            <file>file:/home/markus/NetBeansProjects/skolprojekt/web_guitar_official/web/boka.xhtml</file>
         </group>
     </open-files>
 </project-private>

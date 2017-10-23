@@ -28,6 +28,7 @@ import hamburgermenu.demo.fragments.BokaReparation;
 import hamburgermenu.demo.fragments.Bokahandelse;
 import hamburgermenu.demo.fragments.Dagsschema;
 import hamburgermenu.demo.fragments.Ekonomi;
+import hamburgermenu.demo.fragments.EkonomiVisa;
 import hamburgermenu.demo.fragments.Event;
 import hamburgermenu.demo.fragments.Events;
 import hamburgermenu.demo.fragments.RetroCallback;
@@ -43,10 +44,6 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        RetrofitWrapper retro = new RetrofitWrapper();
-
-        retro.uploadImage("/storage/emulated/0/DCIM/Camera/IMG_20171018_220321.jpg");
 
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.READ_EXTERNAL_STORAGE)
@@ -66,6 +63,31 @@ public class MainActivity extends AppCompatActivity
 
                 ActivityCompat.requestPermissions(this,
                         new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                        1);
+
+                // MY_PERMISSIONS_REQUEST_CAMERA is an
+                // app-defined int constant. The callback method gets the
+                // result of the request.
+            }
+        }
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            // Should we show an explanation?
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+
+                // Show an explanation to the user *asynchronously* -- don't block
+                // this thread waiting for the user's response! After the user
+                // sees the explanation, try again to request the permission.
+
+            } else {
+
+                // No explanation needed, we can request the permission.
+
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
                         1);
 
                 // MY_PERMISSIONS_REQUEST_CAMERA is an
@@ -194,16 +216,11 @@ public class MainActivity extends AppCompatActivity
             fn.beginTransaction().replace(R.id.content_frame, new Bokahandelse()).commit();
         } else if (id == R.id.nav_ekonomi) {
             fn.beginTransaction().replace(R.id.content_frame, new Ekonomi()).commit();
-        } else if (id == R.id.nav_kamera){
-            if (id == R.id.nav_kamera) {
-                Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-                    startActivityForResult(takePictureIntent, CAM_REQUEST);
-                }
-              //  fn.beginTransaction().replace(R.id.content_frame, new Kamera()).commit();
-            }
         } else if (id == R.id.nav_addguitarr) {
             fn.beginTransaction().replace(R.id.content_frame, new AddGuitarr()).commit();
+        }
+        else if (id == R.id.nav_visa_ekonomi) {
+            fn.beginTransaction().replace(R.id.content_frame, new EkonomiVisa()).commit();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

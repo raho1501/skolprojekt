@@ -1,5 +1,7 @@
 package hamburgermenu.demo.fragments;
 
+import android.content.Context;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.util.Log;
@@ -19,6 +21,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.simplexml.SimpleXmlConverterFactory;
+import retrofit2.http.Multipart;
 
 /**
  * Created by linus on 2017-10-12.
@@ -48,7 +51,15 @@ public class RetrofitWrapper {
                 for (int i = 0; i < size; i++) {
                     Customer customer = customers.getCustomer(i);
                     Appointment appointment = getAppointmentById(customer.getAppointmentIdFk());
+                    if(appointment == null)
+                    {
+                        return new ArrayList<Event>();
+                    }
                     TimeReservation timeReservation = getTimeReservationsById(appointment.getTimeReservationIdFk());
+                    if(timeReservation == null)
+                    {
+                        return new ArrayList<Event>();
+                    }
 
                     appointments.add(appointment);
                     timeReservations.add(timeReservation);
@@ -59,8 +70,10 @@ public class RetrofitWrapper {
 
             @Override
             protected void onPostExecute(List<Event> arg) {
-                func.onResponse(arg);
-
+                if(arg != null)
+                {
+                    func.onResponse(arg);
+                }
             }
         };
         task.execute(0);
@@ -391,7 +404,6 @@ public class RetrofitWrapper {
         List<Event> eventList = new ArrayList<>();
         int size = leaves.size();
         for (int i = 0; i < size; i++) {
-
             Leave leave = leaves.getLeave(i);
             TimeReservation timeReservation = timeReservations.get(i);
             LeaveEvent event = new LeaveEvent();
@@ -466,7 +478,7 @@ public class RetrofitWrapper {
         Call<Leave> call = client.deleteLeave(leaveId);
         Leave leave = new Leave();
         try {
-            call.execute();
+            leave = call.execute().body();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -531,10 +543,38 @@ public class RetrofitWrapper {
         };
         task.execute(0);
     }
+
+    public void postShop(Shop shop, final RetroCallback<Shop> func){
+        Call<Shop> call = client.postGuitar(shop);
+        call.enqueue(new Callback<Shop>() {
+            @Override
+            public void onResponse(Call<Shop> call, Response<Shop> response) {
+                func.onResponse(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<Shop> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
+    }
+    public void postShopTest(final Shop shop){
+        Shop s = shop;
+        postShop(shop, new RetroCallback<Shop>() {
+            @Override
+            public void onResponse(Shop entity) {
+                //Shop tmp = entity;
+                int id = entity.getId();
+
+                //System.out.println(id);
+
+            }
+        });
+    }
+
     public void uploadImage(String filePath)
     {
-        File file = new File(Environment.getExternalStorageDirectory()
-                .getAbsolutePath() + File.separator + "DCIM/Camera/IMG_20171018_220321.jpg");
+        File file = new File(filePath);
         RequestBody requestFile =
                 RequestBody.create(
                         MediaType.parse("image/jpg"),
@@ -560,6 +600,91 @@ public class RetrofitWrapper {
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 Log.e("Upload error:", t.getMessage());
+            }
+        });
+
+    }
+    public void uploadImage(File filePath, final RetroCallback<String> func)
+    {
+        File file = filePath;
+        RequestBody requestFile =
+                RequestBody.create(
+                        MediaType.parse("image/jpg"),
+                        file
+                );
+        ///storage/emulated/0/DCIM/Camera/IMG_20171018_220321.jpg
+        MultipartBody.Part body =
+                MultipartBody.Part.createFormData("picture", file.getName(), requestFile);
+
+        String descriptionString = file.getName();
+        RequestBody description =
+                RequestBody.create(
+                        okhttp3.MultipartBody.FORM, descriptionString);
+
+        Call<ResponseBody> call = client.upload(description, body);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call,
+                                   Response<ResponseBody> response) {
+                Log.v("Upload", "success");
+                String s = "";
+                try {
+                    s = response.body().string();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                func.onResponse(s);
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Log.e("Upload error:", t.getMessage());
+            }
+        });
+
+    }
+
+    private Budgets getAllBudgets() {
+        Budgets budgets = new Budgets();
+        Call<Budgets> call;
+        call = client.getAllBudgets();
+        try {
+            budgets = call.execute().body();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return budgets;
+    }
+
+    public void getBudgetsEvent(final RetroCallback<Budgets> func) {
+        //Retur värdet samt parametervärdet har ingen betydelse.
+        AsyncTask<Integer, Integer, Budgets> task = new AsyncTask<Integer, Integer, Budgets>() {
+            @Override
+            protected  Budgets doInBackground(Integer... params) {
+                Budgets budgets = getAllBudgets();
+                return budgets;
+            }
+
+            @Override
+            protected void onPostExecute(Budgets arg) {
+                func.onResponse(arg);
+            }
+
+        };
+        task.execute(0);
+    }
+    public void postBudget(Budget budget, final RetroCallback<Budget> func)
+    {
+        Call<Budget> call = client.postBudget(budget);
+        call.enqueue(new Callback<Budget>() {
+            @Override
+            public void onResponse(Call<Budget> call, Response<Budget> response) {
+                func.onResponse(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<Budget> call, Throwable t) {
+
             }
         });
 

@@ -78,9 +78,18 @@ public interface RestInterface {
     Call<Repair> deleteRepair(@Path("id") int id);
 
     @Multipart
-    @POST("beans.shop/upload")
+    @POST("ImageUpload")
     Call<ResponseBody> upload(
             @Part("description") RequestBody description,
             @Part MultipartBody.Part file
     );
+
+    @POST("beans.shop/test")
+    Call<Shop> postGuitar(@Body Shop shop);
+    @POST("beans.budget")
+    Call<Budget> postBudget(@Body Budget budget);
+
+    @GET("beans.budget")
+    Call<Budgets>getAllBudgets();
+
 }
