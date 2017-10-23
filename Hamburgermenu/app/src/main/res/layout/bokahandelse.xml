@@ -19,11 +19,11 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.976"
+        app:layout_constraintHorizontal_bias="0.973"
         app:layout_constraintLeft_toRightOf="@+id/StopTidText"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/startTidSpinner"
-        app:layout_constraintVertical_bias="0.119" />
+        app:layout_constraintVertical_bias="0.142" />
 
     <Spinner
         android:id="@+id/startTidSpinner"
@@ -36,11 +36,11 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.976"
+        app:layout_constraintHorizontal_bias="0.973"
         app:layout_constraintLeft_toRightOf="@+id/startTidText"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/monthSpinner"
-        app:layout_constraintVertical_bias="0.077" />
+        app:layout_constraintVertical_bias="0.1" />
 
     <Spinner
         android:id="@+id/monthSpinner"
@@ -53,11 +53,11 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.976"
+        app:layout_constraintHorizontal_bias="0.973"
         app:layout_constraintLeft_toRightOf="@+id/monthTextView"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/datumSpinner"
-        app:layout_constraintVertical_bias="0.054" />
+        app:layout_constraintVertical_bias="0.073" />
 
     <Spinner
         android:id="@+id/datumSpinner"
@@ -70,11 +70,11 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.979"
+        app:layout_constraintHorizontal_bias="0.977"
         app:layout_constraintLeft_toRightOf="@+id/datumTextView"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView5"
-        app:layout_constraintVertical_bias="0.037" />
+        app:layout_constraintVertical_bias="0.042" />
 
     <TextView
         android:id="@+id/StopTidText"
@@ -232,7 +232,7 @@
 
     <Spinner
         android:id="@+id/typeOfEvent"
-        android:layout_width="206dp"
+        android:layout_width="205dp"
         android:layout_height="67dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
@@ -241,5 +241,25 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="203dp"
+        android:layout_height="36dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:gravity="bottom"
+        android:text="Boka ledighet eller reperation"
+        android:textAlignment="textStart"
+        android:textSize="14dp"
+        android:textStyle="italic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.055" />
 
 </android.support.constraint.ConstraintLayout>
