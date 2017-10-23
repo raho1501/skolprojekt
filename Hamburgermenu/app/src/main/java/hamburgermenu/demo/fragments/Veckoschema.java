@@ -258,7 +258,6 @@ public class Veckoschema extends Fragment implements WeekView.EventClickListener
                     }
                     Calendar c = Calendar.getInstance();
                     weekView.getMonthChangeListener().onMonthChange(c.YEAR, c.MONTH);
-                    weekView.getMonthChangeListener().onMonthChange(2017, 10);
                     weekView.notifyDatasetChanged();
                 }
             }
@@ -273,7 +272,6 @@ public class Veckoschema extends Fragment implements WeekView.EventClickListener
                 }
                 Calendar c = Calendar.getInstance();
                 weekView.getMonthChangeListener().onMonthChange(c.YEAR, c.MONTH);
-                weekView.getMonthChangeListener().onMonthChange(2017,10);
                 weekView.notifyDatasetChanged();
             }
         });

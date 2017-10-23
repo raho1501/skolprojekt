@@ -21,6 +21,7 @@ import com.alamkanak.weekview.WeekViewEvent;
 import com.example.markus.hamburgermenu.R;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -253,7 +254,8 @@ public class Dagsschema extends Fragment implements WeekView.EventClickListener,
                         {
                             Events.events.add(events);
                         }
-                        weekView.getMonthChangeListener().onMonthChange(2017, 10);
+                        Calendar c = Calendar.getInstance();
+                        weekView.getMonthChangeListener().onMonthChange(c.YEAR, c.MONTH);
                         weekView.notifyDatasetChanged();
                     }
                 }
@@ -267,7 +269,8 @@ public class Dagsschema extends Fragment implements WeekView.EventClickListener,
                         {
                             Events.events.add(events);
                         }
-                        weekView.getMonthChangeListener().onMonthChange(2017, 10);
+                        android.icu.util.Calendar c = android.icu.util.Calendar.getInstance();
+                        weekView.getMonthChangeListener().onMonthChange(c.YEAR, c.MONTH);
                         weekView.notifyDatasetChanged();
                     }
                 }
