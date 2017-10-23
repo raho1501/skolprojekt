@@ -4,6 +4,7 @@ package hamburgermenu.demo.fragments;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,8 +31,7 @@ public class EkonomiVisa extends Fragment {
         super.onActivityCreated(savedInstanceState);
         final TextView foo;
         foo = (TextView)getView().findViewById(R.id.multi_text_econ);
-        foo.setText("HEEEJ");
-
+        foo.setMovementMethod(new ScrollingMovementMethod());
         RetrofitWrapper retro = new RetrofitWrapper();
         retro.getBudgetsEvent(new RetroCallback<Budgets>()
                                    {
