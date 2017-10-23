@@ -6,10 +6,12 @@ import android.graphics.RectF;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -69,7 +71,69 @@ public class Dagsschema extends Fragment implements WeekView.EventClickListener,
                 tempEvent = weekEvent;
             }
         }
-        buildDialog(tempEvent);
+
+        if(tempEvent instanceof AppointmentEvent){
+
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+
+            LayoutInflater inflater = LayoutInflater.from(getContext());
+
+            View view = inflater.inflate(R.layout.event_dialog, null);
+
+            builder.setView(view);
+
+            final TextView editTitle = (TextView) view.findViewById(R.id.eventTitle);
+            editTitle.setText(tempEvent.getTitle());
+
+            final TextView editTime = (TextView)view.findViewById(R.id.eventTime);
+            editTime.setText("Tid: " + tempEvent.getStartTime().substring(11,16) + "-" + tempEvent.getStopTime().substring(11,16));
+
+            final TextView editInfo = (TextView)view.findViewById(R.id.eventDescription);
+            String info = tempEvent.getInfo();
+            editInfo.setText(info);
+
+            builder.setNegativeButton("Cancel", null);
+            final Event finalTmpEvent = tempEvent;
+            builder.setNeutralButton("Send email", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+
+
+                    //use a bundle and a ArrayList<String> to send arguments to the email
+                    //sender fragment thingymabober
+                    Bundle bundle = new Bundle();
+                    ArrayList<String> arguments = new ArrayList<String>();
+
+                    //add the arguments to the ArrayList<String>
+                    arguments.add(((AppointmentEvent) finalTmpEvent).getFirstName());
+                    arguments.add(((AppointmentEvent) finalTmpEvent).getLastName());
+                    arguments.add(((AppointmentEvent) finalTmpEvent).getEmail());
+
+                    //add them to the bundle
+                    bundle.putStringArrayList("key", arguments);
+
+                    MailToCustomer mail = new MailToCustomer();
+
+                    //add the bundle as an argument that goes to the fragment
+                    mail.setArguments(bundle);
+
+                    //replace the current view to that fragment
+                    FragmentManager fm = getFragmentManager();
+                    fm.beginTransaction().replace(R.id.content_frame, mail).commit();
+
+                }
+            });
+
+            AlertDialog dialog = builder.create();
+
+            dialog.show();
+
+        }
+        else{
+            buildDialog(tempEvent);
+        }
+
     }
 
     //Dialog ruta när man klickar på ett event i schemat.

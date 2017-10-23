@@ -74,27 +74,59 @@ public class Veckoschema extends Fragment implements WeekView.EventClickListener
         }
 
         if(tmpEvent instanceof AppointmentEvent){
-            //use a bundle and a ArrayList<String> to send arguments to the email
-            //sender fragment thingymabober
-            Bundle bundle = new Bundle();
-            ArrayList<String> arguments = new ArrayList<String>();
+            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
 
-            //add the arguments to the ArrayList<String>
-            arguments.add(((AppointmentEvent) tmpEvent).getFirstName());
-            arguments.add(((AppointmentEvent) tmpEvent).getLastName());
-            arguments.add(((AppointmentEvent) tmpEvent).getEmail());
+            LayoutInflater inflater = LayoutInflater.from(getContext());
 
-            //add them to the bundle
-            bundle.putStringArrayList("key", arguments);
+            View view = inflater.inflate(R.layout.event_dialog, null);
 
-            MailToCustomer mail = new MailToCustomer();
+            builder.setView(view);
 
-            //add the bundle as an argument that goes to the fragment
-            mail.setArguments(bundle);
+            final TextView editTitle = (TextView) view.findViewById(R.id.eventTitle);
+            editTitle.setText(tmpEvent.getTitle());
 
-            //replace the current view to that fragment
-            FragmentManager fm = getFragmentManager();
-            fm.beginTransaction().replace(R.id.content_frame, mail).commit();
+            final TextView editTime = (TextView)view.findViewById(R.id.eventTime);
+            editTime.setText("Tid: " + tmpEvent.getStartTime().substring(11,16) + "-" + tmpEvent.getStopTime().substring(11,16));
+
+            final TextView editInfo = (TextView)view.findViewById(R.id.eventDescription);
+            String info = tmpEvent.getInfo();
+            editInfo.setText(info);
+
+            builder.setNegativeButton("Cancel", null);
+            final Event finalTmpEvent = tmpEvent;
+            builder.setNeutralButton("Send email", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+
+
+                    //use a bundle and a ArrayList<String> to send arguments to the email
+                    //sender fragment thingymabober
+                    Bundle bundle = new Bundle();
+                    ArrayList<String> arguments = new ArrayList<String>();
+
+                    //add the arguments to the ArrayList<String>
+                    arguments.add(((AppointmentEvent) finalTmpEvent).getFirstName());
+                    arguments.add(((AppointmentEvent) finalTmpEvent).getLastName());
+                    arguments.add(((AppointmentEvent) finalTmpEvent).getEmail());
+
+                    //add them to the bundle
+                    bundle.putStringArrayList("key", arguments);
+
+                    MailToCustomer mail = new MailToCustomer();
+
+                    //add the bundle as an argument that goes to the fragment
+                    mail.setArguments(bundle);
+
+                    //replace the current view to that fragment
+                    FragmentManager fm = getFragmentManager();
+                    fm.beginTransaction().replace(R.id.content_frame, mail).commit();
+
+                }
+            });
+
+            AlertDialog dialog = builder.create();
+
+            dialog.show();
         }
         else{
             buildDialog(tmpEvent);
