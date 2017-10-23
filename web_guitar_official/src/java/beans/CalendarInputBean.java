@@ -83,7 +83,7 @@ public class CalendarInputBean {
 		
 		TimeReservation timeReservation = timeReservationManagedBean.getReservation(appointment.getTimeReservationIdFk());
 		
-		Calendar currendDate = Calendar.getInstance();
+		/*Calendar currendDate = Calendar.getInstance();
 		
 		Calendar timeReservationDate = Calendar.getInstance();
 		timeReservationDate.setTime(timeReservation.getReservationDate());
@@ -97,7 +97,7 @@ public class CalendarInputBean {
 		{
 			removeCustomer(customer);
 			return null;
-		}
+		}*/
 		return timeReservation;
 	}
 	

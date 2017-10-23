@@ -5,7 +5,10 @@
         <group>
             <file>file:/home/markus/NetBeansProjects/skolprojekt/web_guitar_official/src/java/ImageUpload.java</file>
             <file>file:/home/markus/NetBeansProjects/skolprojekt/web_guitar_official/src/java/beans/CalendarInputBean.java</file>
+            <file>file:/home/markus/NetBeansProjects/skolprojekt/web_guitar_official/src/java/beans/AppointmentManagedBean.java</file>
+            <file>file:/home/markus/NetBeansProjects/skolprojekt/web_guitar_official/src/java/beans/CustomerManagedBean.java</file>
             <file>file:/home/markus/NetBeansProjects/skolprojekt/web_guitar_official/src/java/beans/Constants.java</file>
+            <file>file:/home/markus/NetBeansProjects/skolprojekt/web_guitar_official/src/java/beans/TimeReservationManagedBean.java</file>
             <file>file:/home/markus/NetBeansProjects/skolprojekt/web_guitar_official/web/boka.xhtml</file>
         </group>
     </open-files>

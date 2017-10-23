@@ -48,7 +48,7 @@ public class Budget implements Serializable {
         @Column(name = "INFO")
 	private String info;
 	@Column(name = "DATE_TIME")
-        @Temporal(TemporalType.TIMESTAMP)
+        @Temporal(TemporalType.DATE)
 	private Date dateTime;
 
 	public Budget() {
