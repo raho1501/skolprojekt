@@ -11,6 +11,7 @@ import java.util.logging.Logger;
 import javax.annotation.Resource;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.bean.ManagedBean;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
@@ -38,13 +39,47 @@ public class CustomerManagedBean
 	{
 		TypedQuery<Customer> typedQuery =
 			entityManager.createNamedQuery(
-				"Customer.findAll", Customer.class);
+			"Customer.findAll", Customer.class);
 		return typedQuery.getResultList();
+	}
+	
+	public Customer getCustomer(Integer id)
+	{
+		TypedQuery<Customer> typedQuery =
+			entityManager.createNamedQuery(
+			"Customer.findByCustomerId", Customer.class).setParameter("customerId", id);
+		List<Customer> resList = typedQuery.getResultList();
+		if(resList.isEmpty())
+		{
+			return new Customer();
+		}
+		return resList.get(0);
+	}
+	
+	public void removeCustomer(Customer customer)
+	{
+		remove(customer);
 	}
 	
 	public void addCustomer(Customer customer)
 	{
 		persist(customer);
+	}
+	
+	private void remove(Customer customer)
+	{
+		try
+		{
+			userTransaction.begin();
+			entityManager.remove(entityManager.merge(customer));
+			userTransaction.commit();
+		}
+		catch(Exception e)
+		{
+			Logger.getLogger(getClass().getName()).
+				log(Level.SEVERE, "exception caught", e);
+			throw new RuntimeException(e);
+		}
 	}
 
 	private void persist(Customer customer)

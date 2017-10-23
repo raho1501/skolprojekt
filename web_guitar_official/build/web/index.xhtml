@@ -1,40 +1,89 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
-        <meta charset="UTF-8"></meta>
-        <title>Facelet Title</title>
+        <title>ANDERS GITARRVERKSTAD</title>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <meta name="description" content="" />
+        <meta name="keywords" content="" />
+        <script src="resources/js/jquery.min.js"></script>
+        <script src="resources/js/skel.min.js"></script>
+        <script src="resources/js/skel-layers.min.js"></script>
+        <script src="resources/js/init.js"></script>
+        <link rel="stylesheet" href="resources/resources/css/skel.css" />
+        <link rel="stylesheet" href="resources/css/style.css" />
+        <link rel="stylesheet" href="resources/css/style-xlarge.css" />
     </h:head>
-    <h:body>
-        <h:dataTable var="appointment" value="#{appointmentManagedBean.appointments}">
-            <h:column>#{appointment.date} ||</h:column>
-            <h:column>#{appointment.startTime} ||</h:column>
-            <h:column>#{appointment.stopTime} ||</h:column>
-            <h:column>#{appointment.info}</h:column>
-            <h:column>#{customer.date}</h:column>
-            <h:column>#{customer.name}</h:column>
-        </h:dataTable>
+    <h:body id="top">
+        <!-- Header -->
+        <header id="header" class="skel-layers-fixed">
+            <h1><a href="#">ANDERS GITARRVERKSTAD</a></h1>
+            <nav id="nav">
+                <ul>
+                    <li><a href="#">START</a></li>
+                    <li><a href="shop.xhtml">SHOP</a></li>
+                    <li><a href="boka.xhtml">BOKA TID</a></li>
+                    <li><a href="kontakt.xhtml">KONTAKT</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <section class="wrapper">
+            <header class="major" style="margin: 0;">
+                <img src="resources/images/gitarr.jpg" class="12u"/>
+            </header>
+        </section>
         
-        Här är en form!
-        <h:form>
-            Förnamn: 
-            <h:inputText value="#{appointmentCustomerInput.firstName}"></h:inputText><br/>
-            Efternamn: 
-            <h:inputText value="#{appointmentCustomerInput.lastName}"></h:inputText><br/>
-            Mejl: 
-            <h:inputText value="#{appointmentCustomerInput.email}"></h:inputText><br/>
-            Telefon: 
-            <h:inputText value="#{appointmentCustomerInput.phoneNumber}"></h:inputText><br/>
-            Beskrivning av fel: 
-            <h:inputText value="#{appointmentCustomerInput.info}"></h:inputText><br/>
-            Datum: 
-            <h:inputText value="#{appointmentCustomerInput.date}"></h:inputText><br/>
-            Start tid: 
-            <h:inputText value="#{appointmentCustomerInput.startTime}"></h:inputText><br/>
-            Slut tid:
-            <h:inputText value="#{appointmentCustomerInput.endTime}"></h:inputText><br/>
-            <h:commandButton value="Skicka" action="#{appointmentCustomerInput.submit()}"></h:commandButton>
-        </h:form>
+        <section class="container">
+            <div class="row button-box">
+                <a class="3u -1u" href="shop.xhtml">
+                    <input class="button-box-button" type="button" value="SHOP"></input>
+                </a>
+                <a class="3u -1u" href="boka.xhtml">
+                    <input class="button-box-button" type="button" value="BOKA"></input>
+                </a>
+                
+                <a class="3u -1u" href="kontakt.xhtml">
+                    <input class="button-box-button" type="button" value="KONTAKT"></input>
+                </a>
+            </div>
+            <h:outputFormat rendered="#{not empty shopManagedBean.shops}">
+                <h3>Några erbjudanden</h3>
+                <div class="row">
+                    <ui:repeat var="item" value="#{shopManagedBean.getRandomShops(4)}" varStatus="status">
+                        <a href="shop.xhtml##{item.shopId}" class="row 6u index-item">
+                            <img class="4u" src="resources/uploaded_img/#{item.imageUrl}" alt="Tom Bild"/>
+                            <div class="row 6u">
+                                <h3 class="8u">
+                                    #{item.title}
+                                </h3>
+                                <p class="4u">
+                                    #{item.price} kronor
+                                </p>
+                            </div>
+                        </a>
+                    </ui:repeat>
+                </div>
+            </h:outputFormat>
+        </section>
+        
+        
+        <footer id="footer">
+            <div class="container">
+                <div class="row double">
+                    <div class="6u">
+                        <div class="row collapse-at-2">
+                            <div class="6u">
+                                <h5>Öppettider</h5>
+                                <h6>Måndag - fredag 10-18 </h6>
+                                <h6>Lördag - söndag STÄNGT </h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
     </h:body>
 </html>

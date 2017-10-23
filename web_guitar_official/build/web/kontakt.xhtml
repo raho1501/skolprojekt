@@ -1,0 +1,109 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<h:head>
+    <title>Kontakt</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+
+    <script src="resources/js/jquery.min.js"></script>
+    <script src="resources/js/skel.min.js"></script>
+    <script src="resources/js/skel-layers.min.js"></script>
+    <script src="resources/js/init.js"></script>
+    <link rel="stylesheet" href="resources/css/style.css" />
+    
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css"
+   integrity="sha512-M2wvCLH6DSRazYeZRIm1JnYyh22purTM+FDB5CsyxtQJYeKq83arPe5wgbNmcFXGqiSH2XR8dT/fJISVA1r/zQ=="
+   crossorigin=""/>
+    
+     <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"
+   integrity="sha512-lInM/apFSqyy1o6s89K4iQUKg6ppXEgsVxT35HbzUupEVRh2Eu9Wdl4tHj7dZO0s1uvplcYGmt3498TtHq+log=="
+   crossorigin=""></script>
+
+    
+    </h:head>
+<h:body id="top">
+    
+    <!-- Header -->
+    <header id="header" class="skel-layers-fixed">
+        <h1><a href="index.xhtml">ANDERS GITARRVERKSTAD</a></h1>
+	  <nav id="nav">
+            <ul>
+                <li><a href="index.xhtml">START</a></li>
+                <li><a href="shop.xhtml">SHOP</a></li>
+                <li><a href="boka.xhtml">BOKA TID</a></li>
+                <li><a href="#">KONTAKT</a></li>
+            </ul>
+          </nav>
+    </header>
+
+        <!-- Main -->
+    <section id="main" class="wrapper style1">
+	<header class="major">
+            <h2>Kontakta anders</h2>
+	</header>
+        
+	<div class="container">
+            <div class="row">
+                <div class="8u">
+                    <section>
+                        <h2>Hitta hit</h2>
+                        <div id="mapid"></div>
+                        <br />
+                        <p>Information om Anders och hans verksamhet.</p>
+                    </section>
+                </div>
+            <div class="4u">
+	<section>
+	<h2>Kontaktuppgifter</h2>
+
+	<p>Information om Anders och hans verksamhet. 
+           Information om Anders och hans verksamhet. 
+           Information om Anders och hans verksamhet. 
+           Information om Anders och hans verksamhet.</p>
+        
+	<h6>Telefon: 060-123456</h6>
+        <h6>E-post: andersgitarrverkstad@gmail.com</h6>
+        <h6>Anders Gitarrverkstad</h6>
+        <h6>Holmgatan 10, 851 70 Sundsvall</h6>
+       
+	</section>
+	</div>
+	</div>
+
+	</div>
+	</section>
+         
+        <footer id="footer">
+            <div class="container">
+                <div class="row double">
+                    <div class="6u">
+                        <div class="row collapse-at-2">
+                            <div class="6u">
+                                <h5>Öppettider</h5>
+                                <h6>Måndag - fredag 10-18 </h6>
+                                <h6>Lördag - söndag STÄNGT </h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <script>
+        //<![CDATA[ 
+        var map = L.map('mapid').setView([62.3946271, 17.284216199999946], 17);
+
+        L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+        let marker = L.marker([62.3946271, 17.284216199999946]).addTo(map)
+            .bindPopup('Anders Gitarrverkstad')
+            .openPopup();
+        //]]>
+        </script>
+ 
+</h:body>
+</html>

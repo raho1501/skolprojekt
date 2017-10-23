@@ -1,0 +1,114 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+<h:head>
+    <title>SHOP</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+
+    <script src="resources/js/jquery-3.2.1.min.js"></script>
+    <script src="resources/js/skel.min.js"></script>
+    <script src="resources/js/skel-layers.min.js"></script>
+    <script src="resources/js/init.js"></script>
+    <link rel="stylesheet" href="resources/css/style.css" />
+    <link rel='stylesheet' href='resources/jquery-ui/jquery-ui.css' />
+    <script src="resources/jquery-ui/jquery-ui.js"></script>
+</h:head>
+<h:body id="top">
+    <!-- Header -->
+    <header id="header" class="skel-layers-fixed">
+        <h1><a href="index.xhtml">ANDERS GITARRVERKSTAD</a></h1>
+        <nav id="nav">
+            <ul>
+                <li><a href="index.xhtml">START</a></li>
+                <li><a href="#">SHOP</a></li>
+                <li><a href="boka.xhtml">BOKA TID</a></li>
+                <li><a href="kontakt.xhtml">KONTAKT</a></li>
+            </ul>
+        </nav>
+    </header>
+    <section class="wrapper">
+        <header class="major">
+            <h2>AKUSTISKA GITARRER TILL SALU</h2>
+        </header>
+    </section>
+    <section class="container">
+        <ui:repeat var="item" value="#{shopManagedBean.shops}" varStatus="status">
+            <div class="shopItem row" id="#{item.shopId}">
+                <img class="3u" src="resources/uploaded_img/#{item.imageUrl}" alt="Tom Bild"/>
+                <div class="6u">
+                    <h3>
+                        #{item.title}
+                    </h3>
+                    <p>
+                        #{item.info}
+                    </p>
+                    <p>
+                        #{item.price} kronor
+                    </p>
+                </div>
+                
+                <div class="3u">
+                    <h:outputFormat rendered="#{empty item.customerIdFk}">
+                        <input type="button" value="Reservera" onclick="openDialog(#{item.shopId})"/>
+                    </h:outputFormat>
+                    <h:outputFormat rendered="#{not empty item.customerIdFk}">
+                        <p>Reserverad av #{customerManagedBean.getCustomer(item.customerIdFk).firstName}.</p>
+                    </h:outputFormat>
+                </div>
+            </div>
+        </ui:repeat>
+        <h:outputLabel rendered="#{empty shopManagedBean.shops }">
+            Det finns inga gitarrer här just nu!
+        </h:outputLabel>
+        
+        <div id="dialog" title="Bekräfta reservation" style="display:none;">
+            <h:form id="dialog-form">
+                Förnamn: <h:inputText value="#{shopInputBean.firstName}"/><br/>
+                Efternamn: <h:inputText value="#{shopInputBean.lastName}"/><br/>
+                Email: <h:inputText value="#{shopInputBean.email}"/><br/>
+                Telefon: <h:inputText value="#{shopInputBean.phoneNumber}"/><br/>
+                <h:inputHidden id="hidden-shop-id" value="#{shopInputBean.shopId}"/>
+                <h:commandButton value="Reservera" action="#{shopInputBean.submitCustomer()}"/>
+            </h:form>
+        </div>
+    </section>
+    <footer id="footer">
+        <div class="container">
+            <div class="row double">
+                <div class="6u">
+                    <div class="row collapse-at-2">
+                        <div class="6u">
+                            <h5>Öppettider</h5>
+                            <h6>Måndag - fredag 10-18 </h6>
+                            <h6>Lördag - söndag STÄNGT </h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        //<![CDATA[
+        
+        function openDialog(id)
+        {
+            document.getElementById("dialog-form:hidden-shop-id").value = id;
+            $(function() {
+                $("#dialog").dialog({
+                    width: "auto",
+                    resizable: false,
+                    modal: true
+                });
+            });
+        }
+        
+        //]]>
+    </script>
+</h:body>
+</html>

@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.weekView) {
             Intent i = new Intent(this, WeekView.class);
-            startActivity(i);
+            startActivityForResult(i, 1);
 
         } else if (id == R.id.bokaHandelse) {
 
@@ -96,7 +96,11 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_send) {
 
-        }
+        } else if (id == R.id.dayView) {
+
+            Intent i = new Intent(this, DayView.class);
+            startActivity(i);
+    }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

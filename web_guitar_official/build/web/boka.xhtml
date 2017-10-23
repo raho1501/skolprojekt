@@ -1,0 +1,312 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <title>Boka tid</title>
+        <meta name="description" content="" />
+        <meta name="keywords" content="" />
+        
+        <script src="resources/js/jquery-3.2.1.min.js"></script>
+        <script src="resources/js/skel.min.js"></script>
+        <script src="resources/js/skel-layers.min.js"></script>
+        <script src="resources/js/init.js"></script>
+
+
+        <link rel="stylesheet" href="resources/css/style.css" />
+        <link rel='stylesheet' href='resources/fullcalendar/fullcalendar.css' />
+        <script src='resources/js/moment.min.js'></script>
+        <script src='resources/fullcalendar/fullcalendar.js'></script>
+        <script src='resources/fullcalendar/locale/sv.js'></script>
+        <link rel='stylesheet' href='resources/jquery-ui/jquery-ui.css' />
+        <script src="resources/jquery-ui/jquery-ui.js"></script>
+    </h:head>
+    <h:body id="top">
+        <!-- Header -->
+        <header id="header" class="skel-layers-fixed">
+            <h1><a href="index.xhtml">ANDERS GITARRVERKSTAD</a></h1>
+            <nav id="nav">
+                <ul>
+                    <li><a href="index.xhtml">START</a></li>
+                    <li><a href="shop.xhtml">SHOP</a></li>
+                    <li><a href="#">BOKA TID</a></li>
+                    <li><a href="kontakt.xhtml">KONTAKT</a></li>
+                </ul>
+            </nav>
+        </header>
+        <!-- Main -->
+        <div>
+            <div id="boka1" style ="margin-bottom:25px">
+                <div style="margin: 10px" id="calendar"></div>
+            </div>
+        </div>
+        <!-- Footer -->
+        <footer id="footer">
+            <div class="container">
+                <div class="row double">
+                    <div class="6u">
+                        <div class="row collapse-at-2">
+                            <div class="6u">
+                                <h5>Öppettider</h5>
+                                <h6>Måndag - fredag 10-18 </h6>
+                                <h6>Lördag - söndag STÄNGT </h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <div id="dialog" title="Bekräfta bokning" style="display:none">
+            <div id="Information" style ="float:left;">
+                <p>För att utföra bokningen behöver du fylla i detta formulär.
+                   Bilder behövs ej.
+                </p>
+            </div>
+            <h:form id="dialog-form" enctype="multipart/form-data">
+                <label>Förnamn: </label>
+                <h:inputText id="test" required="true" value="#{calendarInputBean.firstName}"></h:inputText><br/>
+                <label>Efternamn: </label>
+                <h:inputText required="true" value="#{calendarInputBean.lastName}"></h:inputText><br/>
+                <label>Email: </label>
+                <h:inputText required="true" value="#{calendarInputBean.email}"></h:inputText><br/>
+                <label>Tel: </label>
+                <h:inputText required="true" value="#{calendarInputBean.phoneNumber}"></h:inputText><br/>
+                <label style="vertical-align: top;">Kort beskrivning: </label>
+                <h:inputTextarea required="true" value="#{calendarInputBean.info}"></h:inputTextarea><br/>
+                
+                <label>Bild: </label>
+                <h:inputFile value="#{calendarInputBean.imageFile}">
+                </h:inputFile>
+                
+                <h:inputHidden id="hidden-date" value="#{calendarInputBean.date}"></h:inputHidden>
+                <h:inputHidden id="hidden-start" value="#{calendarInputBean.startTime}"></h:inputHidden>
+                <h:inputHidden id="hidden-end" value="#{calendarInputBean.endTime}" ></h:inputHidden>
+                
+                <h:commandButton id="reserve-button" value="Boka" action="#{calendarInputBean.submit()}"></h:commandButton>
+            </h:form>
+            
+        </div>
+        
+        <div id="error" title="Oj" style="display: none">
+            <p>Kan inte boka då detta tillfälle redan har inträffat</p>
+        </div>
+        
+        <script>
+            var addAllEvents = [];
+        </script>
+        
+        <script>
+            //<![CDATA[
+        var events = [];
+        var currentEvent;
+        var weekDays =  ['', 'Måndag', 'Tisdag', 'Onsdag', 'Torsdag','Fredag'];
+        var months = ['', 'Januari', 'Februari', 'Mars', 'April', 'Maj', 'Juni',
+        'Juli', 'Augusti', 'September', 'Oktober', 'November', 'December'];
+        
+
+        function insertEvent(color, name, date, startTime, endTime)
+        {
+            date = date.slice(0, date.indexOf("C")) + date.slice(date.length - 4, date.length);
+            startTime = startTime.slice(0, startTime.indexOf("C")) + startTime.slice(startTime.length - 4, startTime.length);
+            endTime = endTime.slice(0, endTime.indexOf("C")) + endTime.slice(endTime.length - 4, endTime.length);
+
+            var dateTime = moment(date);
+            var startDateTime = moment(startTime);
+            var endDateTime = moment(endTime);
+
+            var startValue = moment(dateTime.format("MM/DD/YYYY") + " " + startDateTime.format("HH:mm"),
+                                    "MM/DD/YYYY HH:mm");
+            var endValue = moment(dateTime.format("MM/DD/YYYY") + " " + endDateTime.format("HH:mm"),
+                                    "MM/DD/YYYY HH:mm");
+            startValue.minutes(0);
+            if(endValue.minutes() > 0)
+            {
+                endValue.hours(endValue.hours() + 1);
+                endValue.minutes(0);
+            }
+
+            var newid = 0;
+            if(events.length > 0)
+            {
+                newid = events[events.length-1].id + 1;
+            }
+            var event = {
+                id: newid,
+                title: name,
+                start: startValue,
+                end: endValue,
+                allDay: false,
+                editable: false,
+                color: color};
+            events.push(event);
+        }
+        
+        $(document).ready(function() {
+            // page is now ready, initialize the calendar...
+            function displayEvents()
+            {
+                for(var i = 0; i < events.length; i++)
+                {
+                    $('#calendar').fullCalendar('renderEvent', events[i]);
+                }
+            }
+
+            $('#reserve-button').click(function() {
+                currentEvent.color = 'red';
+                events.push(currentEvent);
+                $('#calendar').fullCalendar('refetchEvents');
+                displayEvents();
+                $('#dialog').dialog("close");
+                currentEvent = (function () { return; });
+            });
+
+            $('#calendar').fullCalendar({
+                    // put your options and callbacks here
+                    
+                eventClick: function(calEvent, jsEvent, view) {
+                    if(currentEvent == undefined)
+                    {
+                        return;
+                    }
+                    if(calEvent.id == currentEvent.id)
+                    {
+                        var bokningsTidStart = currentEvent.start.hours();
+                        var bokningsTidEnd = currentEvent.end.hours();
+                        var bokningsTidDate = currentEvent.start.date();
+                        var bokningsTidDay = currentEvent.start.day();
+                        var bokningsTidMonth = currentEvent.start.month();
+                        
+                     
+                        $(function() {
+                            $("#dialog").dialog({
+                                width: "auto",
+                                resizable: false,
+                                modal: true,
+                                title: "Bekräfta bokningen " + weekDays[bokningsTidDay] + " den " +
+                                bokningsTidDate + " " + months[bokningsTidMonth +1] + " kl: " + bokningsTidStart 
+                                + " - " + bokningsTidEnd
+                            });
+                        });
+                        
+                        // change the border color just for fun
+                        $(this).css('border-color', 'red');
+                    }
+                },
+                dayNamesShort: weekDays,
+                dayOfMonthFormat:'ddd DD',
+                defaultView: 'agendaWeek',
+                weekNumbers: true,
+                allDaySlot: false,
+                minTime: "10:00:00",
+                maxTime: "18:00:00",
+                snapDuration: "00:30:00",
+                height: "auto",
+                selectable: true,
+                weekends: false,
+                selectOverlap: false,
+                viewRender: function() {
+                    displayEvents();
+                },
+                select: function(start, end) {
+                    if(!Number.isInteger(start.time().asHours()))
+                    {
+                        start.minute(0);
+                    }
+                    var currentDate = moment();
+                    if(start.week() < currentDate.week())
+                    {
+                        $("#error").dialog({
+                            width: "auto",
+                            resizable: false,
+                            modal: false
+                        });
+                        return;
+                    }
+                    else if((start.day() < currentDate.day()) &&
+                            (start.week() == currentDate.week()))
+                    {
+                        $("#error").dialog({
+                            width: "auto",
+                            resizable: false,
+                            modal: false
+                        });
+                        return;
+                    }
+                    else if((start.hour() < currentDate.hour() + 1) &&
+                            (start.day() == currentDate.day()) &&
+                            (start.week() == currentDate.week()))
+                    {
+                        $("#error").dialog({
+                            width: "auto",
+                            resizable: false,
+                            modal: false
+                        });
+                        return;
+                    }
+                    
+                    end.minute(0);
+                    end.hour(start.hour() + 1);
+                    end.day(start.day());
+                    var newid = 0;
+                    if(events.length > 0)
+                    {
+                        newid = events[events.length-1].id + 1;
+                    }
+                    currentEvent = {
+                        id: newid,
+                        title: 'Klicka här igen för att boka',
+                        start: start,
+                        end: end,
+                        allDay: false,
+                        editable: false
+                    };                   
+                    document.getElementById("dialog-form:hidden-date").value = currentEvent.start.format("MM/DD/YYYY");
+                    document.getElementById("dialog-form:hidden-start").value = currentEvent.start.format("HH:mm");
+                    document.getElementById("dialog-form:hidden-end").value = currentEvent.end.format("HH:mm");
+                    
+                    $('#calendar').fullCalendar('refetchEvents');
+                    displayEvents();
+                    $('#calendar').fullCalendar('renderEvent', currentEvent);
+                },
+                timeFormat: 'H(:mm)' // uppercase H for 24-hour clock
+            });
+            for(var i = 0; i < addAllEvents.length; i++)
+            {
+                addAllEvents[i]();
+            }
+            displayEvents();
+        });
+            //]]>
+        </script>
+        
+        <c:forEach var="leave" items="#{leaveManagedBean.leaves}">
+            <script>
+                addAllEvents.push(function(){
+                    insertEvent("green",
+                                "Ledig",
+                                "#{timeReservationManagedBean.getReservation(leave.timeReservationIdFk).reservationDate}",
+                                "#{timeReservationManagedBean.getReservation(leave.timeReservationIdFk).startTime}",
+                                "#{timeReservationManagedBean.getReservation(leave.timeReservationIdFk).stopTime}");
+                });
+            </script>
+        </c:forEach>
+        <c:forEach var="customer" items="#{customerManagedBean.customers}">
+            <h:outputFormat rendered="#{not empty calendarInputBean.getTimeReservation(customer)}">
+                <script>
+                    addAllEvents.push(function(){
+                        insertEvent("red",
+                                    "#{customer.firstName}",
+                                    "#{timeReservationManagedBean.getReservation(appointmentManagedBean.getAppointment(customer.appointmentIdFk).timeReservationIdFk).reservationDate}",
+                                    "#{timeReservationManagedBean.getReservation(appointmentManagedBean.getAppointment(customer.appointmentIdFk).timeReservationIdFk).startTime}",
+                                    "#{timeReservationManagedBean.getReservation(appointmentManagedBean.getAppointment(customer.appointmentIdFk).timeReservationIdFk).stopTime}");
+                    });
+                </script>
+            </h:outputFormat>
+        </c:forEach>
+    </h:body>
+</html>
+

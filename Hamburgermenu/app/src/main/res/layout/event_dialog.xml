@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/eventTitle"
+        android:text="Title"
+        android:textAlignment="center"
+        android:textSize="50dp"
+        android:textStyle="bold"
+        android:layout_width="match_parent"
+        android:layout_height="80dp" />
+    <!--<TextView
+        android:id="@+id/customerName"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="Customer Name"
+        android:textSize="30dp"/>
+        -->
+    <TextView
+        android:id="@+id/eventTime"
+        android:text="17/10 11:00 - 12:00"
+        android:textSize="24dp"
+        android:textStyle="italic"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        />
+    <TextView
+        android:id="@+id/eventDescription"
+        android:text="Description with alot of text..."
+        android:textSize="24dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</LinearLayout>
