@@ -8,15 +8,26 @@ package beans;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.nio.file.Files;
+import java.security.Security;
+import java.util.Date;
+import java.util.Properties;
 import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
+import javax.mail.Message;
 import javax.mail.MessagingException;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.Part;
+import javax.mail.Session;
+import javax.mail.Transport;
 
 /**
  *
@@ -57,6 +68,25 @@ public class ShopInputBean {
 			customerManagedBean.removeCustomer(customer);
 		}
 		shopManagedBean.removeShop(shop);
+	}
+	
+	public void removeCustomer()
+	{
+		if(shopId == null)
+		{
+			return;
+		}
+		Shop shop = shopManagedBean.getShop(Integer.parseInt(shopId));
+		if(shop.getCustomerIdFk() == null)
+		{
+			return;
+		}
+		
+		Customer customer = customerManagedBean.getCustomer(shop.getCustomerIdFk());
+		customerManagedBean.removeCustomer(customer);
+		
+		shop.setCustomerIdFk(null);
+		shopManagedBean.updateShop(shop);
 	}
 
 	/**
@@ -283,6 +313,13 @@ public class ShopInputBean {
 		if(email.isEmpty()) return "redirect_shop";
 		if(shopId.isEmpty()) return "redirect_shop";
 		
+		InetAddress ip;
+		try {
+			ip = InetAddress.getLocalHost();
+		} catch (UnknownHostException e) {
+			throw new RuntimeException(e);
+		}
+		
 		Shop shop = shopManagedBean.getShop(Integer.parseInt(shopId));
 		
 		Customer customer = new Customer();
@@ -298,6 +335,72 @@ public class ShopInputBean {
 		
 		shopManagedBean.updateShop(shop);
 		
+		try
+		{
+			ShopInputBean.Send(
+				Constants.mailAcount,
+				Constants.mailPassword,
+				Constants.toMail,
+				email,
+				"Reservation av gitarr " + shop.getTitle(),
+				"En gitarr är reserverad av " + customer.getFirstName() +
+					" " + customer.getLastName() + ". " +
+					"<a href='http://" + ip.getHostAddress() +
+					":8080/web_guitar_official/removeReservation.xhtml?id=" + 
+					shop.getShopId() + "'" +
+					">Klicka här för ta bort din reservation.</a>");
+		}
+		catch(Exception e)
+		{
+			throw new RuntimeException(e);
+		}
 		return "redirect_shop";
+	}
+	
+	public static void Send(final String username, final String password, String recipientEmail, String ccEmail, String title, String message) throws AddressException, MessagingException {
+		Security.addProvider(new com.sun.net.ssl.internal.ssl.Provider());
+		final String SSL_FACTORY = "javax.net.ssl.SSLSocketFactory";
+
+		// Get a Properties object
+		Properties props = System.getProperties();
+		props.setProperty("mail.smtps.host", "smtp.gmail.com");
+		props.setProperty("mail.smtp.socketFactory.class", SSL_FACTORY);
+		props.setProperty("mail.smtp.socketFactory.fallback", "false");
+		props.setProperty("mail.smtp.port", "465");
+		props.setProperty("mail.smtp.socketFactory.port", "465");
+		props.setProperty("mail.smtps.auth", "true");
+
+		/*
+		If set to false, the QUIT command is sent and the connection is immediately closed. If set 
+		to true (the default), causes the transport to wait for the response to the QUIT command.
+
+		ref :   http://java.sun.com/products/javamail/javadocs/com/sun/mail/smtp/package-summary.html
+			http://forum.java.sun.com/thread.jspa?threadID=5205249
+			smtpsend.java - demo program from javamail
+		 */
+		props.put("mail.smtps.quitwait", "false");
+
+		Session session = Session.getInstance(props, null);
+
+		// -- Create a new message --
+		final MimeMessage msg = new MimeMessage(session);
+
+		// -- Set the FROM and TO fields --
+		msg.setFrom(new InternetAddress(username + "@gmail.com"));
+		msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipientEmail, false));
+
+		if (ccEmail.length() > 0) {
+			msg.setRecipients(Message.RecipientType.CC, InternetAddress.parse(ccEmail, false));
+		}
+
+		msg.setSubject(title);
+		msg.setText(message, "utf-8", "html");
+		msg.setSentDate(new Date());
+
+		Transport t = (Transport) session.getTransport("smtps");
+
+		t.connect("smtp.gmail.com", username, password);
+		t.sendMessage(msg, msg.getAllRecipients());
+		t.close();
 	}
 }
